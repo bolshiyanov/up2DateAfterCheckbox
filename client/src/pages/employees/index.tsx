@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Table } from "antd";
+import { Row, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
@@ -28,7 +28,7 @@ const columns: ColumnsType<Employee> = [
     title: "Date",
     render: (text, record) =>
       record.isNewBoat === true
-        ? "New"
+        ?  <Tag color="green">New</Tag>
         : formatDateString(record.dateRegistration),
     key: "newBoat",
   },
@@ -51,12 +51,12 @@ const columns: ColumnsType<Employee> = [
   {
     title: "Booking",
     render: (text, record) =>
-      record.isAvailable === true ?  "Available" : "Blocked" ,
+      record.isAvailable === true ?  "Available" : <Tag color="orange">Blocked</Tag> ,
   },
   {
     title: "Blocked",
     render: (text, record) =>
-      record.isBlocked === false ?  "Available" : "Blocked" ,
+      record.isBlocked === false ?  "Available" : <Tag color="volcano">Blocked</Tag> ,
   },
 ];
 
