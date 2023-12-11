@@ -19,8 +19,8 @@ export const CustomInput = ({
   return (
     <Form.Item
       name={name}
-      //rules={[{ required: true, message: "Requied fild" }]}
-      //shouldUpdate={ true }
+      rules={[{ required: true, message: "Requied fild" }]}
+      shouldUpdate={ true }
     >
       {name === "description" ? (
         <TextArea rows={4} placeholder={placeholder} size="large" />

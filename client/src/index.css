@@ -12,13 +12,25 @@ html, body, body > div {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #cccccc;
-  background-image: url('./assets/BG.jpg');
-  background-size: cover; /* Set background size to cover */
-  
-  color: white;
+  background-color: #003747;  
+  color: white!important;
 }
 
 a {
   text-decoration: none;
+}
+
+::placeholder {
+  color: #fff !important;
+  font-style: italic; 
+}
+
+
+input::placeholder {
+  font-weight: bold; 
+}
+
+
+textarea::placeholder {
+  font-size: 16px; /* Размер шрифта для placeholder в textarea */
 }
