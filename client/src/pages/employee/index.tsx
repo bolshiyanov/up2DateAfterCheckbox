@@ -85,7 +85,7 @@ export const Employee = () => {
         }}
       >
         <img
-          src={data.boatsFoto}
+          src={data.boatsFoto !== null ? data.boatsFoto : "https://source.unsplash.com/weekly?boats"}
           alt="Description"
           style={{
             width: "100%",
@@ -112,7 +112,12 @@ export const Employee = () => {
               ? `NEW, ${formatDateString(data.dateRegistration)}`
               : formatDateString(data.dateRegistration)}
           </Descriptions.Item>
-          <Descriptions.Item label="Availabillity" span={3}>
+          <Descriptions.Item label="Blocked?" span={3}>
+            {data.isBlocked === false
+              ? "Available for boats catalog"
+              : "The boat is blocked by the super administrator"}
+          </Descriptions.Item>
+          <Descriptions.Item label="Booking" span={3}>
             {data.isAvailable === false
               ? "The owner has disabled the availability of this boat for a while"
               : "Available for booking"}
@@ -135,11 +140,7 @@ export const Employee = () => {
           <Descriptions.Item label="Email" span={3}>
             {data.email}
           </Descriptions.Item>
-          <Descriptions.Item label="Blocked?" span={3}>
-            {data.isBlocked === false
-              ? "The boat is blocked by the super administrator"
-              : "Available for boats catalog"}
-          </Descriptions.Item>
+          
         </Descriptions>
         {user?.id === data.userId ? (
           <>

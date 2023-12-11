@@ -30,8 +30,8 @@ model Employee {
   dateRegistration DateTime @default(now())
   boatsName        String
   description      String
-  boatsFoto        String
-  email            String
+  boatsFoto        String?
+  email            String?
   phone            String
   typeBoat         String 
   typePort         String 

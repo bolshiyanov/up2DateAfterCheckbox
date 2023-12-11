@@ -49,7 +49,7 @@ const columns: ColumnsType<Employee> = [
   },
 
   {
-    title: "Availabillity",
+    title: "Booking",
     render: (text, record) =>
       record.isAvailable === true ?  "Available" : "Blocked" ,
   },

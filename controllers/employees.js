@@ -27,11 +27,7 @@ const add = async (req, res) => {
     if (
       !data.boatsName ||
       !data.description ||
-      !data.boatsFoto ||
-      !data.email ||
-      !data.phone ||
-      !data.typeBoat ||
-      !data.typePort 
+      !data.phone 
     ) {
       return res.status(400).json({ message: "All fields are requires" });
     }
@@ -42,7 +38,10 @@ const add = async (req, res) => {
         userId: req.user.id, 
         isBlocked: false,
         isAvailable: true, 
-        isNewBoat : true
+        isNewBoat : true,
+        boatsFoto: "https://source.unsplash.com/weekly?boat",
+        typeBoat: "01",
+        typePort: "01"
       },
     });
 

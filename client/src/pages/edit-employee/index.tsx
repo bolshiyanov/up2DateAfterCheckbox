@@ -17,7 +17,9 @@ export const EditEmployee = () => {
   const [error, setError] = useState("");
   const { data, isLoading } = useGetEmployeeQuery(params.id || "");
   const [editEmployee] = useEditEmployeeMutation();
-  
+  let isNewBoat = true;
+  let isAvailable = true;
+  let isBlocked = false;
 
   if (isLoading) {
     return <span>Loading</span>;
@@ -55,9 +57,9 @@ export const EditEmployee = () => {
           btnTextCancel="Reset"
           btnTextGoBack="Go back"
           error={error}
-          isAvailable
-          isNewBoat
-          isBlocked
+          isAvailable={isAvailable}
+          isNewBoat={isNewBoat}
+          isBlocked={isBlocked}
           pageName="Edit-emploee"
         />
       </Row>

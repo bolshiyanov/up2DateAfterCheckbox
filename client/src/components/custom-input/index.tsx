@@ -9,34 +9,29 @@ type Props = {
 };
 
 export const CustomInput = ({
-  type = 'text',
+  type = "text",
   name,
   addonBefore,
   placeholder,
 }: Props) => {
-
   const { TextArea } = Input;
 
   return (
     <Form.Item
-      
       name={name}
-      rules={[{ required: true, message: "Requied fild" }]}
+      //rules={[{ required: true, message: "Requied fild" }]}
       //shouldUpdate={ true }
     >
-      {name === "description" ? 
-      <TextArea rows={4}
-        placeholder={placeholder}       
-        size="large"
-      /> : 
-      
-      
-      <Input
-      placeholder={placeholder}
-      addonBefore={addonBefore}
-      type={ type }
-      size="large"
-    /> }
+      {name === "description" ? (
+        <TextArea rows={4} placeholder={placeholder} size="large" />
+      ) : (
+        <Input
+          placeholder={placeholder}
+          addonBefore={addonBefore}
+          type={type}
+          size="large"
+        />
+      )}
     </Form.Item>
   );
 };

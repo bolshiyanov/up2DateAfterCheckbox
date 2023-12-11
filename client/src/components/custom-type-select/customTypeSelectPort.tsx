@@ -13,12 +13,11 @@ export const CustomTypeSelectPort = ({ name, selectName }: Props) => {
     <Form.Item
       name={name}
       label={selectName}
-      rules={[{ required: true, message: "Required field" }]}
       
     >
         <Select size="large">
           {portsTypes.map((portType) => (
-            <Select.Option key={portType.key} value={portType.value}>
+            <Select.Option key={portType.key} value={portType.value} defaultValue="Puerto colon">
               {portType.name}
             </Select.Option>
           ))}
