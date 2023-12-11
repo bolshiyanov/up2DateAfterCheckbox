@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, body > div {
+  height: 100%;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #cccccc;
+  background-image: url('./assets/BG.jpg');
+  background-size: cover; /* Set background size to cover */
+  
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}

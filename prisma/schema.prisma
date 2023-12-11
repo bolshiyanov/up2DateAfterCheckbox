@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String
+  password  String
+  name      String
+  phone     String
+  newUser   Boolean?
+  isBlocked Boolean?
+  owner     Boolean?
+
+  dateRegistration DateTime   @default(now())
+  createdEmployee  Employee[]
+}
+
+model Employee {
+  id String @id @default(uuid())
+
+  dateRegistration DateTime @default(now())
+  boatsName        String
+  description      String
+  boatsFoto        String
+  email            String
+  phone            String
+  typeBoat         String 
+  typePort         String 
+  isBlocked        Boolean?
+  isNewBoat        Boolean?
+  isAvailable      Boolean? 
+  user             User     @relation(fields: [userId], references: [id])
+  userId           String
+}

@@ -1,0 +1,233 @@
+import {
+  EditOutlined,
+  DeleteOutlined,
+  ArrowLeftOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
+import { Descriptions, Space, Divider, Modal } from "antd";
+import { CustomButton } from "../../components/custom-button";
+import { useState } from "react";
+import { Paths } from "../../paths";
+import { useNavigate, Link, useParams, Navigate } from "react-router-dom";
+import {
+  useGetEmployeeQuery,
+  useRemoveEmployeeMutation,
+} from "../../app/serivices/employees";
+import { Layout } from "../../components/layout";
+import { isErrorWithMessage } from "../../utils/is-error-with-message";
+import { ErrorMessage } from "../../components/error-message";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/auth/authSlice";
+import { formatDateString } from "../../utils/formatDateString";
+import { boatsTypes, portsTypes } from "../../dummyData";
+
+export const Employee = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const params = useParams<{ id: string }>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data, isLoading } = useGetEmployeeQuery(params.id || "");
+  const [removeEmployee] = useRemoveEmployeeMutation();
+  const user = useSelector(selectUser);
+
+  if (isLoading) {
+    return <span>Loading</span>;
+  }
+
+  if (!data) {
+    return <Navigate to="/" />;
+  }
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const hideModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteUser = async () => {
+    hideModal();
+
+    try {
+      await removeEmployee(data.id).unwrap();
+
+      navigate(`${Paths.status}/deleted`);
+    } catch (err) {
+      const maybeError = isErrorWithMessage(err);
+
+      if (maybeError) {
+        setError(err.data.message);
+      } else {
+        setError("Uncnoun error");
+      }
+    }
+  };
+
+  const getTypeBoatName = (typeBoatKey: string) => {
+    const foundType = boatsTypes.find((type) => type.key === typeBoatKey);
+    return foundType ? foundType.name : "Unknown Type";
+  };
+
+  const getTypePortName = (typeBoatKey: string) => {
+    const foundType = portsTypes.find((type) => type.key === typeBoatKey);
+    return foundType ? foundType.name : "Unknown Type";
+  };
+
+  return (
+    <Layout>
+      <div
+        style={{
+          width: "100%",
+          aspectRatio: "24 / 9",
+          backgroundColor: 'rgba(29, 29, 29, 0.8)',
+          marginTop: -64,
+        }}
+      >
+        <img
+          src={data.boatsFoto}
+          alt="Description"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      </div>
+      <div
+        style={{
+          width: "100%",
+          backgroundColor: 'rgba(29, 29, 29, 0.8)',
+          padding: 16,
+          
+        }}
+      >
+        <Descriptions
+          title={`Information about boat ${data.boatsName}`}
+          bordered
+        >
+          <Descriptions.Item label="Date Registration" span={3}>
+            {data.isNewBoat === true
+              ? `NEW, ${formatDateString(data.dateRegistration)}`
+              : formatDateString(data.dateRegistration)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Availabillity" span={3}>
+            {data.isAvailable === false
+              ? "The owner has disabled the availability of this boat for a while"
+              : "Available for booking"}
+          </Descriptions.Item>
+          <Descriptions.Item label="Boats Name" span={3}>
+            {data.boatsName}
+          </Descriptions.Item>
+          <Descriptions.Item label="Description" span={3}>
+            {data.description}
+          </Descriptions.Item>
+          <Descriptions.Item label="Type Boat" span={3}>
+            {getTypeBoatName(data.typeBoat)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Port" span={3}>
+            {getTypePortName(data.typePort)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Phone" span={3}>
+            {data.phone}
+          </Descriptions.Item>
+          <Descriptions.Item label="Email" span={3}>
+            {data.email}
+          </Descriptions.Item>
+          <Descriptions.Item label="Blocked?" span={3}>
+            {data.isBlocked === false
+              ? "The boat is blocked by the super administrator"
+              : "Available for boats catalog"}
+          </Descriptions.Item>
+        </Descriptions>
+        {user?.id === data.userId ? (
+          <>
+            <Divider orientation="left">Acton</Divider>
+            <Space>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "100%",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Link to={`/`}>
+                  <CustomButton
+                    shape="round"
+                    type="default"
+                    icon={<ArrowLeftOutlined />}
+                  >
+                    Go back
+                  </CustomButton>
+                </Link>
+                <Link to={`tel:${data.phone}`}>
+                  <CustomButton
+                    shape="round"
+                    type="default"
+                    icon={<PhoneOutlined />}
+                  >
+                    Call
+                  </CustomButton>
+                </Link>
+                <Link to={`/employee/edit/${data.id}`}>
+                  <CustomButton
+                    shape="round"
+                    type="default"
+                    icon={<EditOutlined />}
+                  >
+                    Edit
+                  </CustomButton>
+                </Link>
+                <CustomButton
+                  shape="round"
+                  danger
+                  onClick={showModal}
+                  icon={<DeleteOutlined />}
+                >
+                  Remove
+                </CustomButton>
+              </div>
+            </Space>
+          </>
+        ) : (
+          <>
+            <Divider orientation="left">Acton</Divider>
+            <Space>
+              <a href={`tel:${data.phone}`}>
+                <CustomButton
+                  shape="round"
+                  type="default"
+                  icon={<PhoneOutlined />}
+                >
+                  Call
+                </CustomButton>
+              </a>
+              <Link to={`/`}>
+                <CustomButton
+                  shape="round"
+                  type="default"
+                  icon={<ArrowLeftOutlined />}
+                >
+                  Go back
+                </CustomButton>
+              </Link>
+            </Space>
+          </>
+        )}
+        <ErrorMessage message={error} />
+        <Modal
+          title="Confirm remove"
+          open={isModalOpen}
+          onOk={handleDeleteUser}
+          onCancel={hideModal}
+          okText="Confirm"
+          cancelText="Cancel"
+        >
+          Do you really want to remove the boat?
+        </Modal>
+      </div>
+    </Layout>
+  );
+};

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Employee" ADD COLUMN "ownerInLG" BOOLEAN DEFAULT false;
+ALTER TABLE "Employee" ADD COLUMN "ownerInPC" BOOLEAN DEFAULT true;
