@@ -16,6 +16,7 @@ type Props<T> = {
   btnTextGoBack: string;
   isAvailable: boolean;
   isNewBoat: boolean;
+  isBlocked: boolean;
   pageName: string;
   title: string;
   error?: string;
@@ -32,6 +33,7 @@ export const EmployeeForm = ({
   pageName,
   isAvailable,
   isNewBoat,
+  isBlocked,
   error,
 }: Props<Employee>) => {
   const handleFinish = (values: Employee) => {
@@ -53,15 +55,7 @@ export const EmployeeForm = ({
         }}
         initialValues={employee}
       >
-        <CustomCheck
-          startState={isAvailable}
-          name="isAvailable"
-          pageName={pageName}
-          positiveText={"This boat is now ready for reservation"}
-          negativeText={
-            "This boat will be temporarily unavailable for reservations"
-          }
-        />
+        
         <CustomCheck
           startState={isNewBoat}
           name="isNewBoat"
@@ -69,6 +63,24 @@ export const EmployeeForm = ({
           positiveText={"This boat is new in this admin panel"}
           negativeText={
             "Have you seen this boat before"
+          }
+        />
+        <CustomCheck
+          startState={isBlocked}
+          name="isBlocked"
+          pageName={pageName}
+          positiveText={"The boat is blocked by the super administrator"}
+          negativeText={
+            "Available for boats catalog"
+          }
+        />
+        <CustomCheck
+          startState={isAvailable}
+          name="isAvailable"
+          pageName={pageName}
+          positiveText={"This boat is now ready for reservation"}
+          negativeText={
+            "This boat will be temporarily unavailable for reservations"
           }
         />
         <CustomInput type="text" name="boatsName" placeholder="Boats Name" />

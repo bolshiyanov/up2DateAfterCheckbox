@@ -19,6 +19,7 @@ export const AddEmployee = () => {
   
   let isNewBoat = true;
   let isAvailable = true;
+  let isBlocked = false;
   
 
   useEffect(() => {
@@ -54,6 +55,7 @@ export const AddEmployee = () => {
           btnTextGoBack="Go back"
           isAvailable={isAvailable}
           isNewBoat={isNewBoat}
+          isBlocked={isBlocked}
           pageName="Add-emploee"
           error={ error }
         />

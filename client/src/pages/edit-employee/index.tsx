@@ -57,6 +57,7 @@ export const EditEmployee = () => {
           error={error}
           isAvailable
           isNewBoat
+          isBlocked
           pageName="Edit-emploee"
         />
       </Row>
