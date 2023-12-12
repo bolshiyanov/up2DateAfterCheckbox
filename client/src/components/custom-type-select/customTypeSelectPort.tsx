@@ -17,7 +17,7 @@ export const CustomTypeSelectPort = ({ name, selectName }: Props) => {
     >
         <Select size="large">
           {portsTypes.map((portType) => (
-            <Select.Option key={portType.key} value={portType.value} defaultValue="Puerto colon">
+            <Select.Option key={portType.key} value={portType.value} defaultValue="01">
               {portType.name}
             </Select.Option>
           ))}

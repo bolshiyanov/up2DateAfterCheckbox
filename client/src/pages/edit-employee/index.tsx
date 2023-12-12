@@ -59,7 +59,7 @@ export const EditEmployee = () => {
       <Row align="middle" justify="center" style={{ margin: 16 }}>
         <EmployeeForm
           onFinish={handleEditUser}
-          title="Edit Boat"
+          title="Edit ride"
           employee={data}
           btnText="Upload"
           btnTextCancel="Reset"

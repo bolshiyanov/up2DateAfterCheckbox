@@ -33,7 +33,7 @@ export const Register = () => {
     try {
       await registerUser({
         ...data,
-        owner: owner
+        owner: owner,
       }).unwrap();
 
       navigate("/");
@@ -52,22 +52,23 @@ export const Register = () => {
     setOwner(e.target.checked);
   };
 
- 
-
   return (
     <Layout>
       <Row align="middle" justify="center" style={{ margin: 16 }}>
         <Card title="Sign up" style={{ width: "30rem" }}>
           <Form onFinish={register}>
             <Row align="middle" justify="start">
-              <div style={{marginBottom:8, marginRight: 8}}>
-                <Typography.Text>Are you a boat owner? </Typography.Text>
+              <div style={{ marginBottom: 8, marginRight: 8 }}>
+                <Typography.Text>Are you the ride owner? </Typography.Text>
               </div>
-              <div style={{marginBottom:8}}>
+              <div style={{ marginBottom: 8 }}>
                 <Checkbox onChange={onChange}></Checkbox>
-                
               </div>
             </Row>
+            <p style={{fontSize: 10, marginBottom: 8, color: 'lightgray'}}>
+              If you check here [v] it means that you are the owner of, for
+              example, a boat, paraglider or other rides
+            </p>
             <CustomInput type="text" name="name" placeholder="Name" />
             <CustomInput type="email" name="email" placeholder="Email" />
             <CustomInput type="phone" name="phone" placeholder="Phone" />

@@ -25,7 +25,8 @@ const add = async (req, res) => {
     const data = req.body;
 
     if (
-      !data.boatsName ||
+      !data.rideType ||
+      !data.rideName ||
       !data.description ||
       !data.phone 
     ) {
@@ -38,8 +39,8 @@ const add = async (req, res) => {
         userId: req.user.id, 
         isBlocked: false,
         isAvailable: true, 
-        isNewBoat : true,
-        boatsFoto: "https://source.unsplash.com/weekly?boat",
+        isNewRide : true,
+        rideFoto: "https://source.unsplash.com/weekly?boat",
         typeBoat: "01",
         typePort: "01"
       },

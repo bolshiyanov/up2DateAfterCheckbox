@@ -95,8 +95,8 @@ export const Employee = () => {
       >
         <img
           src={
-            data.boatsFoto !== null
-              ? data.boatsFoto
+            data.rideFoto !== null
+              ? data.rideFoto
               : "https://source.unsplash.com/weekly?boats"
           }
           alt="Description"
@@ -116,26 +116,26 @@ export const Employee = () => {
         }}
       >
         <Descriptions
-          title={`Information about boat ${data.boatsName}`}
+          title={`Information about ride ${data.rideName}`}
           bordered
         >
           <Descriptions.Item label="Date Registration" span={3}>
-            {data.isNewBoat === true
+            {data.isNewRide === true
               ? `NEW, ${formatDateString(data.dateRegistration)}`
               : formatDateString(data.dateRegistration)}
           </Descriptions.Item>
           <Descriptions.Item label="Blocked?" span={3}>
             {data.isBlocked === false
-              ? "Available for boats catalog"
-              : "The boat is blocked by the super administrator"}
+              ? "Available for rides catalog"
+              : "The ride is blocked by the super administrator"}
           </Descriptions.Item>
           <Descriptions.Item label="Booking" span={3}>
             {data.isAvailable === false
-              ? "The owner has disabled the availability of this boat for a while"
-              : "Available for booking"}
+              ? "The owner has disabled the availability of this ride for a while"
+              : "The ride is available for booking"}
           </Descriptions.Item>
-          <Descriptions.Item label="Boats Name" span={3}>
-            {data.boatsName}
+          <Descriptions.Item label="Ride Name" span={3}>
+            {data.rideName}
           </Descriptions.Item>
           <Descriptions.Item label="Description" span={3}>
             {data.description}
@@ -143,14 +143,14 @@ export const Employee = () => {
           <Descriptions.Item label="Type Boat" span={3}>
             {getTypeBoatName(data.typeBoat)}
           </Descriptions.Item>
-          <Descriptions.Item label="Port" span={3}>
+          <Descriptions.Item label="Starting from" span={3}>
             {getTypePortName(data.typePort)}
           </Descriptions.Item>
           <Descriptions.Item label="Phone" span={3}>
             {data.phone}
           </Descriptions.Item>
-          <Descriptions.Item label="Email" span={3}>
-            {data.email}
+          <Descriptions.Item label="Google Map Link" span={3}>
+            {data.googleMapLink }
           </Descriptions.Item>
         </Descriptions>
         {user?.id === data.userId ? (
@@ -174,7 +174,7 @@ export const Employee = () => {
                     Go back
                   </CustomButton>
                 </Link>
-                <Link to={`tel:${data.phone}`}>
+                <Link to={`${Paths.phone}${data.phone}`} >
                   <CustomButton
                     type="primary"
                     shape="round"
@@ -207,15 +207,6 @@ export const Employee = () => {
           <>
             <Divider orientation="left">Acton</Divider>
             <Space>
-              <a href={`tel:${data.phone}`}>
-                <CustomButton
-                  shape="round"
-                  type="primary"
-                  icon={<FontAwesomeIcon icon={faPhone} />}
-                >
-                  Call
-                </CustomButton>
-              </a>
               <Link to={`/`}>
                 <CustomButton
                   shape="round"
@@ -225,6 +216,15 @@ export const Employee = () => {
                   Go back
                 </CustomButton>
               </Link>
+              <Link to={`${Paths.phone}${data.phone}`} >
+                  <CustomButton
+                    type="primary"
+                    shape="round"
+                    icon={<FontAwesomeIcon icon={faPhone} />}
+                  >
+                    Call
+                  </CustomButton>
+                </Link>
             </Space>
           </>
         )}

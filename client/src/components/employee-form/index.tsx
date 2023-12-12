@@ -7,9 +7,14 @@ import { CustomInput } from "../custom-input";
 import { ErrorMessage } from "../error-message";
 import { CustomTypeSelectBoat } from "../custom-type-select/customTypeSelectBoat";
 import { CustomTypeSelectPort } from "../custom-type-select/customTypeSelectPort";
-import { CustomCheck } from "../custom-input copy";
+import { CustomCheck } from "../custom-check";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faCloudArrowDown, faRotate } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faCloudArrowDown,
+  faRotate,
+} from "@fortawesome/free-solid-svg-icons";
+import { CustomTypeSelectRide } from "../custom-type-select/customTypeSelectRide";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -39,12 +44,14 @@ export const EmployeeForm = ({
   error,
 }: Props<Employee>) => {
   const handleFinish = (values: Employee) => {
-    if (values.boatsFoto !== null) {
-      if (!values.boatsFoto.includes("https://")) {
-        values.boatsFoto = "https://" + values.boatsFoto;
-      }
+    if (!values.rideFoto?.includes("https://")) {
+      values.rideFoto = "https://" + values.rideFoto;
     }
-
+  
+    if (!values.googleMapLink?.includes("https://")) {
+      values.googleMapLink = "https://" + values.googleMapLink;
+    }
+  
     onFinish(values);
   };
 
@@ -59,6 +66,7 @@ export const EmployeeForm = ({
         }}
         initialValues={employee}
       >
+        <CustomTypeSelectRide name="rideType" selectName="Select the type of ride" />
         <CustomCheck
           startState={isNewBoat}
           name="isNewBoat"
@@ -83,21 +91,26 @@ export const EmployeeForm = ({
           }
         />
 
-        <CustomInput type="text" name="boatsName" placeholder="Boats Name" />
+        <CustomInput type="text" name="rideName" placeholder="Ride name" />
         <CustomInput type="text" name="description" placeholder="Description" />
         {pageName !== "Add-emploee" && (
           <>
             <CustomInput
               addonBefore="https://"
               type="text"
-              name="boatsFoto"
-              placeholder="Boats Foto Link or any text"
+              name="rideFoto"
+              placeholder="Ride Foto Link or any text"
             />
 
             <CustomTypeSelectBoat name="typeBoat" selectName="Type Boat" />
             <CustomTypeSelectPort name="typePort" selectName="Select port" />
 
-            <CustomInput type="email" name="email" placeholder="Email" />
+            <CustomInput
+              addonBefore="https://"
+              type="googleMapLink "
+              name="googleMapLink "
+              placeholder="Google Map Link "
+            />
           </>
         )}
         <CustomInput type="text" name="phone" placeholder="Phone" />

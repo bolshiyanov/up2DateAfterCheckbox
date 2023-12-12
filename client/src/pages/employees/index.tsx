@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Row, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { PlusCircleOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { CustomButton } from "../../components/custom-button";
 import { Employee } from "@prisma/client";
@@ -29,15 +28,15 @@ const columns: ColumnsType<Employee> = [
   {
     title: "Date",
     render: (text, record) =>
-      record.isNewBoat === true
+      record.isNewRide === true
         ?  <Tag color="green">New</Tag>
         : formatDateString(record.dateRegistration),
     key: "newBoat",
   },
   {
-    title: "Boats Name",
-    dataIndex: "boatsName",
-    key: "boatsName",
+    title: "Ride Name",
+    dataIndex: "rideName",
+    key: "rideName",
   },
   {
     title: "Type",
@@ -45,7 +44,7 @@ const columns: ColumnsType<Employee> = [
     key: "typeBoat",
   },
   {
-    title: "Ports",
+    title: "Starting from",
     render: (_, record) => getTypePortName(record.typePort),
     key: "typePort",
   },
@@ -87,7 +86,7 @@ export const Employees = () => {
           onClick={gotToAddUser}
           icon={<FontAwesomeIcon icon={faCirclePlus} />}
         >
-          Add boats
+          Add ride
         </CustomButton>
         {/* <CustomButton
           type="primary"

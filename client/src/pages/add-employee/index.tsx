@@ -49,7 +49,7 @@ export const AddEmployee = () => {
       <Row align="middle" justify="center" style={{ margin: 16 }}>
         <EmployeeForm
           onFinish={handleAddEmployee}
-          title="Add Boat"
+          title="Add ride"
           btnText="Upload"
           btnTextCancel="Reset"
           btnTextGoBack="Go back"

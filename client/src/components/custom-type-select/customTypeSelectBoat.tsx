@@ -17,7 +17,7 @@ export const CustomTypeSelectBoat = ({ name, selectName }: Props) => {
     >
         <Select size="large">
           {boatsTypes.map((boatType) => (
-            <Select.Option key={boatType.key} value={boatType.value} defaultValue="Boat">
+            <Select.Option key={boatType.key} value={boatType.value} defaultValue="01">
               {boatType.name}
             </Select.Option>
           ))}

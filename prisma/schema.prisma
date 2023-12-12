@@ -28,16 +28,17 @@ model Employee {
   id String @id @default(uuid())
 
   dateRegistration DateTime @default(now())
-  boatsName        String
+  rideType         String
+  rideName         String
   description      String
-  boatsFoto        String?
-  email            String?
+  rideFoto         String?
+  googleMapLink    String?
   phone            String
-  typeBoat         String 
-  typePort         String 
+  typeBoat         String
+  typePort         String
   isBlocked        Boolean?
-  isNewBoat        Boolean?
-  isAvailable      Boolean? 
+  isNewRide        Boolean?
+  isAvailable      Boolean?
   user             User     @relation(fields: [userId], references: [id])
   userId           String
 }

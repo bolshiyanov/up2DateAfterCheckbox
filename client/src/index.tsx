@@ -16,8 +16,6 @@ import { Auth } from "./features/auth/auth";
 import { Paths } from "./paths";
 import "./index.css";
 
-
-
 const router = createBrowserRouter([
   {
     path: Paths.home,
@@ -52,9 +50,6 @@ const router = createBrowserRouter([
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
-
-
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -66,7 +61,6 @@ root.render(
         <Auth>
           <RouterProvider router={router} />
         </Auth>
-       
       </ConfigProvider>
     </Provider>
   </React.StrictMode>
