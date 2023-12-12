@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String
+  password  String
+  name      String
+  phone     String
+  newUser   Boolean?
+  isBlocked Boolean?
+  owner     Boolean?
+
+  dateRegistration DateTime   @default(now())
+  createdEmployee  Employee[]
+}
+
+model Employee {
+  id String @id @default(uuid())
+
+  dateRegistration DateTime @default(now())
+  rideType         String
+  rideName         String
+  description      String
+  rideFoto         String?
+  googleMapLink    String?
+  phone            String
+  categorias       String
+  startPoints      String
+  isBlocked        Boolean?
+  isNewRide        Boolean?
+  isAvailable      Boolean?
+
+  morningMonday              String?
+  isAvailableMondayMorning   Boolean?
+  afternoonMonday            String?
+  isAvailableMondayAfternoon Boolean?
+  eveningMonday              String?
+  isAvailableMondayEvening   Boolean?
+  extraMonday                String?
+  extraIsAvailableMonday     Boolean?
+
+  morningTuesday              String?
+  isAvailableTuesdayMorning   Boolean?
+  afternoonTuesday            String?
+  isAvailableTuesdayAfternoon Boolean?
+  eveningTuesday              String?
+  isAvailableTuesdayEvening   Boolean?
+  extraTuesday                String?
+  extrasIAvailableTuesday     Boolean?
+
+  morningWednesday              String?
+  isAvailableWednesdayMorning   Boolean?
+  afternoonWednesday            String?
+  isAvailableWednesdayAfternoon Boolean?
+  eveningWednesday              String?
+  isAvailableWednesdayEvening   Boolean?
+  extraWednesday                String?
+  extraIsAvailableWednesday     Boolean?
+
+  morningThursday              String?
+  isAvailableThursdayMorning   Boolean?
+  afternoonThursday            String?
+  isAvailableThursdayAfternoon Boolean?
+  eveningThursday              String?
+  isAvailableThursdayEvening   Boolean?
+  extraThursday                String?
+  extraIsAvailableThursday     Boolean?
+
+  morningFriday              String?
+  isAvailableFridayMorning   Boolean?
+  afternoonFriday            String?
+  isAvailableFridayAfternoon Boolean?
+  eveningFriday              String?
+  isAvailableFridayEvening   Boolean?
+  extraFriday                String?
+  extraIsAvailableFriday     Boolean?
+
+  morningSaturday              String?
+  isAvailableSaturdayMorning   Boolean?
+  afternoonSaturday            String?
+  isAvailableSaturdayAfternoon Boolean?
+  eveningSaturday              String?
+  isAvailableSaturdayEvening   Boolean?
+  extraSaturday                String?
+  extraIsAvailableSaturday     Boolean?
+
+  morningSunday              String?
+  isAvailableSundayMorning   Boolean?
+  afternoonSunday            String?
+  isAvailableSundayAfternoon Boolean?
+  eveningSunday              String?
+  isAvailableSundayEvening   Boolean?
+  extraSunday                String?
+  extraIsAvailableSunday     Boolean?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}

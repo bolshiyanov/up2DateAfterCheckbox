@@ -15,6 +15,9 @@ import {
   faRotate,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomTypeSelectRide } from "../custom-type-select/customTypeSelectRide";
+import { CustomSelectMorningPicker } from "../custom-type-select/customSelectMorningPicker";
+import { CustomSelectAfternoonPicker } from "../custom-type-select/customSelectAfternoonPicker";
+import { CustomSelectEveningPicker } from "../custom-type-select/customSelectEveningPicker";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -133,9 +136,24 @@ export const EmployeeForm = ({
         <CustomInput type="text" name="phone" placeholder="Phone" />
 
         {/* Schedle settings */}
-        {pageName !== "Add-emploee" && <></>}
+        {pageName !== "Add-emploee" && (
+          <>
+            <CustomSelectMorningPicker
+              name="morningMonday"
+              selectName="Choose a morning schedule"
+            />
+            <CustomSelectAfternoonPicker
+              name="afternoonMonday"
+              selectName="Choose a afternoon schedule"
+            />
+            <CustomSelectEveningPicker
+              name="eveningMonday"
+              selectName="Choose a evening schedule"
+            />
+            
+          </>
+        )}
 
-        
         <Space direction="vertical" size="large">
           <ErrorMessage message={error} />
           <Row align="middle" justify="center">
