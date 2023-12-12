@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  LoginOutlined,
-  LogoutOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import { Layout, Space, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout, selectUser } from "../../features/auth/authSlice";
 import { CustomButton } from "../custom-button";
 import style from "./index.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRightFromBracket,
+  faRightToBracket,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const Header = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -39,16 +40,11 @@ export const Header = () => {
 
   return (
     <Layout.Header className={style.header}>
-      
       <Space>
-      <div style={{marginTop: 4, marginLeft: 16}}>
-        <Link to="/">
-          <CustomButton type="ghost">
-            <Typography.Title level={screenWidth < 768 ? 2 : 1}>
-              Up2Date
-            </Typography.Title>
-          </CustomButton>
-        </Link>
+        <div style={{ marginTop: 4, marginLeft: 16 }}>
+          <Typography.Title level={screenWidth < 768 ? 2 : 1}>
+            Up2Date
+          </Typography.Title>
         </div>
       </Space>
       {user ? (
@@ -56,7 +52,7 @@ export const Header = () => {
           <CustomButton
             shape="round"
             type="default"
-            icon={<LogoutOutlined />}
+            icon={<FontAwesomeIcon icon={faRightFromBracket} />}
             onClick={onLogoutClick}
           >
             Log out
@@ -67,7 +63,11 @@ export const Header = () => {
           {screenWidth > 768 && (
             <Link to="/register">
               <div style={{ marginTop: 16 }}>
-                <CustomButton shape="round" type="default" icon={<UserOutlined />}>
+                <CustomButton
+                  shape="round"
+                  type="default"
+                  icon={<FontAwesomeIcon icon={faUserPlus} />}
+                >
                   Sugn up
                 </CustomButton>
               </div>
@@ -75,7 +75,11 @@ export const Header = () => {
           )}
           <Link to="/login">
             <div style={{ marginTop: 16, marginRight: 16 }}>
-              <CustomButton shape="round" type="default" icon={<LoginOutlined />}>
+              <CustomButton
+                shape="round"
+                type="default"
+                icon={<FontAwesomeIcon icon={faRightToBracket} />}
+              >
                 Log in
               </CustomButton>
             </div>

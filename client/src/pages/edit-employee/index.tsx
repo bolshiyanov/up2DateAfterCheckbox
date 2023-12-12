@@ -1,5 +1,5 @@
 import { Employee } from "@prisma/client";
-import { Row } from "antd";
+import { Flex, Row, Spin } from "antd";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -22,7 +22,15 @@ export const EditEmployee = () => {
   let isBlocked = false;
 
   if (isLoading) {
-    return <span>Loading</span>;
+    return (
+      <Flex
+        align="center"
+        justify="center"
+        style={{ height: "100vh", width: "100%" }}
+      >
+        <Spin size="large" />
+      </Flex>
+    );
   }
 
   const handleEditUser = async (employee: Employee) => {

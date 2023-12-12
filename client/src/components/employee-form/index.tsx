@@ -8,6 +8,8 @@ import { ErrorMessage } from "../error-message";
 import { CustomTypeSelectBoat } from "../custom-type-select/customTypeSelectBoat";
 import { CustomTypeSelectPort } from "../custom-type-select/customTypeSelectPort";
 import { CustomCheck } from "../custom-input copy";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faCloudArrowDown, faRotate } from "@fortawesome/free-solid-svg-icons";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -80,7 +82,6 @@ export const EmployeeForm = ({
             "This boat will be temporarily unavailable for reservations"
           }
         />
-        <CustomInput type="text" name="phone" placeholder="Phone" />
 
         <CustomInput type="text" name="boatsName" placeholder="Boats Name" />
         <CustomInput type="text" name="description" placeholder="Description" />
@@ -99,22 +100,38 @@ export const EmployeeForm = ({
             <CustomInput type="email" name="email" placeholder="Email" />
           </>
         )}
+        <CustomInput type="text" name="phone" placeholder="Phone" />
+
         <Space direction="vertical" size="large">
           <ErrorMessage message={error} />
           <Row align="middle" justify="center">
-            <CustomButton shape="round" htmlType="submit">
-              {btnText}
-            </CustomButton>
-            {btnTextCancel !== "" && (
-              <CustomButton shape="round" htmlType="reset">
-                {btnTextCancel}
-              </CustomButton>
-            )}
             {btnTextGoBack !== "" && (
-              <CustomButton shape="round" htmlType="button">
+              <CustomButton
+                shape="round"
+                htmlType="button"
+                icon={<FontAwesomeIcon icon={faChevronLeft} />}
+              >
                 <Link to="/">{btnTextGoBack}</Link>
               </CustomButton>
             )}
+            {btnTextCancel !== "" && (
+              <CustomButton
+                shape="round"
+                htmlType="reset"
+                icon={<FontAwesomeIcon icon={faRotate} />}
+              >
+                {btnTextCancel}
+              </CustomButton>
+            )}
+
+            <CustomButton
+              shape="round"
+              type="primary"
+              htmlType="submit"
+              icon={<FontAwesomeIcon icon={faCloudArrowDown} />}
+            >
+              {btnText}
+            </CustomButton>
           </Row>
         </Space>
       </Form>

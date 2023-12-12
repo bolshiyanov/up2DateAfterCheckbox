@@ -12,6 +12,8 @@ import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
 import { formatDateString } from "../../utils/formatDateString";
 import { boatsTypes, portsTypes } from "../../dummyData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 const getTypeBoatName = (typeBoatKey: string) => {
   const foundType = boatsTypes.find((type) => type.key === typeBoatKey);
@@ -83,7 +85,7 @@ export const Employees = () => {
         <CustomButton
           type="primary"
           onClick={gotToAddUser}
-          icon={<PlusCircleOutlined />}
+          icon={<FontAwesomeIcon icon={faCirclePlus} />}
         >
           Add boats
         </CustomButton>

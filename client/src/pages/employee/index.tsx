@@ -1,10 +1,4 @@
-import {
-  EditOutlined,
-  DeleteOutlined,
-  ArrowLeftOutlined,
-  PhoneOutlined,
-} from "@ant-design/icons";
-import { Descriptions, Space, Divider, Modal } from "antd";
+import { Descriptions, Space, Divider, Modal, Flex, Spin } from "antd";
 import { CustomButton } from "../../components/custom-button";
 import { useState } from "react";
 import { Paths } from "../../paths";
@@ -20,6 +14,13 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/auth/authSlice";
 import { formatDateString } from "../../utils/formatDateString";
 import { boatsTypes, portsTypes } from "../../dummyData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faPenToSquare,
+  faPhone,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const Employee = () => {
   const navigate = useNavigate();
@@ -31,7 +32,15 @@ export const Employee = () => {
   const user = useSelector(selectUser);
 
   if (isLoading) {
-    return <span>Loading</span>;
+    return (
+      <Flex
+        align="center"
+        justify="center"
+        style={{ height: "100vh", width: "100%" }}
+      >
+        <Spin size="large" />
+      </Flex>
+    );
   }
 
   if (!data) {
@@ -80,12 +89,16 @@ export const Employee = () => {
         style={{
           width: "100%",
           aspectRatio: "24 / 9",
-          backgroundColor: 'rgba(29, 29, 29, 0.8)',
+          backgroundColor: "rgba(29, 29, 29, 0.8)",
           marginTop: -64,
         }}
       >
         <img
-          src={data.boatsFoto !== null ? data.boatsFoto : "https://source.unsplash.com/weekly?boats"}
+          src={
+            data.boatsFoto !== null
+              ? data.boatsFoto
+              : "https://source.unsplash.com/weekly?boats"
+          }
           alt="Description"
           style={{
             width: "100%",
@@ -98,9 +111,8 @@ export const Employee = () => {
       <div
         style={{
           width: "100%",
-          backgroundColor: 'rgba(29, 29, 29, 0.8)',
+          backgroundColor: "rgba(29, 29, 29, 0.8)",
           padding: 16,
-          
         }}
       >
         <Descriptions
@@ -140,7 +152,6 @@ export const Employee = () => {
           <Descriptions.Item label="Email" span={3}>
             {data.email}
           </Descriptions.Item>
-          
         </Descriptions>
         {user?.id === data.userId ? (
           <>
@@ -158,16 +169,16 @@ export const Employee = () => {
                   <CustomButton
                     shape="round"
                     type="default"
-                    icon={<ArrowLeftOutlined />}
+                    icon={<FontAwesomeIcon icon={faChevronLeft} />}
                   >
                     Go back
                   </CustomButton>
                 </Link>
                 <Link to={`tel:${data.phone}`}>
                   <CustomButton
+                    type="primary"
                     shape="round"
-                    type="default"
-                    icon={<PhoneOutlined />}
+                    icon={<FontAwesomeIcon icon={faPhone} />}
                   >
                     Call
                   </CustomButton>
@@ -176,7 +187,7 @@ export const Employee = () => {
                   <CustomButton
                     shape="round"
                     type="default"
-                    icon={<EditOutlined />}
+                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
                   >
                     Edit
                   </CustomButton>
@@ -185,7 +196,7 @@ export const Employee = () => {
                   shape="round"
                   danger
                   onClick={showModal}
-                  icon={<DeleteOutlined />}
+                  icon={<FontAwesomeIcon icon={faTrash} />}
                 >
                   Remove
                 </CustomButton>
@@ -199,8 +210,8 @@ export const Employee = () => {
               <a href={`tel:${data.phone}`}>
                 <CustomButton
                   shape="round"
-                  type="default"
-                  icon={<PhoneOutlined />}
+                  type="primary"
+                  icon={<FontAwesomeIcon icon={faPhone} />}
                 >
                   Call
                 </CustomButton>
@@ -209,7 +220,7 @@ export const Employee = () => {
                 <CustomButton
                   shape="round"
                   type="default"
-                  icon={<ArrowLeftOutlined />}
+                  icon={<FontAwesomeIcon icon={faChevronLeft} />}
                 >
                   Go back
                 </CustomButton>
