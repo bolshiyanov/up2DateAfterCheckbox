@@ -5,8 +5,8 @@ import { Form, Card, Space, Row } from "antd";
 import { CustomButton } from "../custom-button";
 import { CustomInput } from "../custom-input";
 import { ErrorMessage } from "../error-message";
-import { CustomTypeSelectBoat } from "../custom-type-select/customTypeSelectBoat";
-import { CustomTypeSelectPort } from "../custom-type-select/customTypeSelectPort";
+import { CustomTypeSelectCategoria } from "../custom-type-select/customTypeSelectCategoria";
+import { CustomTypeSelectStartPoints } from "../custom-type-select/customTypeSelectStartPoints";
 import { CustomCheck } from "../custom-check";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,9 +22,10 @@ type Props<T> = {
   btnTextCancel: string;
   btnTextGoBack: string;
   isAvailable: boolean;
-  isNewBoat: boolean;
+  isNewRide: boolean;
   isBlocked: boolean;
   pageName: string;
+  rideType: string;
   title: string;
   error?: string;
   employee?: T;
@@ -39,21 +40,23 @@ export const EmployeeForm = ({
   btnTextGoBack,
   pageName,
   isAvailable,
-  isNewBoat,
+  isNewRide,
   isBlocked,
+  rideType,
   error,
 }: Props<Employee>) => {
   const handleFinish = (values: Employee) => {
     if (!values.rideFoto?.includes("https://")) {
       values.rideFoto = "https://" + values.rideFoto;
     }
-  
+
     if (!values.googleMapLink?.includes("https://")) {
       values.googleMapLink = "https://" + values.googleMapLink;
     }
-  
+
     onFinish(values);
   };
+
 
   return (
     <Card title={title} style={{ width: "30rem" }}>
@@ -66,34 +69,41 @@ export const EmployeeForm = ({
         }}
         initialValues={employee}
       >
-        <CustomTypeSelectRide name="rideType" selectName="Select the type of ride" />
+        {pageName !== "Edit-emploee" && (
+          <>
+            <CustomTypeSelectRide
+              name="rideType"
+              selectName="Select the type of ride"
+            />
+          </>
+        )}
         <CustomCheck
-          startState={isNewBoat}
-          name="isNewBoat"
+          startState={isNewRide}
+          name="isNewRide"
           pageName={pageName}
-          positiveText={"This boat is new in this admin panel"}
-          negativeText={"Have you seen this boat before"}
+          positiveText={"This ride is new in this admin panel"}
+          negativeText={"Have you seen this ride before"}
         />
         <CustomCheck
           startState={isBlocked}
           name="isBlocked"
           pageName={pageName}
-          positiveText={"The boat is blocked by the super administrator"}
-          negativeText={"Available for boats catalog"}
+          positiveText={"The ride is blocked by the super administrator"}
+          negativeText={"Available for rides catalog"}
         />
         <CustomCheck
           startState={isAvailable}
           name="isAvailable"
           pageName={pageName}
-          positiveText={"This boat is now ready for reservation"}
+          positiveText={"This ride is now ready for reservation"}
           negativeText={
-            "This boat will be temporarily unavailable for reservations"
+            "This ride will be temporarily unavailable for reservations"
           }
         />
 
         <CustomInput type="text" name="rideName" placeholder="Ride name" />
         <CustomInput type="text" name="description" placeholder="Description" />
-        {pageName !== "Add-emploee" && (
+        {pageName !== "Add-emploee" && ( 
           <>
             <CustomInput
               addonBefore="https://"
@@ -102,13 +112,21 @@ export const EmployeeForm = ({
               placeholder="Ride Foto Link or any text"
             />
 
-            <CustomTypeSelectBoat name="typeBoat" selectName="Type Boat" />
-            <CustomTypeSelectPort name="typePort" selectName="Select port" />
+            <CustomTypeSelectCategoria
+              name="categorias"
+              selectName="Select the categorias of rides"
+              rideType={rideType}
+            />
+            <CustomTypeSelectStartPoints
+              name="startPoints"
+              selectName="Select start point"
+              rideType={rideType}
+            />
 
             <CustomInput
               addonBefore="https://"
-              type="googleMapLink "
-              name="googleMapLink "
+              type="googleMapLink"
+              name="googleMapLink"
               placeholder="Google Map Link "
             />
           </>

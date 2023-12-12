@@ -34,8 +34,8 @@ model Employee {
   rideFoto         String?
   googleMapLink    String?
   phone            String
-  typeBoat         String
-  typePort         String
+  categorias       String
+  startPoints      String
   isBlocked        Boolean?
   isNewRide        Boolean?
   isAvailable      Boolean?

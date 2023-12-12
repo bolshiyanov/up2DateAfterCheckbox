@@ -17,9 +17,11 @@ export const EditEmployee = () => {
   const [error, setError] = useState("");
   const { data, isLoading } = useGetEmployeeQuery(params.id || "");
   const [editEmployee] = useEditEmployeeMutation();
-  let isNewBoat = true;
+  let isNewRide = true;
   let isAvailable = true;
   let isBlocked = false;
+
+  let ridesKey="01"
 
   if (isLoading) {
     return (
@@ -32,6 +34,8 @@ export const EditEmployee = () => {
       </Flex>
     );
   }
+
+  
 
   const handleEditUser = async (employee: Employee) => {
     try {
@@ -65,8 +69,9 @@ export const EditEmployee = () => {
           btnTextCancel="Reset"
           btnTextGoBack="Go back"
           error={error}
-          isAvailable={isAvailable}
-          isNewBoat={isNewBoat}
+          isAvailable={isAvailable} 
+          rideType={data?.rideType || ''}            
+          isNewRide={isNewRide}
           isBlocked={isBlocked}
           pageName="Edit-emploee"
         />

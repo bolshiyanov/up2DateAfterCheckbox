@@ -10,54 +10,63 @@ import { useGetAllEmployeesQuery } from "../../app/serivices/employees";
 import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
 import { formatDateString } from "../../utils/formatDateString";
-import { boatsTypes, portsTypes } from "../../dummyData";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { getRideCategoria, getRideStartPoints, getRideTypeName } from "../../utils/getRideTypes";
 
-const getTypeBoatName = (typeBoatKey: string) => {
-  const foundType = boatsTypes.find((type) => type.key === typeBoatKey);
-  return foundType ? foundType.name : "Unknown Type";
-};
 
-const getTypePortName = (typeBoatKey: string) => {
-  const foundType = portsTypes.find((type) => type.key === typeBoatKey);
-  return foundType ? foundType.name : "Unknown Type";
-};
 
 const columns: ColumnsType<Employee> = [
   {
     title: "Date",
     render: (text, record) =>
-      record.isNewRide === true
-        ?  <Tag color="green">New</Tag>
-        : formatDateString(record.dateRegistration),
+      record.isNewRide === true ? (
+        <Tag color="green">New</Tag>
+      ) : (
+        formatDateString(record.dateRegistration)
+      ),
     key: "newBoat",
+  },
+  {
+    title: "Ride Type",
+    render: (_, record) => getRideTypeName(record.rideType),
+    key: "rideType ",
   },
   {
     title: "Ride Name",
     dataIndex: "rideName",
     key: "rideName",
   },
+
   {
-    title: "Type",
-    render: (_, record) => getTypeBoatName(record.typeBoat),
-    key: "typeBoat",
+    title: "Categoria",
+    render: (_, record) => getRideCategoria(record.rideType, record.categorias),
+    key: "categorias",
   },
   {
     title: "Starting from",
-    render: (_, record) => getTypePortName(record.typePort),
-    key: "typePort",
+    render: (_, record) => getRideStartPoints(record.rideType, record.startPoints),
+    key: "startPoints",
   },
 
   {
     title: "Booking",
     render: (text, record) =>
-      record.isAvailable === true ?  "Available" : <Tag color="orange">Blocked</Tag> ,
+      record.isAvailable === true ? (
+        "Available"
+      ) : (
+        <Tag color="orange">Blocked</Tag>
+      ),
   },
   {
     title: "Blocked",
     render: (text, record) =>
-      record.isBlocked === false ?  "Available" : <Tag color="volcano">Blocked</Tag> ,
+      record.isBlocked === false ? (
+        "Available"
+      ) : (
+        <Tag color="volcano">Blocked</Tag>
+      ),
   },
 ];
 
@@ -76,11 +85,7 @@ export const Employees = () => {
 
   return (
     <Layout>
-      <Row
-        align="middle"
-        justify="start"
-        style={{ margin: 16 }}
-      >
+      <Row align="middle" justify="start" style={{ margin: 16 }}>
         <CustomButton
           type="primary"
           onClick={gotToAddUser}

@@ -41,8 +41,9 @@ const add = async (req, res) => {
         isAvailable: true, 
         isNewRide : true,
         rideFoto: "https://source.unsplash.com/weekly?boat",
-        typeBoat: "01",
-        typePort: "01"
+        categorias: "01",
+        startPoints: "01",
+
       },
     });
 

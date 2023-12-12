@@ -17,7 +17,7 @@ export const AddEmployee = () => {
   const [error, setError] = useState("");
   const [addEmployee] = useAddEmployeeMutation();
   
-  let isNewBoat = true;
+  let isNewRide = true;
   let isAvailable = true;
   let isBlocked = false;
   
@@ -43,6 +43,8 @@ export const AddEmployee = () => {
       }
     }
   };
+
+  
   
   return (
     <Layout>
@@ -54,8 +56,9 @@ export const AddEmployee = () => {
           btnTextCancel="Reset"
           btnTextGoBack="Go back"
           isAvailable={isAvailable}
-          isNewBoat={isNewBoat}
+          isNewRide={isNewRide}
           isBlocked={isBlocked}
+          rideType="01"
           pageName="Add-emploee"
           error={ error }
         />

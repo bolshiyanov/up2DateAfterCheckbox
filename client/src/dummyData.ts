@@ -39,24 +39,159 @@ export const ridesTypes = [
     key: "01",
     value: "01",
     name: "Boats Rides",
+    startPoints: [
+      {
+        key: "01",
+        value: "01",
+        name: "Puerto Colon",
+      },
+      {
+        key: "02",
+        value: "02",
+        name: "Los Gigantes",
+      },
+    ],
+    categorias: [
+      {
+        key: "01",
+        value: "01",
+        name: "Catamarans",
+      },
+      {
+        key: "02",
+        value: "02",
+        name: " Sailin",
+      },
+      {
+        key: "03",
+        value: "03",
+        name: "Motor yachts",
+      },
+      {
+        key: "04",
+        value: "04",
+        name: "Fishing",
+      },
+      {
+        key: "05",
+        value: "05",
+        name: "Rent a boat",
+      },
+      {
+        key: "06",
+        value: "06",
+        name: "Motor yachts",
+      },
+      {
+        key: "07",
+        value: "07",
+        name: "Submarine",
+      },
+      {
+        key: "08",
+        value: "08",
+        name: "other",
+      },
+    ],
   },
   {
     key: "02",
     value: "02",
     name: " Watersports Rides",
+    startPoints: [
+      {
+        key: "01",
+        value: "01",
+        name: "Puerto Colon",
+      },
+      {
+        key: "02",
+        value: "02",
+        name: "Los Gigantes",
+      },
+    ],
+    categorias: [
+      {
+        key: "01",
+        value: "01",
+        name: "Jetski",
+      },
+      {
+        key: "02",
+        value: "02",
+        name: "Diving",
+      },
+      {
+        key: "03",
+        value: "03",
+        name: " Surfing",
+      },
+      {
+        key: "04",
+        value: "04",
+        name: " other",
+      },
+    ],
   },
   {
     key: "03",
     value: "03",
     name: "Air Rides",
+    startPoints: [
+      {
+        key: "01",
+        value: "01",
+        name: "Tenerife Sur",
+      },
+    ],
+    categorias: [
+      {
+        key: "01",
+        value: "01",
+        name: "Paragliding",
+      },
+      {
+        key: "02",
+        value: "02",
+        name: "Helicopter",
+      },
+    ],
   },
   {
     key: "04",
     value: "04",
     name: "Wheels Rides",
+    startPoints: [
+      {
+        key: "01",
+        value: "01",
+        name: "Tenerife Sur",
+      },
+    ],
+    categorias: [
+      {
+        key: "01",
+        value: "01",
+        name: "Stars",
+      },
+      {
+        key: "02",
+        value: "02",
+        name: "Quads",
+      },
+      {
+        key: "03",
+        value: "03",
+        name: "Buggy",
+      },
+      {
+        key: "04",
+        value: "04",
+        name: "other",
+      },
+    ],
   },
 ];
-
 
 export const allTimes: { [key: string]: string }[] = [
   { "01": "00:00" },
@@ -123,7 +258,6 @@ export const morning: { [key: string]: string }[] = [
 ];
 
 export const afternoon: { [key: string]: string }[] = [
-  
   { "25": "12:00" },
   { "26": "12:30" },
   { "27": "13:00" },
@@ -135,7 +269,6 @@ export const afternoon: { [key: string]: string }[] = [
 ];
 
 export const evening: { [key: string]: string }[] = [
- 
   { "33": "16:00" },
   { "34": "16:30" },
   { "35": "17:00" },

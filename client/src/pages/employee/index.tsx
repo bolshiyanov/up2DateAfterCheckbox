@@ -13,7 +13,6 @@ import { ErrorMessage } from "../../components/error-message";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/auth/authSlice";
 import { formatDateString } from "../../utils/formatDateString";
-import { boatsTypes, portsTypes } from "../../dummyData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -21,6 +20,11 @@ import {
   faPhone,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  getRideCategoria,
+  getRideStartPoints,
+  getRideTypeName,
+} from "../../utils/getRideTypes";
 
 export const Employee = () => {
   const navigate = useNavigate();
@@ -73,16 +77,6 @@ export const Employee = () => {
     }
   };
 
-  const getTypeBoatName = (typeBoatKey: string) => {
-    const foundType = boatsTypes.find((type) => type.key === typeBoatKey);
-    return foundType ? foundType.name : "Unknown Type";
-  };
-
-  const getTypePortName = (typeBoatKey: string) => {
-    const foundType = portsTypes.find((type) => type.key === typeBoatKey);
-    return foundType ? foundType.name : "Unknown Type";
-  };
-
   return (
     <Layout>
       <div
@@ -119,6 +113,9 @@ export const Employee = () => {
           title={`Information about ride ${data.rideName}`}
           bordered
         >
+          <Descriptions.Item label="Rider type" span={3}>
+            {getRideTypeName(data.rideType)}
+          </Descriptions.Item>
           <Descriptions.Item label="Date Registration" span={3}>
             {data.isNewRide === true
               ? `NEW, ${formatDateString(data.dateRegistration)}`
@@ -141,16 +138,16 @@ export const Employee = () => {
             {data.description}
           </Descriptions.Item>
           <Descriptions.Item label="Type Boat" span={3}>
-            {getTypeBoatName(data.typeBoat)}
+            {getRideCategoria(data.rideType, data.categorias)}
           </Descriptions.Item>
           <Descriptions.Item label="Starting from" span={3}>
-            {getTypePortName(data.typePort)}
+            {getRideStartPoints(data.rideType, data.startPoints)}
           </Descriptions.Item>
           <Descriptions.Item label="Phone" span={3}>
             {data.phone}
           </Descriptions.Item>
           <Descriptions.Item label="Google Map Link" span={3}>
-            {data.googleMapLink }
+            {data.googleMapLink}
           </Descriptions.Item>
         </Descriptions>
         {user?.id === data.userId ? (
@@ -174,7 +171,7 @@ export const Employee = () => {
                     Go back
                   </CustomButton>
                 </Link>
-                <Link to={`${Paths.phone}${data.phone}`} >
+                <Link to={`${Paths.phone}${data.phone}`}>
                   <CustomButton
                     type="primary"
                     shape="round"
@@ -216,15 +213,15 @@ export const Employee = () => {
                   Go back
                 </CustomButton>
               </Link>
-              <Link to={`${Paths.phone}${data.phone}`} >
-                  <CustomButton
-                    type="primary"
-                    shape="round"
-                    icon={<FontAwesomeIcon icon={faPhone} />}
-                  >
-                    Call
-                  </CustomButton>
-                </Link>
+              <Link to={`${Paths.phone}${data.phone}`}>
+                <CustomButton
+                  type="primary"
+                  shape="round"
+                  icon={<FontAwesomeIcon icon={faPhone} />}
+                >
+                  Call
+                </CustomButton>
+              </Link>
             </Space>
           </>
         )}
