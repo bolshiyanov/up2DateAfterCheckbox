@@ -40,53 +40,66 @@ const add = async (req, res) => {
         startPoints: "01",
 
         morningMonday: "m",
+        isAvailableMondayMorning: true,
         afternoonMonday: "a",
+        isAvailableMondayAfternoon: true,
         eveningMonday: "e1",
-
-          extraMonday:"extra0",
-          extraIsAvailableMonday: false,
+        isAvailableMondayEvening: true,
+        extraMonday: "extra0",
+        extraIsAvailableMonday: false,
 
         morningTuesday: "m",
+        isAvailableTuesdayMorning: true,
         afternoonTuesday: "a",
+        isAvailableTuesdayAfternoon: true,
         eveningTuesday: "e1",
-
-          extraTuesday:"extra0",
-          extrasIAvailableTuesday: false,
+        isAvailableTuesdayEvening: true,
+        extraTuesday: "extra0",
+        extrasIAvailableTuesday: false,
 
         morningWednesday: "m",
+        isAvailableWednesdayMorning: true,
         afternoonWednesday: "a",
+        isAvailableWednesdayAfternoon: true,
         eveningWednesday: "e1",
-
-          extraWednesday:"extra0",
-          extraIsAvailableWednesday: false,
+        isAvailableWednesdayEvening: true,
+        extraWednesday: "extra0",
+        extraIsAvailableWednesday: false,
 
         morningThursday: "m",
+        isAvailableThursdayMorning: true,
         afternoonThursday: "a",
+        isAvailableThursdayAfternoon: true,
         eveningThursday: "e1",
-
-          extraThursday:"extra0",
-          extraIsAvailableThursday: false,
+        isAvailableThursdayEvening: true,
+        extraThursday: "extra0",
+        extraIsAvailableThursday: false,
 
         morningFriday: "m",
+        isAvailableFridayMorning: true,
         afternoonFriday: "a",
+        isAvailableFridayAfternoon: true,
         eveningFriday: "e1",
-
-        
-          extraFriday:"extra0",
-          extraIsAvailableFriday: false,
+        isAvailableFridayEvening: true,
+        extraFriday: "extra0",
+        extraIsAvailableFriday: false,
 
         morningSaturday: "m",
+        isAvailableSaturdayMorning: true,
         afternoonSaturday: "a",
+        isAvailableSaturdayAfternoon: true,
         eveningSaturday: "e1",
-
-           extraSaturday:"extra0",
-           extraIsAvailableSaturday: false,
+        isAvailableSaturdayEvening: true,
+        extraSaturday: "extra0",
+        extraIsAvailableSaturday: false,
 
         morningSunday: "m",
+        isAvailableSundayMorning: true,
         afternoonSunday: "a",
+        isAvailableSundayAfternoon: true,
         eveningSunday: "e1",
-
-        extraSunday:"extra0",
+        isAvailableSundayEvening: true,
+        extraSunday: "extra0",
         extraIsAvailableSunday: false,
       },
     });
