@@ -1,0 +1,22 @@
+-- AlterTable
+ALTER TABLE "Employee" ADD COLUMN "afternoonFriday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "afternoonMonday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "afternoonSaturday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "afternoonSunday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "afternoonThursday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "afternoonTuesday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "afternoonWednesday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "eveningFriday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "eveningMonday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "eveningSaturday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "eveningSaturdaySunday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "eveningThursday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "eveningTuesday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "eveningWednesday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "morningFriday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "morningMonday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "morningSaturday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "morningSunday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "morningThursday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "morningTuesday" TEXT;
+ALTER TABLE "Employee" ADD COLUMN "morningWednesday" TEXT;

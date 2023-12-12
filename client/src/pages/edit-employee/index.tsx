@@ -21,7 +21,6 @@ export const EditEmployee = () => {
   let isAvailable = true;
   let isBlocked = false;
 
-  let ridesKey="01"
 
   if (isLoading) {
     return (

@@ -24,26 +24,70 @@ const add = async (req, res) => {
   try {
     const data = req.body;
 
-    if (
-      !data.rideType ||
-      !data.rideName ||
-      !data.description ||
-      !data.phone 
-    ) {
+    if (!data.rideType || !data.rideName || !data.description || !data.phone) {
       return res.status(400).json({ message: "All fields are requires" });
     }
 
     const employee = await prisma.employee.create({
       data: {
         ...data,
-        userId: req.user.id, 
+        userId: req.user.id,
         isBlocked: false,
-        isAvailable: true, 
-        isNewRide : true,
-        rideFoto: "https://source.unsplash.com/weekly?boat",
+        isAvailable: true,
+        isNewRide: true,
+        rideFoto: "https://source.unsplash.com/weekly?tenerife",
         categorias: "01",
         startPoints: "01",
 
+        morningMonday: "m",
+        afternoonMonday: "a",
+        eveningMonday: "e1",
+
+          extraMonday:"extra0",
+          extraIsAvailableMonday: false,
+
+        morningTuesday: "m",
+        afternoonTuesday: "a",
+        eveningTuesday: "e1",
+
+          extraTuesday:"extra0",
+          extrasIAvailableTuesday: false,
+
+        morningWednesday: "m",
+        afternoonWednesday: "a",
+        eveningWednesday: "e1",
+
+          extraWednesday:"extra0",
+          extraIsAvailableWednesday: false,
+
+        morningThursday: "m",
+        afternoonThursday: "a",
+        eveningThursday: "e1",
+
+          extraThursday:"extra0",
+          extraIsAvailableThursday: false,
+
+        morningFriday: "m",
+        afternoonFriday: "a",
+        eveningFriday: "e1",
+
+        
+          extraFriday:"extra0",
+          extraIsAvailableFriday: false,
+
+        morningSaturday: "m",
+        afternoonSaturday: "a",
+        eveningSaturday: "e1",
+
+           extraSaturday:"extra0",
+           extraIsAvailableSaturday: false,
+
+        morningSunday: "m",
+        afternoonSunday: "a",
+        eveningSunday: "e1",
+
+        extraSunday:"extra0",
+        extraIsAvailableSunday: false,
       },
     });
 

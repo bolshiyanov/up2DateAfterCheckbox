@@ -39,6 +39,56 @@ model Employee {
   isBlocked        Boolean?
   isNewRide        Boolean?
   isAvailable      Boolean?
-  user             User     @relation(fields: [userId], references: [id])
-  userId           String
+  
+  morningMonday    String?
+  afternoonMonday  String?
+  eveningMonday    String?
+
+    extraMonday   String?
+    extraIsAvailableMonday Boolean?
+
+  morningTuesday         String?
+  afternoonTuesday       String?
+  eveningTuesday         String?
+
+    extraTuesday       String?
+    extrasIAvailableTuesday Boolean?
+  
+  morningWednesday        String?
+  afternoonWednesday      String?
+  eveningWednesday        String?
+
+    extraWednesday        String?
+    extraIsAvailableWednesday Boolean?
+
+  morningThursday           String?
+  afternoonThursday         String?
+  eveningThursday           String?
+
+    extraThursday           String?
+    extraIsAvailableThursday Boolean?
+
+  morningFriday   String?
+  afternoonFriday String?
+  eveningFriday   String?
+
+    extraFriday  String?
+    extraIsAvailableFriday Boolean?
+
+  morningSaturday   String?
+  afternoonSaturday String?
+  eveningSaturday   String?
+
+    extraSaturday  String?
+    extraIsAvailableSaturday Boolean?
+
+  morningSunday         String?
+  afternoonSunday       String?
+  eveningSunday String?
+  
+     extraSunday String?
+     extraIsAvailableSunday Boolean?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }

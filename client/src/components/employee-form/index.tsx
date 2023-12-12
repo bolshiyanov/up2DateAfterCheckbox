@@ -57,7 +57,6 @@ export const EmployeeForm = ({
     onFinish(values);
   };
 
-
   return (
     <Card title={title} style={{ width: "30rem" }}>
       <Form
@@ -103,7 +102,7 @@ export const EmployeeForm = ({
 
         <CustomInput type="text" name="rideName" placeholder="Ride name" />
         <CustomInput type="text" name="description" placeholder="Description" />
-        {pageName !== "Add-emploee" && ( 
+        {pageName !== "Add-emploee" && (
           <>
             <CustomInput
               addonBefore="https://"
@@ -133,6 +132,10 @@ export const EmployeeForm = ({
         )}
         <CustomInput type="text" name="phone" placeholder="Phone" />
 
+        {/* Schedle settings */}
+        {pageName !== "Add-emploee" && <></>}
+
+        
         <Space direction="vertical" size="large">
           <ErrorMessage message={error} />
           <Row align="middle" justify="center">

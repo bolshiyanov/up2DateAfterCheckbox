@@ -242,9 +242,11 @@ export const allTimes: { [key: string]: string }[] = [
   { "46": "22:30" },
   { "47": "23:00" },
   { "48": "23:30" },
+  { "extra0": "Extra off"}
 ];
 
 export const morning: { [key: string]: string }[] = [
+  
   { "15": "07:00" },
   { "16": "07:30" },
   { "17": "08:00" },
@@ -255,6 +257,8 @@ export const morning: { [key: string]: string }[] = [
   { "22": "10:30" },
   { "23": "11:00" },
   { "24": "11:30" },
+  { "m": "All morning" },
+  { "m0": "Morning off"}
 ];
 
 export const afternoon: { [key: string]: string }[] = [
@@ -266,6 +270,8 @@ export const afternoon: { [key: string]: string }[] = [
   { "30": "14:30" },
   { "31": "15:00" },
   { "32": "15:30" },
+  { "a": "All afternoon" },
+  { "a0": "Afternoo off"}
 ];
 
 export const evening: { [key: string]: string }[] = [
@@ -284,4 +290,8 @@ export const evening: { [key: string]: string }[] = [
   { "45": "22:00" },
   { "46": "22:30" },
   { "47": "23:00" },
+  { "e": "All evening" },
+  { "e1": "From 16:00 to 20:00"},
+  { "e0": "Evening off"}
+  ,
 ];
