@@ -18,6 +18,7 @@ import { CustomTypeSelectRide } from "../custom-type-select/customTypeSelectRide
 import { CustomSelectMorningPicker } from "../custom-type-select/customSelectMorningPicker";
 import { CustomSelectAfternoonPicker } from "../custom-type-select/customSelectAfternoonPicker";
 import { CustomSelectEveningPicker } from "../custom-type-select/customSelectEveningPicker";
+import { CustomSelectExtraPicker } from "../custom-type-select/customSelectExtraPicker";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -135,7 +136,7 @@ export const EmployeeForm = ({
         )}
         <CustomInput type="text" name="phone" placeholder="Phone" />
 
-        {/* Schedle settings */}
+        {/* Schedle settings - Monday*/}
         {pageName !== "Add-emploee" && (
           <>
             <CustomSelectMorningPicker
@@ -149,6 +150,10 @@ export const EmployeeForm = ({
             <CustomSelectEveningPicker
               name="eveningMonday"
               selectName="Choose a evening schedule"
+            />
+            <CustomSelectExtraPicker
+              name="extraMonday"
+              selectName="Choose a extra schedule"
             />
             
           </>

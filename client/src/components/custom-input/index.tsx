@@ -19,7 +19,7 @@ export const CustomInput = ({
   return (
     <Form.Item
       name={name}
-      rules={[{ required: true, message: "Requied fild" }]}
+      rules= {[{ required: name !== "googleMapLink" ? true : false, message: "Requied fild" }]}
       shouldUpdate={ true }
     >
       {name === "description" ? (
