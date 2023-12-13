@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Employee } from "@prisma/client";
-import { Form, Card, Space, Row } from "antd";
+import {
+  Form,
+  Card,
+  Space,
+  Row,
+  Switch,
+  Typography,
+  Flex,
+  Divider,
+  Checkbox,
+} from "antd";
 import { CustomButton } from "../custom-button";
 import { CustomInput } from "../custom-input";
 import { ErrorMessage } from "../error-message";
@@ -19,6 +29,7 @@ import { CustomSelectMorningPicker } from "../custom-type-select/customSelectMor
 import { CustomSelectAfternoonPicker } from "../custom-type-select/customSelectAfternoonPicker";
 import { CustomSelectEveningPicker } from "../custom-type-select/customSelectEveningPicker";
 import { CustomSelectExtraPicker } from "../custom-type-select/customSelectExtraPicker";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -49,6 +60,20 @@ export const EmployeeForm = ({
   rideType,
   error,
 }: Props<Employee>) => {
+  const [schedleSettings, setSchedleSettings] = useState(true);
+  const [height, setHeight] = useState("auto");
+
+  const [checkedMonday, setCheckedMonday] = useState(false);
+  const { Title } = Typography;
+
+  const onChangeMonday = (e: CheckboxChangeEvent) => {
+    setCheckedMonday(e.target.checked);
+  };
+
+  const toggleSchedleSettings = () => {
+    setSchedleSettings(!schedleSettings);
+    setHeight(height === "auto" ? "0px" : "auto");
+  };
   const handleFinish = (values: Employee) => {
     if (!values.rideFoto?.includes("https://")) {
       values.rideFoto = "https://" + values.rideFoto;
@@ -137,25 +162,55 @@ export const EmployeeForm = ({
         <CustomInput type="text" name="phone" placeholder="Phone" />
 
         {/* Schedle settings - Monday*/}
+
         {pageName !== "Add-emploee" && (
           <>
-            <CustomSelectMorningPicker
-              name="morningMonday"
-              selectName="Choose a morning schedule"
-            />
-            <CustomSelectAfternoonPicker
-              name="afternoonMonday"
-              selectName="Choose a afternoon schedule"
-            />
-            <CustomSelectEveningPicker
-              name="eveningMonday"
-              selectName="Choose a evening schedule"
-            />
-            <CustomSelectExtraPicker
-              name="extraMonday"
-              selectName="Choose a extra schedule"
-            />
-            
+            <Space
+              align="center"
+              style={{ marginBottom: schedleSettings ? -16 : 32 }}
+            >
+              <Switch
+                checked={schedleSettings}
+                onChange={toggleSchedleSettings}
+              />{" "}
+              <Title level={3} style={{ paddingTop: 12 }}>
+                Open schedle settings
+              </Title>
+            </Space>
+            <div>
+              {/* Schedle settings - Monday*/}
+              {schedleSettings && (
+                <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
+                  <Divider orientation="left" plain>
+                    <Checkbox onChange={onChangeMonday}>
+                      <Title level={4} style={{ paddingTop: 8 }}>
+                        Monday
+                      </Title>
+                    </Checkbox>
+                  </Divider>
+                  {checkedMonday && (
+                    <div>
+                      <CustomSelectMorningPicker
+                        name="morningMonday"
+                        selectName="Choose a morning schedule"
+                      />
+                      <CustomSelectAfternoonPicker
+                        name="afternoonMonday"
+                        selectName="Choose a afternoon schedule"
+                      />
+                      <CustomSelectEveningPicker
+                        name="eveningMonday"
+                        selectName="Choose a evening schedule"
+                      />
+                      <CustomSelectExtraPicker
+                        name="extraMonday"
+                        selectName="Choose a extra schedule"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </>
         )}
 
