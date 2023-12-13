@@ -11,6 +11,7 @@ import { PasswordInput } from "../../components/password-input";
 import { selectUser } from "../../features/auth/authSlice";
 import { Paths } from "../../paths";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
+import { CustomEmailInput } from "../../components/custom-email-input";
 
 
 export const Login = () => {
@@ -49,7 +50,7 @@ export const Login = () => {
           <Form onFinish={login}>
           
 
-            <CustomInput type="email" name="email" placeholder="Email" />
+            <CustomEmailInput />
             <PasswordInput name="password" placeholder="Passowrd" />
             <CustomButton
             shape="round"

@@ -13,6 +13,7 @@ import { selectUser } from "../../features/auth/authSlice";
 import { Paths } from "../../paths";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { CustomEmailInput } from "../../components/custom-email-input";
 
 type RegisterData = Omit<User, "id"> & { confirmPassword: string };
 
@@ -70,7 +71,7 @@ export const Register = () => {
               example, a boat, paraglider or other rides
             </p>
             <CustomInput type="text" name="name" placeholder="Name" />
-            <CustomInput type="email" name="email" placeholder="Email" />
+            <CustomEmailInput />
             <CustomInput type="phone" name="phone" placeholder="Phone" />
             <PasswordInput name="password" placeholder="Password" />
             <PasswordInput
