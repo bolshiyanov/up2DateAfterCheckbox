@@ -8,7 +8,6 @@ import {
   Row,
   Switch,
   Typography,
-  Flex,
   Divider,
   Checkbox,
 } from "antd";
@@ -61,19 +60,53 @@ export const EmployeeForm = ({
   error,
 }: Props<Employee>) => {
   const [schedleSettings, setSchedleSettings] = useState(true);
-  const [height, setHeight] = useState("auto");
 
   const [checkedMonday, setCheckedMonday] = useState(false);
+  const [checkedTuesday, setCheckedTuesday] = useState(false);
+  const [checkedWednesday, setCheckedWednesday] = useState(false);
+  const [checkedThursday, setCheckedThursday] = useState(false);
+  const [checkedFriday, setCheckedFriday] = useState(false);
+  const [checkedSaturday, setCheckedSaturday] = useState(false);
+  const [checkedSunday, setCheckedSunday] = useState(false);
+  
+  
   const { Title } = Typography;
 
   const onChangeMonday = (e: CheckboxChangeEvent) => {
     setCheckedMonday(e.target.checked);
   };
+  const onChangeTuesday = (e: CheckboxChangeEvent) => {
+    setCheckedTuesday(e.target.checked);
+  };
+  const onChangeWednesday = (e: CheckboxChangeEvent) => {
+    setCheckedWednesday(e.target.checked);
+  };
+  const onChangeThursday = (e: CheckboxChangeEvent) => {
+    setCheckedThursday(e.target.checked);
+  };
+  const onChangeFriday = (e: CheckboxChangeEvent) => {
+    setCheckedFriday(e.target.checked);
+  };
+  const onChangeSaturday = (e: CheckboxChangeEvent) => {
+    setCheckedSaturday(e.target.checked);
+  };
+  const onChangeSunday = (e: CheckboxChangeEvent) => {
+    setCheckedSunday(e.target.checked);
+  };
 
   const toggleSchedleSettings = () => {
     setSchedleSettings(!schedleSettings);
-    setHeight(height === "auto" ? "0px" : "auto");
+    if (!schedleSettings) {
+      setCheckedMonday(false)
+      setCheckedTuesday (false)
+      setCheckedWednesday(false)
+      setCheckedThursday(false)
+      setCheckedFriday(false)
+      setCheckedSaturday(false)
+      setCheckedSunday(false)
+    }
   };
+
   const handleFinish = (values: Employee) => {
     if (!values.rideFoto?.includes("https://")) {
       values.rideFoto = "https://" + values.rideFoto;
@@ -178,6 +211,7 @@ export const EmployeeForm = ({
               </Title>
             </Space>
             <div>
+
               {/* Schedle settings - Monday*/}
               {schedleSettings && (
                 <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
@@ -204,6 +238,204 @@ export const EmployeeForm = ({
                       />
                       <CustomSelectExtraPicker
                         name="extraMonday"
+                        selectName="Choose a extra schedule"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Schedle settings - Tuesday*/}
+              {schedleSettings && (
+                <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
+                  <Divider orientation="left" plain>
+                    <Checkbox onChange={onChangeTuesday}>
+                      <Title level={4} style={{ paddingTop: 8 }}>
+                      Tuesday
+                      </Title>
+                    </Checkbox>
+                  </Divider>
+                  {checkedTuesday && (
+                    <div>
+                      <CustomSelectMorningPicker
+                        name="morningTuesday"
+                        selectName="Choose a morning schedule"
+                      />
+                      <CustomSelectAfternoonPicker
+                        name="afternoonTuesday"
+                        selectName="Choose a afternoon schedule"
+                      />
+                      <CustomSelectEveningPicker
+                        name="eveningTuesday"
+                        selectName="Choose a evening schedule"
+                      />
+                      <CustomSelectExtraPicker
+                        name="extraTuesday"
+                        selectName="Choose a extra schedule"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Schedle settings - Wednesday*/}
+              {schedleSettings && (
+                <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
+                  <Divider orientation="left" plain>
+                    <Checkbox onChange={onChangeWednesday}>
+                      <Title level={4} style={{ paddingTop: 8 }}>
+                      Wednesday
+                      </Title>
+                    </Checkbox>
+                  </Divider>
+                  {checkedWednesday && (
+                    <div>
+                      <CustomSelectMorningPicker
+                        name="morningWednesday"
+                        selectName="Choose a morning schedule"
+                      />
+                      <CustomSelectAfternoonPicker
+                        name="afternoonWednesday"
+                        selectName="Choose a afternoon schedule"
+                      />
+                      <CustomSelectEveningPicker
+                        name="eveningWednesday"
+                        selectName="Choose a evening schedule"
+                      />
+                      <CustomSelectExtraPicker
+                        name="extraWednesday"
+                        selectName="Choose a extra schedule"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Schedle settings - Thursday*/}
+              {schedleSettings && (
+                <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
+                  <Divider orientation="left" plain>
+                    <Checkbox onChange={onChangeThursday}>
+                      <Title level={4} style={{ paddingTop: 8 }}>
+                      Thursday
+                      </Title>
+                    </Checkbox>
+                  </Divider>
+                  {checkedThursday && (
+                    <div>
+                      <CustomSelectMorningPicker
+                        name="morningThursday"
+                        selectName="Choose a morning schedule"
+                      />
+                      <CustomSelectAfternoonPicker
+                        name="afternoonThursday"
+                        selectName="Choose a afternoon schedule"
+                      />
+                      <CustomSelectEveningPicker
+                        name="eveningThursday"
+                        selectName="Choose a evening schedule"
+                      />
+                      <CustomSelectExtraPicker
+                        name="extraThursday"
+                        selectName="Choose a extra schedule"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Schedle settings - Friday*/}
+              {schedleSettings && (
+                <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
+                  <Divider orientation="left" plain>
+                    <Checkbox onChange={onChangeFriday}>
+                      <Title level={4} style={{ paddingTop: 8 }}>
+                      Friday
+                      </Title>
+                    </Checkbox>
+                  </Divider>
+                  {checkedFriday && (
+                    <div>
+                      <CustomSelectMorningPicker
+                        name="morningFriday"
+                        selectName="Choose a morning schedule"
+                      />
+                      <CustomSelectAfternoonPicker
+                        name="afternoonFriday"
+                        selectName="Choose a afternoon schedule"
+                      />
+                      <CustomSelectEveningPicker
+                        name="eveningFriday"
+                        selectName="Choose a evening schedule"
+                      />
+                      <CustomSelectExtraPicker
+                        name="extraFriday"
+                        selectName="Choose a extra schedule"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Schedle settings - Saturday*/}
+              {schedleSettings && (
+                <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
+                  <Divider orientation="left" plain>
+                    <Checkbox onChange={onChangeSaturday}>
+                      <Title level={4} style={{ paddingTop: 8 }}>
+                      Saturday
+                      </Title>
+                    </Checkbox>
+                  </Divider>
+                  {checkedSaturday && (
+                    <div>
+                      <CustomSelectMorningPicker
+                        name="morningSaturday"
+                        selectName="Choose a morning schedule"
+                      />
+                      <CustomSelectAfternoonPicker
+                        name="afternoonSaturday"
+                        selectName="Choose a afternoon schedule"
+                      />
+                      <CustomSelectEveningPicker
+                        name="eveningSaturday"
+                        selectName="Choose a evening schedule"
+                      />
+                      <CustomSelectExtraPicker
+                        name="extraSaturday"
+                        selectName="Choose a extra schedule"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Schedle settings - Sunday*/}
+              {schedleSettings && (
+                <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
+                  <Divider orientation="left" plain>
+                    <Checkbox onChange={onChangeSunday}>
+                      <Title level={4} style={{ paddingTop: 8 }}>
+                      Sunday
+                      </Title>
+                    </Checkbox>
+                  </Divider>
+                  {checkedSunday && (
+                    <div>
+                      <CustomSelectMorningPicker
+                        name="morningSunday"
+                        selectName="Choose a morning schedule"
+                      />
+                      <CustomSelectAfternoonPicker
+                        name="afternoonSunday"
+                        selectName="Choose a afternoon schedule"
+                      />
+                      <CustomSelectEveningPicker
+                        name="eveningSunday"
+                        selectName="Choose a evening schedule"
+                      />
+                      <CustomSelectExtraPicker
+                        name="extraSunday"
                         selectName="Choose a extra schedule"
                       />
                     </div>
