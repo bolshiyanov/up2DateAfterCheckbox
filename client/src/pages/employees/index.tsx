@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Table, Tag } from "antd";
+import { Image, Row, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useSelector } from "react-redux";
 import { CustomButton } from "../../components/custom-button";
@@ -13,9 +13,11 @@ import { formatDateString } from "../../utils/formatDateString";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import { getRideCategoria, getRideStartPoints, getRideTypeName } from "../../utils/getRideTypes";
-
-
+import {
+  getRideCategoria,
+  getRideStartPoints,
+  getRideTypeName,
+} from "../../utils/getRideTypes";
 
 const columns: ColumnsType<Employee> = [
   {
@@ -27,16 +29,50 @@ const columns: ColumnsType<Employee> = [
         formatDateString(record.dateRegistration)
       ),
     key: "newBoat",
-  },
-  {
-    title: "Ride Type",
-    render: (_, record) => getRideTypeName(record.rideType),
-    key: "rideType ",
+    width: 120,
+    ellipsis: {
+      showTitle: false,
+    },
   },
   {
     title: "Ride Name",
     dataIndex: "rideName",
     key: "rideName",
+    ellipsis: {
+      showTitle: false,
+    },
+    width: 100,
+  },
+  {
+    title: "Photo",
+    render: (record) => (
+      <div
+        style={{
+          width: "100%",
+          aspectRatio: "1 / 1",
+          backgroundColor: "rgba(29, 29, 29, 0.8)",
+        }}
+      >
+        <img
+          src={record.rideFoto}
+          alt="Description"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      </div>
+    ),
+    key: "rideFoto",
+    width: 100,
+  },
+
+  {
+    title: "Ride Type",
+    render: (_, record) => getRideTypeName(record.rideType),
+    key: "rideType ",
   },
 
   {
@@ -46,7 +82,8 @@ const columns: ColumnsType<Employee> = [
   },
   {
     title: "Starting from",
-    render: (_, record) => getRideStartPoints(record.rideType, record.startPoints),
+    render: (_, record) =>
+      getRideStartPoints(record.rideType, record.startPoints),
     key: "startPoints",
   },
 

@@ -127,7 +127,7 @@ export const EmployeeForm = ({
       <Form
         name="add-employee"
         autoComplete="off"
-        onFinish={pageName === "Add-emploee" ? onFinish : handleFinish}
+        onFinish={handleFinish}
         onFinishFailed={(error) => {
           console.log({ error });
         }}
