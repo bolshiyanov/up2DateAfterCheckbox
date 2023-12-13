@@ -20,6 +20,7 @@ import { CustomCheck } from "../custom-check";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
+  faCirclePlus,
   faCloudArrowDown,
   faRotate,
 } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +30,7 @@ import { CustomSelectAfternoonPicker } from "../custom-type-select/customSelectA
 import { CustomSelectEveningPicker } from "../custom-type-select/customSelectEveningPicker";
 import { CustomSelectExtraPicker } from "../custom-type-select/customSelectExtraPicker";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
+import Widget from "../custom-image-upload/Widget";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -68,8 +70,7 @@ export const EmployeeForm = ({
   const [checkedFriday, setCheckedFriday] = useState(false);
   const [checkedSaturday, setCheckedSaturday] = useState(false);
   const [checkedSunday, setCheckedSunday] = useState(false);
-  
-  
+
   const { Title } = Typography;
 
   const onChangeMonday = (e: CheckboxChangeEvent) => {
@@ -97,26 +98,28 @@ export const EmployeeForm = ({
   const toggleSchedleSettings = () => {
     setSchedleSettings(!schedleSettings);
     if (!schedleSettings) {
-      setCheckedMonday(false)
-      setCheckedTuesday (false)
-      setCheckedWednesday(false)
-      setCheckedThursday(false)
-      setCheckedFriday(false)
-      setCheckedSaturday(false)
-      setCheckedSunday(false)
+      setCheckedMonday(false);
+      setCheckedTuesday(false);
+      setCheckedWednesday(false);
+      setCheckedThursday(false);
+      setCheckedFriday(false);
+      setCheckedSaturday(false);
+      setCheckedSunday(false);
     }
   };
 
   const handleFinish = (values: Employee) => {
-    if (!values.rideFoto?.includes("https://")) {
-      values.rideFoto = "https://" + values.rideFoto;
-    }
-
-    if (!values.googleMapLink?.includes("https://")) {
-      values.googleMapLink = "https://" + values.googleMapLink;
+    if (imageUrl) {
+      values.rideFoto = imageUrl;
     }
 
     onFinish(values);
+  };
+
+  const [imageUrl, setImageUrl] = useState<string | undefined>();
+
+  const handleUrlChange = (newUrl: string | undefined) => {
+    setImageUrl(newUrl);
   };
 
   return (
@@ -164,15 +167,12 @@ export const EmployeeForm = ({
 
         <CustomInput type="text" name="rideName" placeholder="Ride name" />
         <CustomInput type="text" name="description" placeholder="Description" />
+
+        {/* <CustomImageUpload /> */}
+        <Widget onUrlChange={handleUrlChange} />
+
         {pageName !== "Add-emploee" && (
           <>
-            <CustomInput
-              addonBefore="https://"
-              type="text"
-              name="rideFoto"
-              placeholder="Ride Foto Link or any text"
-            />
-
             <CustomTypeSelectCategoria
               name="categorias"
               selectName="Select the categorias of rides"
@@ -211,7 +211,6 @@ export const EmployeeForm = ({
               </Title>
             </Space>
             <div>
-
               {/* Schedle settings - Monday*/}
               {schedleSettings && (
                 <div style={{ marginBottom: schedleSettings ? 16 : 32 }}>
@@ -251,7 +250,7 @@ export const EmployeeForm = ({
                   <Divider orientation="left" plain>
                     <Checkbox onChange={onChangeTuesday}>
                       <Title level={4} style={{ paddingTop: 8 }}>
-                      Tuesday
+                        Tuesday
                       </Title>
                     </Checkbox>
                   </Divider>
@@ -284,7 +283,7 @@ export const EmployeeForm = ({
                   <Divider orientation="left" plain>
                     <Checkbox onChange={onChangeWednesday}>
                       <Title level={4} style={{ paddingTop: 8 }}>
-                      Wednesday
+                        Wednesday
                       </Title>
                     </Checkbox>
                   </Divider>
@@ -317,7 +316,7 @@ export const EmployeeForm = ({
                   <Divider orientation="left" plain>
                     <Checkbox onChange={onChangeThursday}>
                       <Title level={4} style={{ paddingTop: 8 }}>
-                      Thursday
+                        Thursday
                       </Title>
                     </Checkbox>
                   </Divider>
@@ -350,7 +349,7 @@ export const EmployeeForm = ({
                   <Divider orientation="left" plain>
                     <Checkbox onChange={onChangeFriday}>
                       <Title level={4} style={{ paddingTop: 8 }}>
-                      Friday
+                        Friday
                       </Title>
                     </Checkbox>
                   </Divider>
@@ -383,7 +382,7 @@ export const EmployeeForm = ({
                   <Divider orientation="left" plain>
                     <Checkbox onChange={onChangeSaturday}>
                       <Title level={4} style={{ paddingTop: 8 }}>
-                      Saturday
+                        Saturday
                       </Title>
                     </Checkbox>
                   </Divider>
@@ -416,7 +415,7 @@ export const EmployeeForm = ({
                   <Divider orientation="left" plain>
                     <Checkbox onChange={onChangeSunday}>
                       <Title level={4} style={{ paddingTop: 8 }}>
-                      Sunday
+                        Sunday
                       </Title>
                     </Checkbox>
                   </Divider>

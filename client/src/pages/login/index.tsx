@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Row, Space, Typography } from "antd";
 import { useLoginMutation, UserData } from "../../app/serivices/auth";
 import { CustomButton } from "../../components/custom-button";
-import { CustomInput } from "../../components/custom-input";
 import { ErrorMessage } from "../../components/error-message";
 import { Layout } from "../../components/layout";
 import { PasswordInput } from "../../components/password-input";

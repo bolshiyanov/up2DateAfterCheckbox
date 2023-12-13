@@ -39,7 +39,7 @@ export const Header = () => {
   };
 
   return (
-    <Layout.Header className={style.header}>
+    <Layout.Header className={style.header} style={{paddingLeft: screenWidth < 768 ? 0 : 50, paddingRight: screenWidth < 768 ? 16 : 50,}}>
       <Space>
         <div style={{ marginTop: 4, marginLeft: 16 }}>
           <Typography.Title level={screenWidth < 768 ? 2 : 1}>
@@ -48,7 +48,7 @@ export const Header = () => {
         </div>
       </Space>
       {user ? (
-        <div style={{ marginTop: 16, marginRight: 16 }}>
+        <div style={{ marginTop: 24 }}>
           <CustomButton
             shape="round"
             type="default"
@@ -62,7 +62,7 @@ export const Header = () => {
         <Space>
           {screenWidth > 768 && (
             <Link to="/register">
-              <div style={{ marginTop: 16 }}>
+              <div style={{ marginTop: 24 }}>
                 <CustomButton
                   shape="round"
                   type="default"
