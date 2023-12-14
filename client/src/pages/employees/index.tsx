@@ -17,8 +17,8 @@ import { superAdminColumns } from "../../components/employeesTables/superAdminCo
 import { providerColumns } from "../../components/employeesTables/providerColumns";
 import { agentColumns } from "../../components/employeesTables/agentColumns";
 
-const isSuperAdmin = true;
-const isProvider = false;
+const isSuperAdmin = false;
+const isProvider = true;
 const isAgent = false;
 
 export const Employees = () => {
@@ -35,10 +35,13 @@ export const Employees = () => {
   const gotToAddUser = () => navigate(Paths.employeeAdd);
 
   let columns = [];
+  let widthColumns = 790;
   if (isSuperAdmin) {
     columns = superAdminColumns;
   } else if (isProvider) {
+    widthColumns = 790;
     columns = providerColumns;
+    widthColumns = 1200;
   } else {
     columns = agentColumns;
   }
@@ -68,29 +71,29 @@ export const Employees = () => {
           Add ports
         </CustomButton> */}
       </Row>
-      
-        <div
-          style={{
-            display: 'block',
-            width: "100%",
-            minWidth: 760,
+
+      <div
+        style={{
+          display: "block",
+          width: "100%",
+          minWidth:  widthColumns ,
+        }}
+      >
+        <Table
+          style={{ marginRight: 16, marginLeft: 16 }}
+          loading={isLoading}
+          rowKey={(record) => record.id}
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+          sticky={{ offsetHeader: 0 }}
+          onRow={(record) => {
+            return {
+              onClick: () => navigate(`${Paths.employee}/${record.id}`),
+            };
           }}
-        >
-          <Table
-            style={{ marginRight: 16, marginLeft: 16 }}
-            loading={isLoading}
-            rowKey={(record) => record.id}
-            columns={columns}
-            dataSource={data}
-            pagination={false}
-            sticky={{ offsetHeader: 0 }}
-            onRow={(record) => {
-              return {
-                onClick: () => navigate(`${Paths.employee}/${record.id}`),
-              };
-            }}
-          />
-        </div>
+        />
+      </div>
     </Layout>
   );
 };

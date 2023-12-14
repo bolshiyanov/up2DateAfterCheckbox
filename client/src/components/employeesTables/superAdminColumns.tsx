@@ -22,7 +22,8 @@ export const superAdminColumns: ColumnsType<Employee> = [
       ellipsis: {
         showTitle: false,
       },
-    },{
+    },
+    {
       title: "Photo",
       render: (record) => (
         <div
