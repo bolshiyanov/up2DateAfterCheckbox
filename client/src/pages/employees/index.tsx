@@ -18,6 +18,11 @@ import {
   getRideStartPoints,
   getRideTypeName,
 } from "../../utils/getRideTypes";
+import { getDayName, getNextDayName } from "../../utils/getDayName";
+
+const today = new Date();
+const todayName = getDayName(today);
+const nextTodayName = getNextDayName(today, 1);
 
 const columns: ColumnsType<Employee> = [
   {
@@ -29,7 +34,7 @@ const columns: ColumnsType<Employee> = [
         formatDateString(record.dateRegistration)
       ),
     key: "newBoat",
-    width: 120,
+    width: 100,
     ellipsis: {
       showTitle: false,
     },
@@ -66,25 +71,28 @@ const columns: ColumnsType<Employee> = [
       </div>
     ),
     key: "rideFoto",
-    width: 100,
+    width: 80,
   },
 
   {
     title: "Ride Type",
     render: (_, record) => getRideTypeName(record.rideType),
     key: "rideType ",
+    width: 100,
   },
 
   {
     title: "Categoria",
     render: (_, record) => getRideCategoria(record.rideType, record.categorias),
     key: "categorias",
+    width: 100,
   },
   {
     title: "Starting from",
     render: (_, record) =>
       getRideStartPoints(record.rideType, record.startPoints),
     key: "startPoints",
+    width: 100,
   },
 
   {
@@ -95,6 +103,8 @@ const columns: ColumnsType<Employee> = [
       ) : (
         <Tag color="orange">Blocked</Tag>
       ),
+      key: "isAvailable",
+    width: 100,
   },
   {
     title: "Blocked",
@@ -104,8 +114,12 @@ const columns: ColumnsType<Employee> = [
       ) : (
         <Tag color="volcano">Blocked</Tag>
       ),
+      key: "isAvailable",
+    width: 100,
   },
 ];
+
+
 
 export const Employees = () => {
   const navigate = useNavigate();
