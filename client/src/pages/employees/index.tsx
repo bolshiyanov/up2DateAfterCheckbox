@@ -1,25 +1,22 @@
 import React, { useEffect } from "react";
-import { Image, Row, Table, Tag } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import { Row, Table, Tag } from "antd";
 import { useSelector } from "react-redux";
 import { CustomButton } from "../../components/custom-button";
-import { Employee } from "@prisma/client";
 import { Paths } from "../../paths";
 import { useNavigate } from "react-router-dom";
 import { useGetAllEmployeesQuery } from "../../app/serivices/employees";
 import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
-import { formatDateString } from "../../utils/formatDateString";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { superAdminColumns } from "../../components/employeesTables/superAdminColumns";
 import { providerColumns } from "../../components/employeesTables/providerColumns";
 import { agentColumns } from "../../components/employeesTables/agentColumns";
 
-const isSuperAdmin = false;
+const isSuperAdmin = true;
 const isProvider = false;
-const isAgent = true;
+const isAgent = false
+;
 
 export const Employees = () => {
   const navigate = useNavigate();
@@ -41,10 +38,10 @@ export const Employees = () => {
   } else if (isProvider) {
     widthColumns = 790;
     columns = providerColumns;
-    widthColumns = 1200;
+    widthColumns = 1500;
   } else {
     columns = agentColumns;
-    widthColumns = 1100;
+    widthColumns = 1400;
   }
 
   return (

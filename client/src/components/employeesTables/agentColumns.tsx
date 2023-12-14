@@ -1,7 +1,5 @@
 import { Employee } from "@prisma/client";
-import { formatDateString } from "../../utils/formatDateString";
 import type { ColumnsType } from "antd/es/table";
-import { Tag } from "antd";
 import {
   getRideCategoria,
   getRideStartPoints,
@@ -9,6 +7,7 @@ import {
 } from "../../utils/getRideTypes";
 
 import { getDayName, getNextDayName } from "../../utils/getDayName";
+import { Schedle } from "./schedle";
 
 const today = new Date();
 const todayName = getDayName(today);
@@ -53,7 +52,7 @@ export const agentColumns: ColumnsType<Employee> = [
       </div>
     ),
     key: "rideFoto",
-    width: 80,
+    width: 100,
   },
 
   {
@@ -65,44 +64,44 @@ export const agentColumns: ColumnsType<Employee> = [
   },
   {
     title: todayName,
-    render: (_, record) => <p> </p>,
+    render: (_, record) => <Schedle todayName={todayName} item={record}/>,
     key: todayName,
     width: 110,
   },
 
   {
     title: nextTodayName,
-    render: (_, record) => <p> </p>,
+    render: (_, record) => <Schedle todayName={nextTodayName} item={record}/>,
     key: nextTodayName,
     width: 110,
   },
   {
     title: nextTwoTodayName,
-    render: (_, record) => <p> </p>,
+    render: (_, record) => <Schedle todayName={nextTwoTodayName} item={record}/>,
     key: nextTwoTodayName,
     width: 110,
   },
   {
     title: nextThteeTodayName,
-    render: (_, record) => <p> </p>,
+    render: (_, record) => <Schedle todayName={nextThteeTodayName} item={record}/>,
     key: nextThteeTodayName,
     width: 110,
   },
   {
     title: nextFourTodayName,
-    render: (_, record) => <p> </p>,
+    render: (_, record) => <Schedle todayName={nextFourTodayName} item={record}/>,
     key: nextFourTodayName,
     width: 110,
   },
   {
     title: nextFiveTodayName,
-    render: (_, record) => <p> </p>,
+    render: (_, record) => <Schedle todayName={nextFiveTodayName} item={record}/>,
     key: nextFiveTodayName,
     width: 110,
   },
   {
     title: nextSixTodayName,
-    render: (_, record) => <p> </p>,
+    render: (_, record) => <Schedle todayName={nextSixTodayName} item={record}/>,
     key: nextSixTodayName,
     width: 110,
   },
