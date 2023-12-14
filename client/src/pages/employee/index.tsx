@@ -1,4 +1,12 @@
-import { Descriptions, Space, Divider, Modal, Flex, Spin } from "antd";
+import {
+  Descriptions,
+  Space,
+  Divider,
+  Modal,
+  Flex,
+  Spin,
+  Typography,
+} from "antd";
 import { CustomButton } from "../../components/custom-button";
 import { useState } from "react";
 import { Paths } from "../../paths";
@@ -34,7 +42,7 @@ export const Employee = () => {
   const { data, isLoading } = useGetEmployeeQuery(params.id || "");
   const [removeEmployee] = useRemoveEmployeeMutation();
   const user = useSelector(selectUser);
-
+  const { Title } = Typography;
   if (isLoading) {
     return (
       <Flex
@@ -104,64 +112,110 @@ export const Employee = () => {
       </div>
       <div
         style={{
+          display: "flex", flexDirection: 'row', justifyContent: "center",
           width: "100%",
-          backgroundColor: "rgba(29, 29, 29, 0.8)",
+          
           padding: 16,
         }}
       >
-        <Descriptions
-          title={`Information about ride ${data.rideName}`}
-          bordered
+        <div
+          style={{ width: "100%", maxWidth: 800 }}
         >
-          <Descriptions.Item label="Rider type" span={3}>
-            {getRideTypeName(data.rideType)}
-          </Descriptions.Item>
-          <Descriptions.Item label="Date Registration" span={3}>
-            {data.isNewRide === true
-              ? `NEW, ${formatDateString(data.dateRegistration)}`
-              : formatDateString(data.dateRegistration)}
-          </Descriptions.Item>
-          <Descriptions.Item label="Blocked?" span={3}>
-            {data.isBlocked === false
-              ? "Available for rides catalog"
-              : "The ride is blocked by the super administrator"}
-          </Descriptions.Item>
-          <Descriptions.Item label="Booking" span={3}>
-            {data.isAvailable === false
-              ? "The owner has disabled the availability of this ride for a while"
-              : "The ride is available for booking"}
-          </Descriptions.Item>
-          <Descriptions.Item label="Ride Name" span={3}>
-            {data.rideName}
-          </Descriptions.Item>
-          <Descriptions.Item label="Description" span={3}>
-            {data.description}
-          </Descriptions.Item>
-          <Descriptions.Item label="Type Boat" span={3}>
-            {getRideCategoria(data.rideType, data.categorias)}
-          </Descriptions.Item>
-          <Descriptions.Item label="Starting from" span={3}>
-            {getRideStartPoints(data.rideType, data.startPoints)}
-          </Descriptions.Item>
-          <Descriptions.Item label="Phone" span={3}>
-            {data.phone}
-          </Descriptions.Item>
-          <Descriptions.Item label="Google Map Link" span={3}>
-            {data.googleMapLink}
-          </Descriptions.Item>
-        </Descriptions>
-        {user?.id === data.userId ? (
-          <>
-            <Divider orientation="left">Acton</Divider>
-            <Space>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  justifyContent: "flex-start",
-                }}
-              >
+          <Title level={2} style={{ paddingTop: 12 }}>
+            {`Information about ride ${data.rideName}`}
+          </Title>
+          <Descriptions bordered style={{backgroundColor: "rgba(29, 29, 29, 0.8)", borderRadius: 6}}>
+            <Descriptions.Item label="Rider type" span={3} >
+              {getRideTypeName(data.rideType)}
+            </Descriptions.Item>
+            <Descriptions.Item label="Date Registration" span={3}>
+              {data.isNewRide === true
+                ? `NEW, ${formatDateString(data.dateRegistration)}`
+                : formatDateString(data.dateRegistration)}
+            </Descriptions.Item>
+            <Descriptions.Item label="Blocked?" span={3}>
+              {data.isBlocked === false
+                ? "Available for rides catalog"
+                : "The ride is blocked by the super administrator"}
+            </Descriptions.Item>
+            <Descriptions.Item label="Booking" span={3}>
+              {data.isAvailable === false
+                ? "The owner has disabled the availability of this ride for a while"
+                : "The ride is available for booking"}
+            </Descriptions.Item>
+            <Descriptions.Item label="Ride Name" span={3}>
+              {data.rideName}
+            </Descriptions.Item>
+            <Descriptions.Item label="Description" span={3}>
+              {data.description}
+            </Descriptions.Item>
+            <Descriptions.Item label="Type Boat" span={3}>
+              {getRideCategoria(data.rideType, data.categorias)}
+            </Descriptions.Item>
+            <Descriptions.Item label="Starting from" span={3}>
+              {getRideStartPoints(data.rideType, data.startPoints)}
+            </Descriptions.Item>
+            <Descriptions.Item label="Phone" span={3}>
+              {data.phone}
+            </Descriptions.Item>
+            <Descriptions.Item label="Google Map Link" span={3}>
+              {data.googleMapLink}
+            </Descriptions.Item>
+          </Descriptions>
+          {user?.id === data.userId ? (
+            <>
+              <Divider orientation="left">Acton</Divider>
+              <Space>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Link to={`/`}>
+                    <CustomButton
+                      shape="round"
+                      type="default"
+                      icon={<FontAwesomeIcon icon={faChevronLeft} />}
+                    >
+                      Go back
+                    </CustomButton>
+                  </Link>
+                  <Link to={`${Paths.phone}${data.phone}`}>
+                    <CustomButton
+                      type="primary"
+                      shape="round"
+                      icon={<FontAwesomeIcon icon={faPhone} />}
+                    >
+                      Call
+                    </CustomButton>
+                  </Link>
+                  <Link to={`/employee/edit/${data.id}`}>
+                    <CustomButton
+                      shape="round"
+                      type="default"
+                      icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                    >
+                      Edit
+                    </CustomButton>
+                  </Link>
+                  <CustomButton
+                    shape="round"
+                    danger
+                    onClick={showModal}
+                    icon={<FontAwesomeIcon icon={faTrash} />}
+                  >
+                    Remove
+                  </CustomButton>
+                </div>
+              </Space>
+            </>
+          ) : (
+            <>
+              <Divider orientation="left">Acton</Divider>
+              <Space>
                 <Link to={`/`}>
                   <CustomButton
                     shape="round"
@@ -180,62 +234,21 @@ export const Employee = () => {
                     Call
                   </CustomButton>
                 </Link>
-                <Link to={`/employee/edit/${data.id}`}>
-                  <CustomButton
-                    shape="round"
-                    type="default"
-                    icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                  >
-                    Edit
-                  </CustomButton>
-                </Link>
-                <CustomButton
-                  shape="round"
-                  danger
-                  onClick={showModal}
-                  icon={<FontAwesomeIcon icon={faTrash} />}
-                >
-                  Remove
-                </CustomButton>
-              </div>
-            </Space>
-          </>
-        ) : (
-          <>
-            <Divider orientation="left">Acton</Divider>
-            <Space>
-              <Link to={`/`}>
-                <CustomButton
-                  shape="round"
-                  type="default"
-                  icon={<FontAwesomeIcon icon={faChevronLeft} />}
-                >
-                  Go back
-                </CustomButton>
-              </Link>
-              <Link to={`${Paths.phone}${data.phone}`}>
-                <CustomButton
-                  type="primary"
-                  shape="round"
-                  icon={<FontAwesomeIcon icon={faPhone} />}
-                >
-                  Call
-                </CustomButton>
-              </Link>
-            </Space>
-          </>
-        )}
-        <ErrorMessage message={error} />
-        <Modal
-          title="Confirm remove"
-          open={isModalOpen}
-          onOk={handleDeleteUser}
-          onCancel={hideModal}
-          okText="Confirm"
-          cancelText="Cancel"
-        >
-          Do you really want to remove the boat?
-        </Modal>
+              </Space>
+            </>
+          )}
+          <ErrorMessage message={error} />
+          <Modal
+            title="Confirm remove"
+            open={isModalOpen}
+            onOk={handleDeleteUser}
+            onCancel={hideModal}
+            okText="Confirm"
+            cancelText="Cancel"
+          >
+            Do you really want to remove the boat?
+          </Modal>
+        </div>
       </div>
     </Layout>
   );

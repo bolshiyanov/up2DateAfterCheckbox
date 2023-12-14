@@ -13,113 +13,13 @@ import { formatDateString } from "../../utils/formatDateString";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import {
-  getRideCategoria,
-  getRideStartPoints,
-  getRideTypeName,
-} from "../../utils/getRideTypes";
-import { getDayName, getNextDayName } from "../../utils/getDayName";
+import { superAdminColumns } from "../../components/employeesTables/superAdminColumns";
+import { providerColumns } from "../../components/employeesTables/providerColumns";
+import { agentColumns } from "../../components/employeesTables/agentColumns";
 
-const today = new Date();
-const todayName = getDayName(today);
-const nextTodayName = getNextDayName(today, 1);
-
-const columns: ColumnsType<Employee> = [
-  {
-    title: "Date",
-    render: (text, record) =>
-      record.isNewRide === true ? (
-        <Tag color="green">New</Tag>
-      ) : (
-        formatDateString(record.dateRegistration)
-      ),
-    key: "newBoat",
-    width: 100,
-    ellipsis: {
-      showTitle: false,
-    },
-  },
-  {
-    title: "Ride Name",
-    dataIndex: "rideName",
-    key: "rideName",
-    ellipsis: {
-      showTitle: false,
-    },
-    width: 100,
-  },
-  {
-    title: "Photo",
-    render: (record) => (
-      <div
-        style={{
-          width: "100%",
-          aspectRatio: "1 / 1",
-          backgroundColor: "rgba(29, 29, 29, 0.8)",
-        }}
-      >
-        <img
-          src={record.rideFoto}
-          alt="Description"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
-      </div>
-    ),
-    key: "rideFoto",
-    width: 80,
-  },
-
-  {
-    title: "Ride Type",
-    render: (_, record) => getRideTypeName(record.rideType),
-    key: "rideType ",
-    width: 100,
-  },
-
-  {
-    title: "Categoria",
-    render: (_, record) => getRideCategoria(record.rideType, record.categorias),
-    key: "categorias",
-    width: 100,
-  },
-  {
-    title: "Starting from",
-    render: (_, record) =>
-      getRideStartPoints(record.rideType, record.startPoints),
-    key: "startPoints",
-    width: 100,
-  },
-
-  {
-    title: "Booking",
-    render: (text, record) =>
-      record.isAvailable === true ? (
-        "Available"
-      ) : (
-        <Tag color="orange">Blocked</Tag>
-      ),
-      key: "isAvailable",
-    width: 100,
-  },
-  {
-    title: "Blocked",
-    render: (text, record) =>
-      record.isBlocked === false ? (
-        "Available"
-      ) : (
-        <Tag color="volcano">Blocked</Tag>
-      ),
-      key: "isAvailable",
-    width: 100,
-  },
-];
-
-
+const isSuperAdmin = true;
+const isProvider = false;
+const isAgent = false;
 
 export const Employees = () => {
   const navigate = useNavigate();
@@ -133,6 +33,15 @@ export const Employees = () => {
   }, [user, navigate]);
 
   const gotToAddUser = () => navigate(Paths.employeeAdd);
+
+  let columns = [];
+  if (isSuperAdmin) {
+    columns = superAdminColumns;
+  } else if (isProvider) {
+    columns = providerColumns;
+  } else {
+    columns = agentColumns;
+  }
 
   return (
     <Layout>
@@ -159,19 +68,29 @@ export const Employees = () => {
           Add ports
         </CustomButton> */}
       </Row>
-      <Table
-        style={{ marginRight: 16, marginLeft: 16 }}
-        loading={isLoading}
-        rowKey={(record) => record.id}
-        columns={columns}
-        dataSource={data}
-        pagination={false}
-        onRow={(record) => {
-          return {
-            onClick: () => navigate(`${Paths.employee}/${record.id}`),
-          };
-        }}
-      />
+      
+        <div
+          style={{
+            display: 'block',
+            width: "100%",
+            minWidth: 760,
+          }}
+        >
+          <Table
+            style={{ marginRight: 16, marginLeft: 16 }}
+            loading={isLoading}
+            rowKey={(record) => record.id}
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+            sticky={{ offsetHeader: 0 }}
+            onRow={(record) => {
+              return {
+                onClick: () => navigate(`${Paths.employee}/${record.id}`),
+              };
+            }}
+          />
+        </div>
     </Layout>
   );
 };
