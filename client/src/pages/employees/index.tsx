@@ -18,8 +18,8 @@ import { providerColumns } from "../../components/employeesTables/providerColumn
 import { agentColumns } from "../../components/employeesTables/agentColumns";
 
 const isSuperAdmin = false;
-const isProvider = true;
-const isAgent = false;
+const isProvider = false;
+const isAgent = true;
 
 export const Employees = () => {
   const navigate = useNavigate();
@@ -44,6 +44,7 @@ export const Employees = () => {
     widthColumns = 1200;
   } else {
     columns = agentColumns;
+    widthColumns = 1100;
   }
 
   return (
