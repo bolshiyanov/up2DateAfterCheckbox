@@ -74,7 +74,7 @@ export const Header = () => {
             </Link>
           )}
           <Link to="/login">
-            <div style={{ marginTop: 16, marginRight: 16 }}>
+            <div style={{ marginTop: 24, marginRight: 16 }}>
               <CustomButton
                 shape="round"
                 type="default"

@@ -15,9 +15,7 @@ import { agentColumns } from "../../components/employeesTables/agentColumns";
 
 const isSuperAdmin = true;
 const isProvider = false;
-const isAgent = false
-;
-
+const isAgent = false;
 export const Employees = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
@@ -73,24 +71,35 @@ export const Employees = () => {
       <div
         style={{
           display: "block",
-          width: "100%",
-          minWidth:  widthColumns ,
+          overflowX: "scroll",
+          whiteSpace: "nowrap",
+          maxWidth: "100%",
+          marginBottom: 16,
         }}
       >
-        <Table
-          style={{ marginRight: 16, marginLeft: 16 }}
-          loading={isLoading}
-          rowKey={(record) => record.id}
-          columns={columns}
-          dataSource={data}
-          pagination={false}
-          sticky={{ offsetHeader: 0 }}
-          onRow={(record) => {
-            return {
-              onClick: () => navigate(`${Paths.employee}/${record.id}`),
-            };
+        <div
+          style={{
+            display: "inline-block",
+            marginRight: 8,
+            whiteSpace: "normal",
+            marginBottom: 50,
           }}
-        />
+        >
+          <Table
+            style={{ marginRight: 16, marginLeft: 16 }}
+            loading={isLoading}
+            rowKey={(record) => record.id}
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+            sticky={{ offsetHeader: 0 }}
+            onRow={(record) => {
+              return {
+                onClick: () => navigate(`${Paths.employee}/${record.id}`),
+              };
+            }}
+          />
+        </div>
       </div>
     </Layout>
   );
