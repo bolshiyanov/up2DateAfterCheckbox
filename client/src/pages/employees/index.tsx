@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Table, Tag } from "antd";
+import { Row, Table } from "antd";
 import { useSelector } from "react-redux";
 import { CustomButton } from "../../components/custom-button";
 import { Paths } from "../../paths";
@@ -9,13 +9,11 @@ import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import { superAdminColumns } from "../../components/employeesTables/superAdminColumns";
-import { providerColumns } from "../../components/employeesTables/providerColumns";
-import { agentColumns } from "../../components/employeesTables/agentColumns";
+import { SuperAdminColumns } from "../../components/employeesTables/superAdminColumns";
+import { ProviderColumns } from "../../components/employeesTables/providerColumns";
+import { AgentColumns } from "../../components/employeesTables/agentColumns";
+import { isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 
-const isSuperAdmin = true;
-const isProvider = false;
-const isAgent = false;
 export const Employees = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
@@ -30,16 +28,13 @@ export const Employees = () => {
   const gotToAddUser = () => navigate(Paths.employeeAdd);
 
   let columns = [];
-  let widthColumns = 790;
+
   if (isSuperAdmin) {
-    columns = superAdminColumns;
+    columns = SuperAdminColumns;
   } else if (isProvider) {
-    widthColumns = 790;
-    columns = providerColumns;
-    widthColumns = 1500;
+    columns = ProviderColumns;
   } else {
-    columns = agentColumns;
-    widthColumns = 1400;
+    columns = AgentColumns;
   }
 
   return (
@@ -95,7 +90,9 @@ export const Employees = () => {
             sticky={{ offsetHeader: 0 }}
             onRow={(record) => {
               return {
-                onClick: () => navigate(`${Paths.employee}/${record.id}`),
+                onClick: ProviderColumns
+                  ? () => {}
+                  : () => navigate(`${Paths.employee}/${record.id}`),
               };
             }}
           />

@@ -1,18 +1,27 @@
-import { morning } from "../../../dummyData";
-import { afternoon } from "../../../dummyData";
-import { evening } from "../../../dummyData";
-import {allTimes } from "../../../dummyData";
+// Schedle.jsx
+import React, { useState } from "react";
+import { morning, afternoon, evening, allTimes } from "../../../dummyData";
 import { Item } from "../../../types";
-import styles from "./index.module.css";
 import CustomTag from "../../custom-tag";
+import CustomModal from "../../custom-modal";
 
 type Props = {
   todayName: string;
   item: Item;
 };
 
-
 export const Schedle = ({ todayName, item }: Props) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  
 
   const morningValueKey = (item as Item)[
     `morning${todayName}` as keyof Item
@@ -55,11 +64,18 @@ export const Schedle = ({ todayName, item }: Props) => {
   ] as boolean;
 
   return (
-    <div className={styles.main}>
-      <CustomTag time={morningValue} available={morningAvailableValue} />
-      <CustomTag time={afternoonValue} available={afternoonAvailableValue} />
-      <CustomTag time={eveningValue} available={eveningAvailableValue} />
-      <CustomTag time={extraValue} available={extraAvailableValue} />
-    </div>
+    <>
+      <div onClick={showModal}>
+        <CustomTag time={morningValue} available={morningAvailableValue} />
+        <CustomTag time={afternoonValue} available={afternoonAvailableValue} />
+        <CustomTag time={eveningValue} available={eveningAvailableValue} />
+        <CustomTag time={extraValue} available={extraAvailableValue} />
+      </div>
+      <CustomModal
+        isModalOpen={isModalOpen}
+        handleOk={handleOk}
+        todayName={todayName}
+      />
+    </>
   );
 };

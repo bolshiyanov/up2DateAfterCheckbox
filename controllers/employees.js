@@ -32,7 +32,7 @@ const add = async (req, res) => {
       data: {
         ...data,
         userId: req.user.id,
-        isBlocked: false,
+        isBlocked: true,
         isAvailable: true,
         isNewRide: true,
         rideFoto: "https://source.unsplash.com/weekly?tenerife",

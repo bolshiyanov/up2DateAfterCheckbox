@@ -1,17 +1,13 @@
 import { Employee } from "@prisma/client";
-import { formatDateString } from "../../utils/formatDateString";
 import type { ColumnsType } from "antd/es/table";
-import { Tag } from "antd";
 import {
-  getRideCategoria,
   getRideStartPoints,
-  getRideTypeName,
 } from "../../utils/getRideTypes";
 
 import { getDayName, getNextDayName } from "../../utils/getDayName";
+import { Schedle } from "./schedle";
 
 const today = new Date();
-
 const todayName = getDayName(today);
 const nextTodayName = getNextDayName(today, 1);
 const nextTwoTodayName = getNextDayName(today, 2);
@@ -20,7 +16,9 @@ const nextFourTodayName = getNextDayName(today, 4);
 const nextFiveTodayName = getNextDayName(today, 5);
 const nextSixTodayName = getNextDayName(today, 6);
 
-export const providerColumns: ColumnsType<Employee> = [
+
+
+export const ProviderColumns: ColumnsType<Employee> = [
   {
     title: "Ride Name",
     dataIndex: "rideName",
@@ -29,7 +27,7 @@ export const providerColumns: ColumnsType<Employee> = [
       showTitle: false,
     },
     width: 110,
-    fixed: 'left',
+    fixed: "left",
   },
   {
     title: "Photo",
@@ -54,51 +52,9 @@ export const providerColumns: ColumnsType<Employee> = [
       </div>
     ),
     key: "rideFoto",
-    width: 80,
+    width: 100,
   },
 
-  {
-    title: todayName,
-    render: (_, record) => <p> </p>,
-    key: todayName,
-    width: 110,
-  },
-  {
-    title: nextTodayName,
-    render: (_, record) => <p> </p>,
-    key: nextTodayName,
-    width: 110,
-  },
-  {
-    title: nextTwoTodayName,
-    render: (_, record) => <p> </p>,
-    key: nextTwoTodayName,
-    width: 110,
-  },
-  {
-    title: nextThteeTodayName,
-    render: (_, record) => <p> </p>,
-    key: nextThteeTodayName,
-    width: 110,
-  },
-  {
-    title: nextFourTodayName,
-    render: (_, record) => <p> </p>,
-    key: nextFourTodayName,
-    width: 110,
-  },
-  {
-    title: nextFiveTodayName,
-    render: (_, record) => <p> </p>,
-    key: nextFiveTodayName,
-    width: 110,
-  },
-  {
-    title: nextSixTodayName,
-    render: (_, record) => <p> </p>,
-    key: nextSixTodayName,
-    width: 110,
-  },
   {
     title: "Starting from",
     render: (_, record) =>
@@ -106,16 +62,47 @@ export const providerColumns: ColumnsType<Employee> = [
     key: "startPoints",
     width: 110,
   },
+  {
+    title: todayName,
+    render: (_, record) => <Schedle todayName={todayName} item={record}  />,
+    key: todayName,
+    width: 110,
+  },
 
   {
-    title: "Booking",
-    render: (text, record) =>
-      record.isAvailable === true ? (
-        "Available"
-      ) : (
-        <Tag color="orange">Blocked</Tag>
-      ),
-    key: "isAvailable",
-    width: 100,
+    title: nextTodayName,
+    render: (_, record) => <Schedle todayName={nextTodayName} item={record}  />,
+    key: nextTodayName,
+    width: 110,
+  },
+  {
+    title: nextTwoTodayName,
+    render: (_, record) => <Schedle todayName={nextTwoTodayName} item={record}  />,
+    key: nextTwoTodayName,
+    width: 110,
+  },
+  {
+    title: nextThteeTodayName,
+    render: (_, record) => <Schedle todayName={nextThteeTodayName} item={record}  />,
+    key: nextThteeTodayName,
+    width: 110,
+  },
+  {
+    title: nextFourTodayName,
+    render: (_, record) => <Schedle todayName={nextFourTodayName} item={record}  />,
+    key: nextFourTodayName,
+    width: 110,
+  },
+  {
+    title: nextFiveTodayName,
+    render: (_, record) => <Schedle todayName={nextFiveTodayName} item={record} />,
+    key: nextFiveTodayName,
+    width: 110,
+  },
+  {
+    title: nextSixTodayName,
+    render: (_, record) => <Schedle todayName={nextSixTodayName} item={record}  />,
+    key: nextSixTodayName,
+    width: 110,
   },
 ];

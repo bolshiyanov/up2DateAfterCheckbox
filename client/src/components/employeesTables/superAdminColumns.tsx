@@ -8,7 +8,7 @@ import {
   getRideStartPoints,
   getRideTypeName,
 } from "../../utils/getRideTypes";
-export const superAdminColumns: ColumnsType<Employee> = [
+export const SuperAdminColumns: ColumnsType<Employee> = [
     {
       title: "Date",
       render: (text, record) =>
