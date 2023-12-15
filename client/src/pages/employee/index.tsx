@@ -114,7 +114,7 @@ export const Employee = () => {
         style={{
           display: "flex", flexDirection: 'row', justifyContent: "center",
           width: "100%",
-          
+          paddingBottom: 64,
           padding: 16,
         }}
       >

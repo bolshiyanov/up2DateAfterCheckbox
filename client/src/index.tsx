@@ -56,6 +56,7 @@ root.render(
       <ConfigProvider
         theme={{
           algorithm: theme.darkAlgorithm,
+          
         }}
       >
         <Auth>

@@ -6,6 +6,9 @@ export type ErrorWithMessage = {
 };
 
 export type Item = {
+  id: string | null;
+  rideFoto: string | null;
+  rideName: string | null;
   afternoonFriday: string | null;
   afternoonMonday: string | null;
   afternoonSaturday: string | null;

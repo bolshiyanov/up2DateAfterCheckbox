@@ -10,7 +10,7 @@ type Props = {
   item: Item;
 };
 
-export const Schedle = ({ todayName, item }: Props) => {
+export const Schedle = ({ todayName, item  }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -18,6 +18,9 @@ export const Schedle = ({ todayName, item }: Props) => {
   };
 
   const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
     setIsModalOpen(false);
   };
 
@@ -74,7 +77,21 @@ export const Schedle = ({ todayName, item }: Props) => {
       <CustomModal
         isModalOpen={isModalOpen}
         handleOk={handleOk}
+        onCancel={handleCancel}
         todayName={todayName}
+        rideName= {item.rideName}
+        morningValue={morningValue}
+        morningAvailableValue={morningAvailableValue}
+        afternoonValue={afternoonValue}
+        afternoonAvailableValue={afternoonAvailableValue}
+        eveningValue={eveningValue}
+        eveningAvailableValue={eveningAvailableValue} 
+        extraValue={extraValue}
+        extraAvailableValue={extraAvailableValue}
+        id={item.id || ""}
+        rideFoto={item.rideFoto  || ""}
+
+
       />
     </>
   );

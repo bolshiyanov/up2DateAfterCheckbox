@@ -6,6 +6,7 @@ import {
 
 import { getDayName, getNextDayName } from "../../utils/getDayName";
 import { Schedle } from "./schedle";
+import { Tag } from "antd";
 
 const today = new Date();
 const todayName = getDayName(today);
@@ -18,7 +19,8 @@ const nextSixTodayName = getNextDayName(today, 6);
 
 
 
-export const ProviderColumns: ColumnsType<Employee> = [
+export const ProviderColumns: ColumnsType<Employee> = 
+[
   {
     title: "Ride Name",
     dataIndex: "rideName",
@@ -66,43 +68,54 @@ export const ProviderColumns: ColumnsType<Employee> = [
     title: todayName,
     render: (_, record) => <Schedle todayName={todayName} item={record}  />,
     key: todayName,
-    width: 110,
+    width: 150,
   },
 
   {
     title: nextTodayName,
     render: (_, record) => <Schedle todayName={nextTodayName} item={record}  />,
     key: nextTodayName,
-    width: 110,
+    width: 150,
   },
   {
     title: nextTwoTodayName,
     render: (_, record) => <Schedle todayName={nextTwoTodayName} item={record}  />,
     key: nextTwoTodayName,
-    width: 110,
+    width: 150,
   },
   {
     title: nextThteeTodayName,
     render: (_, record) => <Schedle todayName={nextThteeTodayName} item={record}  />,
     key: nextThteeTodayName,
-    width: 110,
+    width: 150,
   },
   {
     title: nextFourTodayName,
     render: (_, record) => <Schedle todayName={nextFourTodayName} item={record}  />,
     key: nextFourTodayName,
-    width: 110,
+    width: 150,
   },
   {
     title: nextFiveTodayName,
     render: (_, record) => <Schedle todayName={nextFiveTodayName} item={record} />,
     key: nextFiveTodayName,
-    width: 110,
+    width: 150,
   },
   {
     title: nextSixTodayName,
     render: (_, record) => <Schedle todayName={nextSixTodayName} item={record}  />,
     key: nextSixTodayName,
-    width: 110,
+    width: 150,
+  },
+  {
+    title: "Blocked",
+    render: (text, record) =>
+      record.isBlocked === false ? (
+        <Tag color="green"> Can be used in Up2Date</Tag>
+      ) : (
+        <Tag color="volcano">Awaiting modarantion</Tag>
+      ),
+    key: "isAvailable",
+    width: 180,
   },
 ];

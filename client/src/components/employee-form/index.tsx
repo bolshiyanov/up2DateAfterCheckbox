@@ -20,7 +20,6 @@ import { CustomCheck } from "../custom-check";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faCirclePlus,
   faCloudArrowDown,
   faRotate,
 } from "@fortawesome/free-solid-svg-icons";

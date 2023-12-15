@@ -1,30 +1,202 @@
 // CustomModal.tsx
-import React from "react";
-import { Modal, Typography } from "antd";
+import React, { useState } from "react";
+import {
+  Descriptions,
+  Divider,
+  Flex,
+  Modal,
+  Spin,
+  Switch,
+  Typography,
+} from "antd";
+import { Item } from "../../types";
+import { Employee } from "@prisma/client";
+import { useGetEmployeeQuery } from "../../app/serivices/employees";
 
 type CustomModalProps = {
   isModalOpen: boolean;
   handleOk: () => void;
+  onCancel: () => void;
   todayName: string;
+  rideName: string | null;
+  morningValue: string;
+  morningAvailableValue: boolean;
+  afternoonValue: string;
+  afternoonAvailableValue: boolean;
+  eveningValue: string;
+  eveningAvailableValue: boolean;
+  extraValue: string;
+  extraAvailableValue: boolean;
+  rideFoto: string;
+  id: string;
 };
 
 const CustomModal: React.FC<CustomModalProps> = ({
   isModalOpen,
   handleOk,
-  todayName
+  onCancel,
+  todayName,
+  rideName,
+  morningValue,
+  morningAvailableValue,
+  afternoonValue,
+  afternoonAvailableValue,
+  eveningValue,
+  eveningAvailableValue,
+  extraValue,
+  extraAvailableValue,
+  rideFoto,
+  id,
 }) => {
+  const { data, isLoading } = useGetEmployeeQuery(id || "");
 
-    const { Title } = Typography;
+  const [morningAvailable, setMorningAvailable] = useState(
+    morningAvailableValue
+  );
+  const [afternoonAvailable, setAfternoonAvailable] = useState(
+    afternoonAvailableValue
+  );
+  const [eveningAvailable, setEveningAvailable] = useState(
+    eveningAvailableValue
+  );
+  const [extraAvailable, setExtraAvailable] = useState(extraAvailableValue);
+
+  if (isLoading) {
+    return (
+      <Flex
+        align="center"
+        justify="center"
+        style={{ height: "100vh", width: "100%" }}
+      >
+        <Spin size="large" />
+      </Flex>
+    );
+  }
+
+  //   const handleEditUser = async (employee: Employee) => {
+  //     try {
+  //       const editedEmployee = {
+  //         ...data,
+  //         ...employee,
+  //       };
+
+  //       await editEmployee(editedEmployee).unwrap();
+
+  //       navigate(`${Paths.status}/created`);
+  //     } catch (err) {
+  //       const maybeError = isErrorWithMessage(err);
+
+  //       if (maybeError) {
+  //         setError(err.data.message);
+  //       } else {
+  //         setError("Unknown error");
+  //       }
+  //     }
+  //   };
+  const { Title } = Typography;
+
+  const genNameMorningAvailableValue = `isAvailable${todayName}Morning`;
+
+  const genNameAfternoonAvailableValue = `isAvailable${todayName}Afternoon`;
+
+  const genNameEveningAvailableValue = `isAvailable${todayName}Evening`;
+
+  const genNameExtraAvailableValue = `isAvailable${todayName}Extra`;
 
   return (
     <Modal
-      title={`Edit ${todayName} schedle`}
-      visible={isModalOpen}
+      open={isModalOpen}
       onOk={handleOk}
-    > <Title level={5} style={{ paddingTop: 0 }}>{todayName}</Title>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      onCancel={onCancel}
+      okText="Upload Changes to server"
+    >
+      <>
+        <Flex style={{ width: "100%" }} justify="flex-start" align="flex-start">
+          <div
+            style={{
+              width: 80,
+              aspectRatio: "1 / 1",
+              borderRadius: "50%",
+              backgroundColor: "rgba(29, 29, 29, 0.8)",
+              marginRight: 16,
+            }}
+          >
+            <img
+              src={rideFoto}
+              alt="Description"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: "50%",
+                display: "block",
+              }}
+            />
+          </div>
+
+          <div>
+            <Title level={2} style={{ marginBottom: -16 }}>
+              Edit {todayName} schedle
+            </Title>
+            <Title level={4} style={{ paddingBottom: 0 }}>
+              {rideName}, {todayName}
+            </Title>
+          </div>
+        </Flex>
+        <Divider />
+
+        {/* morning */}
+        <Flex
+          style={{ width: "100%" }}
+          justify="space-between"
+          align="flex-start"
+        >
+          <p style={{ fontSize: 18, padding: 4 }}>{morningValue}</p>
+          <div style={{ paddingTop: 4 }}>
+            <Switch />
+          </div>
+        </Flex>
+        <Divider />
+
+        {/* afternoon */}
+        <Flex
+          style={{ width: "100%" }}
+          justify="space-between"
+          align="flex-start"
+        >
+          <p style={{ fontSize: 18, padding: 4 }}>{afternoonValue}</p>
+          <div style={{ paddingTop: 4 }}>
+            <Switch />
+          </div>
+        </Flex>
+        <Divider />
+
+        {/* evening */}
+        <Flex
+          style={{ width: "100%" }}
+          justify="space-between"
+          align="flex-start"
+        >
+          <p style={{ fontSize: 18, padding: 4 }}>{eveningValue}</p>
+          <div style={{ paddingTop: 4 }}>
+            <Switch />
+          </div>
+        </Flex>
+        <Divider />
+
+        {/* extra */}
+        <Flex
+          style={{ width: "100%" }}
+          justify="space-between"
+          align="flex-start"
+        >
+          <p style={{ fontSize: 18, padding: 4 }}>{extraValue}</p>
+          <div style={{ paddingTop: 4 }}>
+            <Switch />
+          </div>
+        </Flex>
+        <Divider />
+      </>
     </Modal>
   );
 };

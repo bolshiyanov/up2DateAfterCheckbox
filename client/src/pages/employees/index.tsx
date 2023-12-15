@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Employee } from "@prisma/client";
 import { Row, Table } from "antd";
 import { useSelector } from "react-redux";
 import { CustomButton } from "../../components/custom-button";
@@ -18,7 +19,7 @@ export const Employees = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const { data, isLoading } = useGetAllEmployeesQuery();
-
+  const isMobile = window.innerWidth < 768;
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -28,48 +29,42 @@ export const Employees = () => {
   const gotToAddUser = () => navigate(Paths.employeeAdd);
 
   let columns = [];
+  let newData: Employee[] | undefined;
 
   if (isSuperAdmin) {
     columns = SuperAdminColumns;
+    newData = data;
   } else if (isProvider) {
+    newData = data?.filter((item) => item.userId === user?.id);
     columns = ProviderColumns;
   } else {
     columns = AgentColumns;
+    newData = data?.filter((item) => item.isAvailable && !item.isBlocked);
   }
 
   return (
     <Layout>
       <Row align="middle" justify="start" style={{ margin: 16 }}>
         <CustomButton
-          type="primary"
           onClick={gotToAddUser}
+          type="primary"
           icon={<FontAwesomeIcon icon={faCirclePlus} />}
         >
           Add ride
         </CustomButton>
-        {/* <CustomButton
-          type="primary"
-          onClick={gotToAddUser}
-          icon={<PlusCircleOutlined />}
-        >
-          Add types
-        </CustomButton>
-        <CustomButton
-          type="primary"
-          onClick={gotToAddUser}
-          icon={<PlusCircleOutlined />}
-        >
-          Add ports
-        </CustomButton> */}
+        {/* Add your other CustomButtons here */}
       </Row>
 
       <div
         style={{
           display: "block",
-          overflowX: "scroll",
+          overflowX: "auto",
           whiteSpace: "nowrap",
           maxWidth: "100%",
+          width: "100%",
           marginBottom: 16,
+          maxHeight: isMobile ? "100vh" : "85vh",
+          paddingBottom: 64
         }}
       >
         <div
@@ -85,12 +80,12 @@ export const Employees = () => {
             loading={isLoading}
             rowKey={(record) => record.id}
             columns={columns}
-            dataSource={data}
+            dataSource={newData}
             pagination={false}
             sticky={{ offsetHeader: 0 }}
             onRow={(record) => {
               return {
-                onClick: ProviderColumns
+                onClick: isProvider
                   ? () => {}
                   : () => navigate(`${Paths.employee}/${record.id}`),
               };
