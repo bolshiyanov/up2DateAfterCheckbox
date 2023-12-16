@@ -90,8 +90,8 @@ export const Schedle = ({ todayName, item  }: Props) => {
         extraAvailableValue={extraAvailableValue}
         id={item.id || ""}
         rideFoto={item.rideFoto  || ""}
-
-
+        startPoints={item.startPoints  || ""}
+        rideType={item.rideType  || ""}
       />
     </>
   );

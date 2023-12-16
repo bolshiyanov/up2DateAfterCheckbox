@@ -1,7 +1,6 @@
 // CustomModal.tsx
 import React, { useState } from "react";
 import {
-  Descriptions,
   Divider,
   Flex,
   Modal,
@@ -9,9 +8,9 @@ import {
   Switch,
   Typography,
 } from "antd";
-import { Item } from "../../types";
-import { Employee } from "@prisma/client";
 import { useGetEmployeeQuery } from "../../app/serivices/employees";
+
+import { getRideStartPoints } from "../../utils/getRideTypes";
 
 type CustomModalProps = {
   isModalOpen: boolean;
@@ -28,6 +27,8 @@ type CustomModalProps = {
   extraValue: string;
   extraAvailableValue: boolean;
   rideFoto: string;
+  startPoints: string;
+  rideType: string;
   id: string;
 };
 
@@ -46,6 +47,8 @@ const CustomModal: React.FC<CustomModalProps> = ({
   extraValue,
   extraAvailableValue,
   rideFoto,
+  startPoints,
+  rideType,
   id,
 }) => {
   const { data, isLoading } = useGetEmployeeQuery(id || "");
@@ -72,6 +75,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
       </Flex>
     );
   }
+  console.log(' data CustomModal', data)
 
   //   const handleEditUser = async (employee: Employee) => {
   //     try {
@@ -109,6 +113,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
       onOk={handleOk}
       onCancel={onCancel}
       okText="Upload Changes to server"
+      cancelText='Go Back'
     >
       <>
         <Flex style={{ width: "100%" }} justify="flex-start" align="flex-start">
@@ -139,7 +144,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
               Edit {todayName} schedle
             </Title>
             <Title level={4} style={{ paddingBottom: 0 }}>
-              {rideName}, {todayName}
+              {rideName} from {getRideStartPoints(rideType , startPoints) }
             </Title>
           </div>
         </Flex>

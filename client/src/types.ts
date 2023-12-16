@@ -9,6 +9,8 @@ export type Item = {
   id: string | null;
   rideFoto: string | null;
   rideName: string | null;
+  rideType: string | null;
+  startPoints: string | null;
   afternoonFriday: string | null;
   afternoonMonday: string | null;
   afternoonSaturday: string | null;
