@@ -1,41 +1,35 @@
-import React, { useState } from "react";
-import { Checkbox, Form } from "antd";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
+import React from "react";
+import { Switch, Form, Flex, Divider } from "antd";
 
 type Props = {
   pageName: string;
-  startState: boolean;
   name: string;
-  positiveText: string;
-  negativeText: string;
+  text: string
 };
 
-export const CustomCheck = ({
-  startState,
-  name,
-  pageName,
-  positiveText,
-  negativeText
-}: Props) => {
-  const [isChecked, setIsChecked] = useState(startState);
-  const onChange = (e: CheckboxChangeEvent) => {
-    setIsChecked(e.target.checked);
-  };
-
+export const CustomCheck = ({ name, pageName,text }: Props) => {
   return (
     <>
       {pageName === "Edit-emploee" && (
-        <Form.Item
-          name={name}
-          wrapperCol={{ span: 24 }}
-          valuePropName="checked"
-        >
-          <Checkbox onChange={onChange} checked={isChecked}>
-            {isChecked
-              ?  positiveText 
-              : negativeText}
-          </Checkbox>
-        </Form.Item>
+        <>
+          <Flex
+            style={{ width: "100%" }}
+            justify="space-between"
+            align="flex-start"
+          >
+            <p style={{ fontSize: 16 }}>{text}</p>
+            <div style={{ marginBottom: -16 }}>
+              <Form.Item
+                name={name}
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </div>
+          </Flex>
+
+          <Divider/>
+        </>
       )}
     </>
   );

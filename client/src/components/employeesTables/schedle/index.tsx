@@ -1,9 +1,12 @@
 // Schedle.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { morning, afternoon, evening, allTimes } from "../../../dummyData";
 import { Item } from "../../../types";
 import CustomTag from "../../custom-tag";
 import CustomModal from "../../custom-modal";
+import { Paths } from "../../../paths";
+
 
 type Props = {
   todayName: string;
@@ -11,6 +14,7 @@ type Props = {
 };
 
 export const Schedle = ({ todayName, item  }: Props) => {
+    const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -22,6 +26,7 @@ export const Schedle = ({ todayName, item  }: Props) => {
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    navigate(`${Paths.employee}/edit/${item.id}`)
   };
 
   
@@ -63,8 +68,10 @@ export const Schedle = ({ todayName, item  }: Props) => {
     extraValueKey
   ] as string;
   const extraAvailableValue = (item as Item)[
-    `isAvailable${todayName}Extra` as keyof Item
+    `extraIsAvailable${todayName}` as keyof Item
   ] as boolean;
+
+  console.log(' extraAvailableValue Schedle', extraAvailableValue)
 
   return (
     <>

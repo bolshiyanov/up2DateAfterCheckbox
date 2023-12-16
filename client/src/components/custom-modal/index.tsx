@@ -1,16 +1,19 @@
 // CustomModal.tsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Divider, Flex, Form, Modal, Spin, Switch, Typography } from "antd";
 import {
-  Divider,
-  Flex,
-  Modal,
-  Spin,
-  Switch,
-  Typography,
-} from "antd";
-import { useGetEmployeeQuery } from "../../app/serivices/employees";
+  useEditEmployeeMutation,
+  useGetEmployeeQuery,
+} from "../../app/serivices/employees";
 
 import { getRideStartPoints } from "../../utils/getRideTypes";
+import { Employee } from "@prisma/client";
+import { Paths } from "../../paths";
+import { isErrorWithMessage } from "../../utils/is-error-with-message";
+import { CustomButton } from "../custom-button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 type CustomModalProps = {
   isModalOpen: boolean;
@@ -51,18 +54,10 @@ const CustomModal: React.FC<CustomModalProps> = ({
   rideType,
   id,
 }) => {
+  const navigate = useNavigate();
+  const [editEmployee] = useEditEmployeeMutation();
   const { data, isLoading } = useGetEmployeeQuery(id || "");
-
-  const [morningAvailable, setMorningAvailable] = useState(
-    morningAvailableValue
-  );
-  const [afternoonAvailable, setAfternoonAvailable] = useState(
-    afternoonAvailableValue
-  );
-  const [eveningAvailable, setEveningAvailable] = useState(
-    eveningAvailableValue
-  );
-  const [extraAvailable, setExtraAvailable] = useState(extraAvailableValue);
+  const [error, setError] = useState("");
 
   if (isLoading) {
     return (
@@ -75,45 +70,36 @@ const CustomModal: React.FC<CustomModalProps> = ({
       </Flex>
     );
   }
-  console.log(' data CustomModal', data)
 
-  //   const handleEditUser = async (employee: Employee) => {
-  //     try {
-  //       const editedEmployee = {
-  //         ...data,
-  //         ...employee,
-  //       };
+  const handleEditUser = async (values: Employee) => {
+    try {
+      const editedEmployee = {
+        ...data,
+        ...values,
+      };
 
-  //       await editEmployee(editedEmployee).unwrap();
+      await editEmployee(editedEmployee).unwrap();
 
-  //       navigate(`${Paths.status}/created`);
-  //     } catch (err) {
-  //       const maybeError = isErrorWithMessage(err);
+      navigate(`${Paths.status}/created`);
+    } catch (err) {
+      const maybeError = isErrorWithMessage(err);
 
-  //       if (maybeError) {
-  //         setError(err.data.message);
-  //       } else {
-  //         setError("Unknown error");
-  //       }
-  //     }
-  //   };
+      if (maybeError) {
+        setError(err.data.message);
+      } else {
+        setError("Unknown error");
+      }
+    }
+  };
   const { Title } = Typography;
-
-  const genNameMorningAvailableValue = `isAvailable${todayName}Morning`;
-
-  const genNameAfternoonAvailableValue = `isAvailable${todayName}Afternoon`;
-
-  const genNameEveningAvailableValue = `isAvailable${todayName}Evening`;
-
-  const genNameExtraAvailableValue = `isAvailable${todayName}Extra`;
 
   return (
     <Modal
       open={isModalOpen}
       onOk={handleOk}
+      okText="Go Back"
       onCancel={onCancel}
-      okText="Upload Changes to server"
-      cancelText='Go Back'
+      cancelText="Open full settings"
     >
       <>
         <Flex style={{ width: "100%" }} justify="flex-start" align="flex-start">
@@ -144,63 +130,104 @@ const CustomModal: React.FC<CustomModalProps> = ({
               Edit {todayName} schedle
             </Title>
             <Title level={4} style={{ paddingBottom: 0 }}>
-              {rideName} from {getRideStartPoints(rideType , startPoints) }
+              {rideName} from {getRideStartPoints(rideType, startPoints)}
             </Title>
           </div>
         </Flex>
         <Divider />
 
-        {/* morning */}
-        <Flex
-          style={{ width: "100%" }}
-          justify="space-between"
-          align="flex-start"
+        <Form
+          name="edit-schedle"
+          autoComplete="off"
+          onFinish={handleEditUser}
+          onFinishFailed={(error) => {
+            console.log({ error });
+          }}
+          initialValues={data}
         >
-          <p style={{ fontSize: 18, padding: 4 }}>{morningValue}</p>
-          <div style={{ paddingTop: 4 }}>
-            <Switch />
-          </div>
-        </Flex>
-        <Divider />
+          {/* morning */}
+          <Flex
+            style={{ width: "100%" }}
+            justify="space-between"
+            align="flex-start"
+          >
+            <p style={{ fontSize: 18, padding: 4 }}>{morningValue}</p>
+            <div style={{ paddingTop: 4 }}>
+              <Form.Item
+                name={`isAvailable${todayName}Morning`}
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </div>
+          </Flex>
 
-        {/* afternoon */}
-        <Flex
-          style={{ width: "100%" }}
-          justify="space-between"
-          align="flex-start"
-        >
-          <p style={{ fontSize: 18, padding: 4 }}>{afternoonValue}</p>
-          <div style={{ paddingTop: 4 }}>
-            <Switch />
-          </div>
-        </Flex>
-        <Divider />
+          <Divider />
 
-        {/* evening */}
-        <Flex
-          style={{ width: "100%" }}
-          justify="space-between"
-          align="flex-start"
-        >
-          <p style={{ fontSize: 18, padding: 4 }}>{eveningValue}</p>
-          <div style={{ paddingTop: 4 }}>
-            <Switch />
-          </div>
-        </Flex>
-        <Divider />
+          {/* afternoon */}
+          <Flex
+            style={{ width: "100%" }}
+            justify="space-between"
+            align="flex-start"
+          >
+            <p style={{ fontSize: 18, padding: 4 }}>{afternoonValue}</p>
+            <div style={{ paddingTop: 4 }}>
+              <Form.Item
+                name={`isAvailable${todayName}Afternoon`}
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </div>
+          </Flex>
+          <Divider />
 
-        {/* extra */}
-        <Flex
-          style={{ width: "100%" }}
-          justify="space-between"
-          align="flex-start"
-        >
-          <p style={{ fontSize: 18, padding: 4 }}>{extraValue}</p>
-          <div style={{ paddingTop: 4 }}>
-            <Switch />
-          </div>
-        </Flex>
-        <Divider />
+          {/* evening */}
+          <Flex
+            style={{ width: "100%" }}
+            justify="space-between"
+            align="flex-start"
+          >
+            <p style={{ fontSize: 18, padding: 4 }}>{eveningValue}</p>
+            <div style={{ paddingTop: 4 }}>
+              <Form.Item
+                name={`isAvailable${todayName}Evening`}
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </div>
+          </Flex>
+          <Divider />
+
+          {/* extra */}
+          <Flex
+            style={{ width: "100%" }}
+            justify="space-between"
+            align="flex-start"
+          >
+            <p style={{ fontSize: 18, padding: 4 }}>{extraValue}</p>
+            <div style={{ paddingTop: 4 }}>
+              <Form.Item
+                name={`extraIsAvailable${todayName}`}
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </div>
+          </Flex>
+          <Divider />
+          <Flex justify="flex-end" style={{marginRight: -8}}>
+            <CustomButton
+              shape="round"
+              type="primary"
+              htmlType="submit"
+              icon={<FontAwesomeIcon icon={faCloudArrowDown} />}
+            >
+              Upload Changes to server{" "}
+            </CustomButton>
+          </Flex>
+        </Form>
       </>
     </Modal>
   );

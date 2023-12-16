@@ -183,7 +183,7 @@ export const Employee = () => {
                       Go back
                     </CustomButton>
                   </Link>
-                  <Link to={`${Paths.phone}${data.phone}`}>
+                  {/* <Link to={`${Paths.phone}${data.phone}`}>
                     <CustomButton
                       type="primary"
                       shape="round"
@@ -191,7 +191,7 @@ export const Employee = () => {
                     >
                       Call
                     </CustomButton>
-                  </Link>
+                  </Link> */}
                   <Link to={`/employee/edit/${data.id}`}>
                     <CustomButton
                       shape="round"
@@ -225,7 +225,7 @@ export const Employee = () => {
                     Go back
                   </CustomButton>
                 </Link>
-                <Link to={`${Paths.phone}${data.phone}`}>
+                {/* <Link to={`${Paths.phone}${data.phone}`}>
                   <CustomButton
                     type="primary"
                     shape="round"
@@ -233,7 +233,7 @@ export const Employee = () => {
                   >
                     Call
                   </CustomButton>
-                </Link>
+                </Link> */}
               </Space>
             </>
           )}

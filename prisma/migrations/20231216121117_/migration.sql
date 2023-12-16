@@ -1,0 +1,86 @@
+/*
+  Warnings:
+
+  - You are about to drop the column `extrasIAvailableTuesday` on the `Employee` table. All the data in the column will be lost.
+
+*/
+-- RedefineTables
+PRAGMA foreign_keys=OFF;
+CREATE TABLE "new_Employee" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "dateRegistration" DATETIME DEFAULT CURRENT_TIMESTAMP,
+    "rideType" TEXT,
+    "rideName" TEXT,
+    "description" TEXT,
+    "rideFoto" TEXT,
+    "googleMapLink" TEXT,
+    "phone" TEXT,
+    "categorias" TEXT,
+    "startPoints" TEXT,
+    "isBlocked" BOOLEAN,
+    "isNewRide" BOOLEAN,
+    "isAvailable" BOOLEAN,
+    "morningMonday" TEXT,
+    "isAvailableMondayMorning" BOOLEAN,
+    "afternoonMonday" TEXT,
+    "isAvailableMondayAfternoon" BOOLEAN,
+    "eveningMonday" TEXT,
+    "isAvailableMondayEvening" BOOLEAN,
+    "extraMonday" TEXT,
+    "extraIsAvailableMonday" BOOLEAN,
+    "morningTuesday" TEXT,
+    "isAvailableTuesdayMorning" BOOLEAN,
+    "afternoonTuesday" TEXT,
+    "isAvailableTuesdayAfternoon" BOOLEAN,
+    "eveningTuesday" TEXT,
+    "isAvailableTuesdayEvening" BOOLEAN,
+    "extraTuesday" TEXT,
+    "extraIsAvailableTuesday" BOOLEAN,
+    "morningWednesday" TEXT,
+    "isAvailableWednesdayMorning" BOOLEAN,
+    "afternoonWednesday" TEXT,
+    "isAvailableWednesdayAfternoon" BOOLEAN,
+    "eveningWednesday" TEXT,
+    "isAvailableWednesdayEvening" BOOLEAN,
+    "extraWednesday" TEXT,
+    "extraIsAvailableWednesday" BOOLEAN,
+    "morningThursday" TEXT,
+    "isAvailableThursdayMorning" BOOLEAN,
+    "afternoonThursday" TEXT,
+    "isAvailableThursdayAfternoon" BOOLEAN,
+    "eveningThursday" TEXT,
+    "isAvailableThursdayEvening" BOOLEAN,
+    "extraThursday" TEXT,
+    "extraIsAvailableThursday" BOOLEAN,
+    "morningFriday" TEXT,
+    "isAvailableFridayMorning" BOOLEAN,
+    "afternoonFriday" TEXT,
+    "isAvailableFridayAfternoon" BOOLEAN,
+    "eveningFriday" TEXT,
+    "isAvailableFridayEvening" BOOLEAN,
+    "extraFriday" TEXT,
+    "extraIsAvailableFriday" BOOLEAN,
+    "morningSaturday" TEXT,
+    "isAvailableSaturdayMorning" BOOLEAN,
+    "afternoonSaturday" TEXT,
+    "isAvailableSaturdayAfternoon" BOOLEAN,
+    "eveningSaturday" TEXT,
+    "isAvailableSaturdayEvening" BOOLEAN,
+    "extraSaturday" TEXT,
+    "extraIsAvailableSaturday" BOOLEAN,
+    "morningSunday" TEXT,
+    "isAvailableSundayMorning" BOOLEAN,
+    "afternoonSunday" TEXT,
+    "isAvailableSundayAfternoon" BOOLEAN,
+    "eveningSunday" TEXT,
+    "isAvailableSundayEvening" BOOLEAN,
+    "extraSunday" TEXT,
+    "extraIsAvailableSunday" BOOLEAN,
+    "userId" TEXT NOT NULL,
+    CONSTRAINT "Employee_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+INSERT INTO "new_Employee" ("afternoonFriday", "afternoonMonday", "afternoonSaturday", "afternoonSunday", "afternoonThursday", "afternoonTuesday", "afternoonWednesday", "categorias", "dateRegistration", "description", "eveningFriday", "eveningMonday", "eveningSaturday", "eveningSunday", "eveningThursday", "eveningTuesday", "eveningWednesday", "extraFriday", "extraIsAvailableFriday", "extraIsAvailableMonday", "extraIsAvailableSaturday", "extraIsAvailableSunday", "extraIsAvailableThursday", "extraIsAvailableWednesday", "extraMonday", "extraSaturday", "extraSunday", "extraThursday", "extraTuesday", "extraWednesday", "googleMapLink", "id", "isAvailable", "isAvailableFridayAfternoon", "isAvailableFridayEvening", "isAvailableFridayMorning", "isAvailableMondayAfternoon", "isAvailableMondayEvening", "isAvailableMondayMorning", "isAvailableSaturdayAfternoon", "isAvailableSaturdayEvening", "isAvailableSaturdayMorning", "isAvailableSundayAfternoon", "isAvailableSundayEvening", "isAvailableSundayMorning", "isAvailableThursdayAfternoon", "isAvailableThursdayEvening", "isAvailableThursdayMorning", "isAvailableTuesdayAfternoon", "isAvailableTuesdayEvening", "isAvailableTuesdayMorning", "isAvailableWednesdayAfternoon", "isAvailableWednesdayEvening", "isAvailableWednesdayMorning", "isBlocked", "isNewRide", "morningFriday", "morningMonday", "morningSaturday", "morningSunday", "morningThursday", "morningTuesday", "morningWednesday", "phone", "rideFoto", "rideName", "rideType", "startPoints", "userId") SELECT "afternoonFriday", "afternoonMonday", "afternoonSaturday", "afternoonSunday", "afternoonThursday", "afternoonTuesday", "afternoonWednesday", "categorias", "dateRegistration", "description", "eveningFriday", "eveningMonday", "eveningSaturday", "eveningSunday", "eveningThursday", "eveningTuesday", "eveningWednesday", "extraFriday", "extraIsAvailableFriday", "extraIsAvailableMonday", "extraIsAvailableSaturday", "extraIsAvailableSunday", "extraIsAvailableThursday", "extraIsAvailableWednesday", "extraMonday", "extraSaturday", "extraSunday", "extraThursday", "extraTuesday", "extraWednesday", "googleMapLink", "id", "isAvailable", "isAvailableFridayAfternoon", "isAvailableFridayEvening", "isAvailableFridayMorning", "isAvailableMondayAfternoon", "isAvailableMondayEvening", "isAvailableMondayMorning", "isAvailableSaturdayAfternoon", "isAvailableSaturdayEvening", "isAvailableSaturdayMorning", "isAvailableSundayAfternoon", "isAvailableSundayEvening", "isAvailableSundayMorning", "isAvailableThursdayAfternoon", "isAvailableThursdayEvening", "isAvailableThursdayMorning", "isAvailableTuesdayAfternoon", "isAvailableTuesdayEvening", "isAvailableTuesdayMorning", "isAvailableWednesdayAfternoon", "isAvailableWednesdayEvening", "isAvailableWednesdayMorning", "isBlocked", "isNewRide", "morningFriday", "morningMonday", "morningSaturday", "morningSunday", "morningThursday", "morningTuesday", "morningWednesday", "phone", "rideFoto", "rideName", "rideType", "startPoints", "userId" FROM "Employee";
+DROP TABLE "Employee";
+ALTER TABLE "new_Employee" RENAME TO "Employee";
+PRAGMA foreign_key_check;
+PRAGMA foreign_keys=ON;

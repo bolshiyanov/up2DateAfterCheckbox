@@ -34,7 +34,7 @@ export const AgentColumns: ColumnsType<Employee> = [
     render: (record) => (
       <div
         style={{
-          width: "100%",
+          width: 90,
           aspectRatio: "1 / 1",
           backgroundColor: "rgba(29, 29, 29, 0.8)",
         }}
@@ -47,6 +47,7 @@ export const AgentColumns: ColumnsType<Employee> = [
             height: "100%",
             objectFit: "cover",
             display: "block",
+            borderRadius: 6
           }}
         />
       </div>

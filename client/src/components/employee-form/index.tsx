@@ -72,6 +72,7 @@ export const EmployeeForm = ({
 
   const { Title } = Typography;
 
+
   const onChangeMonday = (e: CheckboxChangeEvent) => {
     setCheckedMonday(e.target.checked);
   };
@@ -141,34 +142,29 @@ export const EmployeeForm = ({
           </>
         )}
         <CustomCheck
-          startState={isNewRide}
           name="isNewRide"
           pageName={pageName}
-          positiveText={"This ride is new in this admin panel"}
-          negativeText={"Have you seen this ride before"}
+          text={"Ride is new"}
         />
         <CustomCheck
-          startState={isBlocked}
           name="isBlocked"
           pageName={pageName}
-          positiveText={"The ride is blocked by the super administrator"}
-          negativeText={"Available for rides catalog"}
+          text={"Ride is blocked"}
         />
         <CustomCheck
-          startState={isAvailable}
           name="isAvailable"
           pageName={pageName}
-          positiveText={"This ride is now ready for reservation"}
-          negativeText={
-            "This ride will be temporarily unavailable for reservations"
-          }
+          text={"Available for reservation"}
         />
 
         <CustomInput type="text" name="rideName" placeholder="Ride name" />
         <CustomInput type="text" name="description" placeholder="Description" />
 
         {/* <CustomImageUpload /> */}
-        <Widget onUrlChange={handleUrlChange} />
+        
+        
+        
+        {pageName !== "Add-emploee" && (<Widget onUrlChange={handleUrlChange} />)}
 
         {pageName !== "Add-emploee" && (
           <>

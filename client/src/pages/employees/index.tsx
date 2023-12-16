@@ -41,6 +41,7 @@ export const Employees = () => {
     columns = AgentColumns;
     newData = data?.filter((item) => item.isAvailable && !item.isBlocked);
   }
+  console.log('newData Employees', newData)
 
   return (
     <Layout>

@@ -35,7 +35,7 @@ const add = async (req, res) => {
         isBlocked: true,
         isAvailable: true,
         isNewRide: true,
-        rideFoto: "https://source.unsplash.com/weekly?tenerife",
+        rideFoto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702731620/p2ieang5ovs8b7waqkuz.png",
         categorias: "01",
         startPoints: "01",
 
@@ -55,7 +55,7 @@ const add = async (req, res) => {
         eveningTuesday: "e1",
         isAvailableTuesdayEvening: true,
         extraTuesday: "extra0",
-        extrasIAvailableTuesday: false,
+        extraIsAvailableTuesday: false,
 
         morningWednesday: "m",
         isAvailableWednesdayMorning: true,
