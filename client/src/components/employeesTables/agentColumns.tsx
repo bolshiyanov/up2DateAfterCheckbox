@@ -59,7 +59,7 @@ export const AgentColumns: ColumnsType<Employee> = [
   {
     title: "Starting from",
     render: (_, record) =>
-      getRideStartPoints(record.rideType, record.startPoints),
+    getRideStartPoints(record.rideType  || "", record.startPoints || ""),
     key: "startPoints",
     width: 110,
   },
@@ -85,7 +85,7 @@ export const AgentColumns: ColumnsType<Employee> = [
   {
     title: nextThteeTodayName,
     render: (_, record) => <Schedle todayName={nextThteeTodayName} item={record}  />,
-    key: nextThteeTodayName,
+    key: nextThteeTodayName, 
     width: 150,
   },
   {

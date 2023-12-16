@@ -42,7 +42,7 @@ export const ProviderColumns: ColumnsType<Employee> =
         }}
       >
         <img
-          src={record.rideFoto}
+          src={record.rideFoto || ""}
           alt="Description"
           style={{
             width: "100%",
@@ -61,7 +61,7 @@ export const ProviderColumns: ColumnsType<Employee> =
   {
     title: "Starting from",
     render: (_, record) =>
-      getRideStartPoints(record.rideType, record.startPoints),
+      getRideStartPoints(record.rideType  || "", record.startPoints || ""),
     key: "startPoints",
     width: 110,
   },

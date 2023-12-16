@@ -126,12 +126,12 @@ export const Employee = () => {
           </Title>
           <Descriptions bordered style={{backgroundColor: "rgba(29, 29, 29, 0.8)", borderRadius: 6}}>
             <Descriptions.Item label="Rider type" span={3} >
-              {getRideTypeName(data.rideType)}
+              {getRideTypeName(data.rideType || "")}
             </Descriptions.Item>
             <Descriptions.Item label="Date Registration" span={3}>
               {data.isNewRide === true
-                ? `NEW, ${formatDateString(data.dateRegistration)}`
-                : formatDateString(data.dateRegistration)}
+                ? `NEW, ${formatDateString(data.dateRegistration || "")}`
+                : formatDateString(data.dateRegistration || "")}
             </Descriptions.Item>
             <Descriptions.Item label="Blocked?" span={3}>
               {data.isBlocked === false
@@ -150,10 +150,10 @@ export const Employee = () => {
               {data.description}
             </Descriptions.Item>
             <Descriptions.Item label="Type Boat" span={3}>
-              {getRideCategoria(data.rideType, data.categorias)}
+              {getRideCategoria(data.rideType || "", data.categorias || "")}
             </Descriptions.Item>
             <Descriptions.Item label="Starting from" span={3}>
-              {getRideStartPoints(data.rideType, data.startPoints)}
+              {getRideStartPoints(data.rideType || "", data.startPoints || "")}
             </Descriptions.Item>
             <Descriptions.Item label="Phone" span={3}>
               {data.phone}

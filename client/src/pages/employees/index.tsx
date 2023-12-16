@@ -41,18 +41,21 @@ export const Employees = () => {
     columns = AgentColumns;
     newData = data?.filter((item) => item.isAvailable && !item.isBlocked);
   }
-  console.log('newData Employees', newData)
+  console.log("newData Employees", newData);
 
   return (
     <Layout>
       <Row align="middle" justify="start" style={{ margin: 16 }}>
-        <CustomButton
-          onClick={gotToAddUser}
-          type="primary"
-          icon={<FontAwesomeIcon icon={faCirclePlus} />}
-        >
-          Add ride
-        </CustomButton>
+        {(isSuperAdmin ||
+          isProvider) && (
+            <CustomButton
+              onClick={gotToAddUser}
+              type="primary"
+              icon={<FontAwesomeIcon icon={faCirclePlus} />}
+            >
+              Add ride
+            </CustomButton>
+          )}
         {/* Add your other CustomButtons here */}
       </Row>
 
@@ -65,7 +68,7 @@ export const Employees = () => {
           width: "100%",
           marginBottom: 16,
           maxHeight: isMobile ? "100vh" : "85vh",
-          paddingBottom: 64
+          paddingBottom: 64,
         }}
       >
         <div

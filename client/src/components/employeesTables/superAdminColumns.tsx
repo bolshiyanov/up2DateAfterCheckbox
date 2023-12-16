@@ -27,7 +27,7 @@ export const SuperAdminColumns: ColumnsType<Employee> = [
       record.isNewRide === true ? (
         <Tag color="green">New</Tag>
       ) : (
-        formatDateString(record.dateRegistration)
+        formatDateString(record.dateRegistration || "")
       ),
     key: "newBoat",
     width: 120,
@@ -84,21 +84,21 @@ export const SuperAdminColumns: ColumnsType<Employee> = [
   },
   {
     title: "Ride Type",
-    render: (_, record) => getRideTypeName(record.rideType),
+    render: (_, record) => getRideTypeName(record.rideType || ""),
     key: "rideType ",
     width: 160,
   },
 
   {
     title: "Categoria",
-    render: (_, record) => getRideCategoria(record.rideType, record.categorias),
+    render: (_, record) => getRideCategoria(record.rideType || "", record.categorias || ""),
     key: "categorias",
     width: 160,
   },
   {
     title: "Starting from",
     render: (_, record) =>
-      getRideStartPoints(record.rideType, record.startPoints),
+      getRideStartPoints(record.rideType || "", record.startPoints || ""),
     key: "startPoints",
     width: 160,
   },

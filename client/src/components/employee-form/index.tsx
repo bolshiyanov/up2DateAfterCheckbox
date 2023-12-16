@@ -29,6 +29,7 @@ import { CustomSelectAfternoonPicker } from "../custom-type-select/customSelectA
 import { CustomSelectEveningPicker } from "../custom-type-select/customSelectEveningPicker";
 import { CustomSelectExtraPicker } from "../custom-type-select/customSelectExtraPicker";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Widget from "../custom-image-upload/Widget";
 
 type Props<T> = {
@@ -71,7 +72,6 @@ export const EmployeeForm = ({
   const [checkedSunday, setCheckedSunday] = useState(false);
 
   const { Title } = Typography;
-
 
   const onChangeMonday = (e: CheckboxChangeEvent) => {
     setCheckedMonday(e.target.checked);
@@ -141,30 +141,36 @@ export const EmployeeForm = ({
             />
           </>
         )}
-        <CustomCheck
-          name="isNewRide"
-          pageName={pageName}
-          text={"Ride is new"}
-        />
-        <CustomCheck
-          name="isBlocked"
-          pageName={pageName}
-          text={"Ride is blocked"}
-        />
-        <CustomCheck
-          name="isAvailable"
-          pageName={pageName}
-          text={"Available for reservation"}
-        />
+
+        {isSuperAdmin && (
+          <>
+            <CustomCheck
+              name="isNewRide"
+              pageName={pageName}
+              text={"Ride is new"}
+            />
+            <CustomCheck
+              name="isBlocked"
+              pageName={pageName}
+              text={"Ride is blocked"}
+            />
+          </>
+        )}
+
+        {isProvider && (
+          <CustomCheck
+            name="isAvailable"
+            pageName={pageName}
+            text={"Available for reservation"}
+          />
+        )}
 
         <CustomInput type="text" name="rideName" placeholder="Ride name" />
         <CustomInput type="text" name="description" placeholder="Description" />
 
         {/* <CustomImageUpload /> */}
-        
-        
-        
-        {pageName !== "Add-emploee" && (<Widget onUrlChange={handleUrlChange} />)}
+
+        {pageName !== "Add-emploee" && <Widget onUrlChange={handleUrlChange} />}
 
         {pageName !== "Add-emploee" && (
           <>

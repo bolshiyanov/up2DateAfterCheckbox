@@ -40,13 +40,15 @@ export const Header = () => {
 
   return (
     <Layout.Header className={style.header} style={{paddingLeft: screenWidth < 768 ? 0 : 50, paddingRight: screenWidth < 768 ? 16 : 50}}>
-      <Space>
+      
         <div style={{ marginTop: 4, marginLeft: 16 }}>
           <Typography.Title level={screenWidth < 768 ? 2 : 1}>
             Up2Date
           </Typography.Title>
+          
         </div>
-      </Space>
+        
+      
       {user ? (
         <div style={{ marginTop: 24 }}>
           <CustomButton
