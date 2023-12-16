@@ -3,10 +3,12 @@ import counterReducer from "../features/counter/counterSlice";
 import { api } from "./serivices/api";
 import auth from '../features/auth/authSlice'
 import employees from '../features/employees/employeesSlice'
+import selectedIdsReducer from "../features/selectedStory/selectedStorySlice"
 import { listenerMiddleware } from "../middleware/auth";
 
 export const store = configureStore({
   reducer: {
+    selectedIds: selectedIdsReducer,
     counter: counterReducer,
     [api.reducerPath]: api.reducer,
     auth,

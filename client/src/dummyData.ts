@@ -53,44 +53,47 @@ export const ridesTypes = [
     ],
     categorias: [
       {
-        key: "01",
-        value: "01",
+        key: "101",
+        value: "101",
         name: "Catamarans",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702750909/immyrgvqp4puutijtnsa.png"
       },
       {
-        key: "02",
-        value: "02",
+        key: "102",
+        value: "102",
         name: " Sailin",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751076/zmxq2fqbe2vxdavv8z6b.png"
       },
       {
-        key: "03",
-        value: "03",
+        key: "103",
+        value: "103",
         name: "Motor yachts",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751183/e6f4vxgocrmj4t2xshff.png"
       },
       {
-        key: "04",
-        value: "04",
+        key: "104",
+        value: "104",
         name: "Fishing",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751321/iypcwhtqogbfpcfdj1cf.png"
       },
       {
-        key: "05",
-        value: "05",
+        key: "105",
+        value: "105",
         name: "Rent a boat",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751483/kw2fnq8r8zlh4wnzn3dj.png"
       },
+      
       {
-        key: "06",
-        value: "06",
-        name: "Motor yachts",
-      },
-      {
-        key: "07",
-        value: "07",
+        key: "106",
+        value: "106",
         name: "Submarine",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751639/ife1lexkmcrntsotodfq.png"
       },
       {
-        key: "08",
-        value: "08",
+        key: "107",
+        value: "107",
         name: "other",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751792/y4urzxmjkqs9gep9aomg.png"
       },
     ],
   },
@@ -112,24 +115,28 @@ export const ridesTypes = [
     ],
     categorias: [
       {
-        key: "01",
-        value: "01",
+        key: "201",
+        value: "201",
         name: "Jetski",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751887/ktlhzrfl5xs3tov5gst4.png"
       },
       {
-        key: "02",
-        value: "02",
+        key: "202",
+        value: "202",
         name: "Diving",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752042/yfvg8cud7zc9ju99nsu5.png"
       },
       {
-        key: "03",
-        value: "03",
+        key: "203",
+        value: "203",
         name: " Surfing",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752215/sirrmsvavn9b4nc52rsq.png"
       },
       {
-        key: "04",
-        value: "04",
+        key: "204",
+        value: "204",
         name: " other",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752314/grna3bpqh991bpo18l1n.png"
       },
     ],
   },
@@ -146,14 +153,16 @@ export const ridesTypes = [
     ],
     categorias: [
       {
-        key: "01",
-        value: "01",
+        key: "301",
+        value: "301",
         name: "Paragliding",
+        foto:  "https://res.cloudinary.com/db6a9pof6/image/upload/v1702750758/q1wug7mtp193pqh9zgdk.png"
       },
       {
-        key: "02",
-        value: "02",
+        key: "302",
+        value: "302",
         name: "Helicopter",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752385/c4gi9eopibdelesn3dqs.png"
       },
     ],
   },
@@ -170,24 +179,28 @@ export const ridesTypes = [
     ],
     categorias: [
       {
-        key: "01",
-        value: "01",
+        key: "401",
+        value: "401",
         name: "Stars",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752542/nta08uhutt3t9bw8be80.png"
       },
       {
-        key: "02",
-        value: "02",
+        key: "402",
+        value: "402",
         name: "Quads",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752723/tjubm85wz4qhegslmmmq.png"
       },
       {
-        key: "03",
-        value: "03",
+        key: "403",
+        value: "403",
         name: "Buggy",
+        foto:"https://res.cloudinary.com/db6a9pof6/image/upload/v1702752839/hhayom3gim5ah25xosum.png"
       },
       {
-        key: "04",
-        value: "04",
+        key: "404",
+        value: "404",
         name: "other",
+        foto:"https://res.cloudinary.com/db6a9pof6/image/upload/v1702753015/gze1uwlbaxgbpjgziizk.png"
       },
     ],
   },

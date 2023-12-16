@@ -5,7 +5,7 @@ import {
   Form,
   Card,
   Space,
-  Row,
+  Flex,
   Switch,
   Typography,
   Divider,
@@ -448,7 +448,7 @@ export const EmployeeForm = ({
 
         <Space direction="vertical" size="large">
           <ErrorMessage message={error} />
-          <Row align="middle" justify="center">
+          <Flex align="middle" justify="center">
             {btnTextGoBack !== "" && (
               <CustomButton
                 shape="round"
@@ -458,7 +458,7 @@ export const EmployeeForm = ({
                 <Link to="/">{btnTextGoBack}</Link>
               </CustomButton>
             )}
-            {btnTextCancel !== "" && (
+            {btnTextCancel !== "" && pageName !== "Edit-emploee" && (
               <CustomButton
                 shape="round"
                 htmlType="reset"
@@ -476,7 +476,7 @@ export const EmployeeForm = ({
             >
               {btnText}
             </CustomButton>
-          </Row>
+          </Flex>
         </Space>
       </Form>
     </Card>

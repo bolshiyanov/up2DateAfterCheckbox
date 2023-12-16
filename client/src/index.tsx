@@ -15,6 +15,8 @@ import { EditEmployee } from "./pages/edit-employee";
 import { Auth } from "./features/auth/auth";
 import { Paths } from "./paths";
 import "./index.css";
+import { EditUsers } from "./pages/edit-users";
+import PhoneCalls from "./components/PhoneCalls";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
     path: `${Paths.status}/:status`,
     element: <Status />,
   },
+  {
+    path: Paths.usersEdit,
+    element: <EditUsers />,
+  },
+  {
+    path: Paths.phone,
+    element: <PhoneCalls />,
+  },
 ]);
 
 const container = document.getElementById("root")!;
@@ -56,7 +66,6 @@ root.render(
       <ConfigProvider
         theme={{
           algorithm: theme.darkAlgorithm,
-          
         }}
       >
         <Auth>

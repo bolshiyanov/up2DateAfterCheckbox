@@ -71,7 +71,6 @@ export const Schedle = ({ todayName, item  }: Props) => {
     `extraIsAvailable${todayName}` as keyof Item
   ] as boolean;
 
-  console.log(' extraAvailableValue Schedle', extraAvailableValue)
 
   return (
     <>
