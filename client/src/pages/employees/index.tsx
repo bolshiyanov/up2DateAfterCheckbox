@@ -56,7 +56,18 @@ export const Employees = () => {
 
   if (isSuperAdmin) {
     columns = SuperAdminColumns;
-    newData = data;
+    newData = data?.slice();  
+    newData?.sort((a, b) => {
+      const dateA = a.dateRegistration ? new Date(a.dateRegistration) : null;
+      const dateB = b.dateRegistration ? new Date(b.dateRegistration) : null;
+    
+      // Handle the case where dateA or dateB is null
+      if (!dateA || !dateB) {
+        return 0; // Or choose another default behavior
+      }
+    
+      return  dateB.getTime() - dateA.getTime();
+    });
   } else if (isProvider) {
     newData = data?.filter((item) => item.userId === user?.id);
     columns = ProviderColumns;
