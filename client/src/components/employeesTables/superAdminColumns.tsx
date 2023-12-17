@@ -1,3 +1,4 @@
+
 import { Employee } from "@prisma/client";
 import { formatDateString } from "../../utils/formatDateString";
 import type { ColumnsType } from "antd/es/table";
@@ -29,7 +30,7 @@ export const SuperAdminColumns: ColumnsType<Employee> = [
       ) : (
         formatDateString(record.dateRegistration || "")
       ),
-    key: "newBoat",
+    key: "dateRegistration",
     width: 120,
     ellipsis: {
       showTitle: false,
@@ -146,3 +147,10 @@ export const SuperAdminColumns: ColumnsType<Employee> = [
     width: 150,
   },
 ];
+
+
+
+
+
+
+

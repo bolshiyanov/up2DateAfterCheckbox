@@ -10,13 +10,13 @@ import { useGetAllEmployeesQuery } from "../../app/serivices/employees";
 import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faPenToSquare, faUser, faUserTie} from "@fortawesome/free-solid-svg-icons";
 import { SuperAdminColumns } from "../../components/employeesTables/superAdminColumns";
 import { ProviderColumns } from "../../components/employeesTables/providerColumns";
 import { AgentColumns } from "../../components/employeesTables/agentColumns";
 import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Stories from "../../components/stories";
-import { EditUsers } from "../edit-users";
+import { EditUsers } from "../users";
 
 export const Employees = () => {
   const navigate = useNavigate();
@@ -24,9 +24,8 @@ export const Employees = () => {
   const selectedId = useSelector(
     (state: RootState) => state.selectedIds.selectedId
   );
-  console.log(' selectedId Employees',selectedId )
+  
   const { data, isLoading } = useGetAllEmployeesQuery();
-  const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
     if (!user) {
@@ -50,6 +49,7 @@ export const Employees = () => {
 
   // For Edit user
    const editUsers = () => navigate(Paths.usersEdit);
+   const editProviders = () => navigate(Paths.providersEdit);
 
   let columns = [];
   let newData: Employee[] | undefined;
@@ -96,11 +96,22 @@ export const Employees = () => {
           <CustomButton
             onClick={editUsers}
             type="primary"
-            icon={<FontAwesomeIcon icon={faPenToSquare} />}
+            icon={<FontAwesomeIcon icon={faUser} />}
           >
-            Edit Users
+            Users
           </CustomButton>
         )} 
+
+        {/* For edit users */}
+       {isSuperAdmin && (!isProvider && !isAgent) && (
+          <CustomButton
+            onClick={editProviders}
+            type="primary"
+            icon={<FontAwesomeIcon icon={faUserTie} />}
+          >
+            Providers
+          </CustomButton>
+        )}
 
         {/* Add your other CustomButtons here */}
       </Row>

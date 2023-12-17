@@ -11,16 +11,15 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String
-  password  String
-  name      String
-  phone     String
-  newUser   Boolean?
-  isBlocked Boolean?
-  owner     Boolean?
-
+  id        String   @id @default(uuid())  
   dateRegistration DateTime   @default(now())
+  name      String
+  isBlocked Boolean?
+  email     String
+  phone     String
+  password  String
+  newUser   Boolean?
+  owner     Boolean?
   createdEmployee  Employee[]
 }
 

@@ -15,8 +15,9 @@ import { EditEmployee } from "./pages/edit-employee";
 import { Auth } from "./features/auth/auth";
 import { Paths } from "./paths";
 import "./index.css";
-import { EditUsers } from "./pages/edit-users";
+import { EditUsers } from "./pages/users";
 import PhoneCalls from "./components/PhoneCalls";
+import { EditProviders } from "./pages/providers";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: Paths.usersEdit,
     element: <EditUsers />,
+  },
+  {
+    path: Paths.providersEdit,
+    element: <EditProviders />,
   },
   {
     path: Paths.phone,
