@@ -10,12 +10,13 @@ import { useGetAllEmployeesQuery } from "../../app/serivices/employees";
 import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus} from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import { SuperAdminColumns } from "../../components/employeesTables/superAdminColumns";
 import { ProviderColumns } from "../../components/employeesTables/providerColumns";
 import { AgentColumns } from "../../components/employeesTables/agentColumns";
 import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Stories from "../../components/stories";
+import { EditUsers } from "../edit-users";
 
 export const Employees = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export const Employees = () => {
   const gotToAddUser = () => navigate(Paths.employeeAdd);
 
   // For Edit user
-  // const editUsers = () => navigate(Paths.usersEdit);
+   const editUsers = () => navigate(Paths.usersEdit);
 
   let columns = [];
   let newData: Employee[] | undefined;
@@ -61,9 +62,8 @@ export const Employees = () => {
       const dateA = a.dateRegistration ? new Date(a.dateRegistration) : null;
       const dateB = b.dateRegistration ? new Date(b.dateRegistration) : null;
     
-      // Handle the case where dateA or dateB is null
       if (!dateA || !dateB) {
-        return 0; // Or choose another default behavior
+        return 0; 
       }
     
       return  dateB.getTime() - dateA.getTime();
@@ -92,7 +92,7 @@ export const Employees = () => {
         )}
 
         {/* For edit users */}
-        {/* {isSuperAdmin && !isProvider && !isAgent && (
+       {isSuperAdmin && (!isProvider && !isAgent) && (
           <CustomButton
             onClick={editUsers}
             type="primary"
@@ -100,7 +100,7 @@ export const Employees = () => {
           >
             Edit Users
           </CustomButton>
-        )} */}
+        )} 
 
         {/* Add your other CustomButtons here */}
       </Row>

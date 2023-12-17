@@ -4,10 +4,12 @@ import { api } from "./serivices/api";
 import auth from '../features/auth/authSlice'
 import employees from '../features/employees/employeesSlice'
 import selectedIdsReducer from "../features/selectedStory/selectedStorySlice"
+import usersReducer from '../features/users/usersSlice'
 import { listenerMiddleware } from "../middleware/auth";
 
 export const store = configureStore({
   reducer: {
+    users: usersReducer,
     selectedIds: selectedIdsReducer,
     counter: counterReducer,
     [api.reducerPath]: api.reducer,

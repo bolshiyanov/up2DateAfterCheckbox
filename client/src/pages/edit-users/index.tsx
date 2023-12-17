@@ -15,12 +15,15 @@ import { ProviderColumns } from "../../components/employeesTables/providerColumn
 import { AgentColumns } from "../../components/employeesTables/agentColumns";
 
 import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
+import { useGetAllUsersQuery } from "../../app/serivices/auth";
 
 export const EditUsers = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-  const { data, isLoading } = useGetAllEmployeesQuery();
+
+  const { data, isLoading } = useGetAllUsersQuery();
   const isMobile = window.innerWidth < 768;
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -28,23 +31,11 @@ export const EditUsers = () => {
   }, [user, navigate]);
 
   console.log('user EditUser', user )
+  console.log('users data EditUser', data )
 
   const gotToAddUser = () => navigate(Paths.employeeAdd);
   
 
-  let columns = [];
-  let newData: Employee[] | undefined;
-
-  if (isSuperAdmin) {
-    columns = SuperAdminColumns;
-    newData = data;
-  } else if (isProvider) {
-    newData = data?.filter((item) => item.userId === user?.id);
-    columns = ProviderColumns;
-  } else {
-    columns = AgentColumns;
-    newData = data?.filter((item) => item.isAvailable && !item.isBlocked);
-  }
   
 
   return (
@@ -65,44 +56,6 @@ export const EditUsers = () => {
         {/* Add your other CustomButtons here */}
       </Row>
 
-      <div
-        style={{
-          display: "block",
-          overflowX: "auto",
-          whiteSpace: "nowrap",
-          maxWidth: "100%",
-          width: "100%",
-          marginBottom: 16,
-          maxHeight: isMobile ? "100vh" : "85vh",
-          paddingBottom: 64,
-        }}
-      >
-        <div
-          style={{
-            display: "inline-block",
-            marginRight: 8,
-            whiteSpace: "normal",
-            marginBottom: 50,
-          }}
-        >
-          <Table
-            style={{ marginRight: 16, marginLeft: 16 }}
-            loading={isLoading}
-            rowKey={(record) => record.id}
-            columns={columns}
-            dataSource={newData}
-            pagination={false}
-            sticky={{ offsetHeader: 0 }}
-            onRow={(record) => {
-              return {
-                onClick: isProvider
-                  ? () => {}
-                  : () => navigate(`${Paths.employee}/${record.id}`),
-              };
-            }}
-          />
-        </div>
-      </div>
     </Layout>
   );
 };

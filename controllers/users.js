@@ -1,3 +1,4 @@
+//controler users
 const { prisma } = require("../prisma/prisma-client");
 const brypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -92,7 +93,7 @@ const register = async (req, res, next) => {
     if (user && secret) {
       res.status(201).json({
         id: user.id,
-        email: user.email,
+        email: user.email, 
         name,
         phone,
         token: jwt.sign({ id: user.id }, secret, { expiresIn: "30d" }),
@@ -117,8 +118,20 @@ const current = async (req, res) => {
   return res.status(200).json(req.user);
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await prisma.user.findMany(); // Assuming you have a Prisma model named "User"
+
+    res.status(200).json(allUsers);
+  } catch (error) {
+    console.error("Error fetching all users:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   login,
   register,
   current,
+  getAllUsers,
 };
