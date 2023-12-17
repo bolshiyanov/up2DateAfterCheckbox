@@ -1,14 +1,18 @@
+// Store.ts
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
 import { api } from "./serivices/api";
 import auth from '../features/auth/authSlice'
 import employees from '../features/employees/employeesSlice'
 import selectedIdsReducer from "../features/selectedStory/selectedStorySlice"
+import selectedGlobalCategoryReducer from "../features/selectedGlobalCategory/selectedGlobalCategorySlice"
+
 import usersReducer from '../features/users/usersSlice'
 import { listenerMiddleware } from "../middleware/auth";
 
 export const store = configureStore({
   reducer: {
+    selectedGlobalCategory: selectedGlobalCategoryReducer,
     users: usersReducer,
     selectedIds: selectedIdsReducer,
     counter: counterReducer,

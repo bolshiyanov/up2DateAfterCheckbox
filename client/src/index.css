@@ -35,4 +35,13 @@ textarea::placeholder {
   font-size: 16px; /* Размер шрифта для placeholder в textarea */
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 

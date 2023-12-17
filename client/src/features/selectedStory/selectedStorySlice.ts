@@ -2,11 +2,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SelectedIdsState {
-  selectedId: string | null;
+  selectedIds: string[];
 }
 
 const initialState: SelectedIdsState = {
-  selectedId: "101",
+  selectedIds: ["101"],
 };
 
 const selectedIdsSlice = createSlice({
@@ -16,12 +16,21 @@ const selectedIdsSlice = createSlice({
     toggleId: (state, action: PayloadAction<string>) => {
       const id = action.payload;
 
-      if (state.selectedId === id) {
-        // If the clicked ID is the same as the currently selected ID, deselect it
-        state.selectedId = null;
+      // Проверяем, есть ли ID уже в массиве selectedIds
+      let index = state.selectedIds.indexOf(id);
+
+      if (index !== -1) {
+        // Если ID уже выбран, создаем новый массив без ID
+        state.selectedIds = state.selectedIds.filter(
+          (selectedId) => selectedId !== id
+        );
+
+        console.log(" state2.selectedIds", state.selectedIds);
       } else {
-        // If a different ID is clicked, select it
-        state.selectedId = id;
+        // Если ID не выбран, создаем новый массив с добавленным ID
+        state.selectedIds = [...state.selectedIds, id];
+        
+        console.log(" state1.selectedIds", state.selectedIds);
       }
     },
   },

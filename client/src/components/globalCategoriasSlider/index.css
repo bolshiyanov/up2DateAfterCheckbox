@@ -1,0 +1,12 @@
+.no-scrollbar {
+    display: inline-block;
+    margin-right: 8px;
+    white-space: nowrap;
+    margin-bottom: 16px;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }

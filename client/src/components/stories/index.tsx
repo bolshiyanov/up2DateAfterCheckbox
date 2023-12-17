@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { ridesTypes } from "../../dummyData";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../app/store";
+import { toggleId } from "../../features/selectedStory/selectedStorySlice";
 import Story from "./story";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+
+import { ridesTypes } from "../../dummyData";  // Import ridesTypes from the correct path
+
+import "./index.css";
 
 interface StoriesProps {}
 
@@ -31,41 +35,41 @@ const transformData = (originalArray: typeof ridesTypes): TransformedData[] => {
 };
 
 const Stories: React.FC<StoriesProps> = () => {
-  
-
- 
-
-  const [numberOfSlides, setNumberOfSlides] = useState<number>(0);
   const resultArray: TransformedData[] = transformData(ridesTypes);
+  const selectedIds = useSelector((state: RootState) => state.selectedIds.selectedIds);
+  const dispatch: AppDispatch = useDispatch();
 
-  useEffect(() => {
-    const calculateNumberOfSlides = () => {
-      const slideWidth = 200;
-      const screenWidth = window.innerWidth;
-      const calculatedSlides = Math.floor(screenWidth / slideWidth);
-      setNumberOfSlides(calculatedSlides);
-    };
-    calculateNumberOfSlides();
-    window.addEventListener("resize", calculateNumberOfSlides);
-    return () => {
-      window.removeEventListener("resize", calculateNumberOfSlides);
-    };
-  }, []);
+  const handleStoryClick = (id: string) => {
+    dispatch(toggleId(id));
+  };
 
   return (
-    <div>
-      <Swiper spaceBetween={10} slidesPerView={numberOfSlides}>
-        {resultArray.map((story) => (
-          <SwiperSlide key={story.id}>
-            <Story
-              type={story.type}
-              id={story.id}
-              foto={story.foto}
-              name={story.name}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div
+      className="no-scrollbar"
+      style={{
+        display: "block",
+        overflowX: "scroll",
+        whiteSpace: "nowrap",
+        width: "100%",
+        maxWidth: "100%",
+        marginBottom: 16,
+      }}
+    >
+      {resultArray.map((story) => (
+        <div
+          key={story.id}
+          className={`no-scrollbar ${selectedIds.includes(story.id) ? "selected" : ""}`}
+          style={{ margin: 4, display: "inline-block" }}
+          onClick={() => handleStoryClick(story.id)}
+        >
+          <Story
+            type={story.type}
+            id={story.id}
+            foto={story.foto}
+            name={story.name}
+          />
+        </div>
+      ))}
     </div>
   );
 };

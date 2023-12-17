@@ -100,7 +100,7 @@ export const ridesTypes = [
   {
     key: "02",
     value: "02",
-    name: " Watersports Rides",
+    name: "Watersports Rides",
     startPoints: [
       {
         key: "01",

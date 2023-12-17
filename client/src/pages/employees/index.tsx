@@ -10,21 +10,26 @@ import { useGetAllEmployeesQuery } from "../../app/serivices/employees";
 import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faPenToSquare, faUser, faUserTie} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCirclePlus,
+  faPenToSquare,
+  faUser,
+  faUserTie,
+} from "@fortawesome/free-solid-svg-icons";
 import { SuperAdminColumns } from "../../components/employeesTables/superAdminColumns";
 import { ProviderColumns } from "../../components/employeesTables/providerColumns";
 import { AgentColumns } from "../../components/employeesTables/agentColumns";
 import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Stories from "../../components/stories";
 import { EditUsers } from "../users";
+import GlobalCategoriasSlider from "../../components/globalCategoriasSlider";
 
 export const Employees = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-  const selectedId = useSelector(
-    (state: RootState) => state.selectedIds.selectedId
+  const selectedIds = useSelector(
+    (state: RootState) => state.selectedIds.selectedIds
   );
-  
   const { data, isLoading } = useGetAllEmployeesQuery();
 
   useEffect(() => {
@@ -48,8 +53,8 @@ export const Employees = () => {
   const gotToAddUser = () => navigate(Paths.employeeAdd);
 
   // For Edit user
-   const editUsers = () => navigate(Paths.usersEdit);
-   const editProviders = () => navigate(Paths.providersEdit);
+  const editUsers = () => navigate(Paths.usersEdit);
+  const editProviders = () => navigate(Paths.providersEdit);
 
   let columns = [];
   let newData: Employee[] | undefined;
@@ -57,16 +62,16 @@ export const Employees = () => {
 
   if (isSuperAdmin) {
     columns = SuperAdminColumns;
-    newData = data?.slice();  
+    newData = data?.slice();
     newData?.sort((a, b) => {
       const dateA = a.dateRegistration ? new Date(a.dateRegistration) : null;
       const dateB = b.dateRegistration ? new Date(b.dateRegistration) : null;
-    
+
       if (!dateA || !dateB) {
-        return 0; 
+        return 0;
       }
-    
-      return  dateB.getTime() - dateA.getTime();
+
+      return dateB.getTime() - dateA.getTime();
     });
   } else if (isProvider) {
     newData = data?.filter((item) => item.userId === user?.id);
@@ -74,12 +79,14 @@ export const Employees = () => {
   } else {
     columns = AgentColumns;
     availableData = data?.filter((item) => item.isAvailable && !item.isBlocked);
-    newData =  availableData?.filter((item) => item.categorias === selectedId);
+    newData = availableData?.filter((item) => selectedIds.includes(item.categorias || ""));
+
   }
 
   return (
     <Layout>
-      {(!isSuperAdmin && !isProvider) && isAgent && <Stories/>}
+      {!isSuperAdmin && !isProvider && isAgent && <GlobalCategoriasSlider />}
+      {!isSuperAdmin && !isProvider && isAgent && <Stories />}
       <Row align="middle" justify="start" style={{ margin: 16 }}>
         {(isSuperAdmin || isProvider) && !isAgent && (
           <CustomButton
@@ -92,7 +99,7 @@ export const Employees = () => {
         )}
 
         {/* For edit users */}
-       {isSuperAdmin && (!isProvider && !isAgent) && (
+        {isSuperAdmin && !isProvider && !isAgent && (
           <CustomButton
             onClick={editUsers}
             type="primary"
@@ -100,10 +107,10 @@ export const Employees = () => {
           >
             Users
           </CustomButton>
-        )} 
+        )}
 
         {/* For edit users */}
-       {isSuperAdmin && (!isProvider && !isAgent) && (
+        {isSuperAdmin && !isProvider && !isAgent && (
           <CustomButton
             onClick={editProviders}
             type="primary"

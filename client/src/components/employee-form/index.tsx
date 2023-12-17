@@ -31,6 +31,7 @@ import { CustomSelectExtraPicker } from "../custom-type-select/customSelectExtra
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Widget from "../custom-image-upload/Widget";
+import { getRideTypeName } from "../../utils/getRideTypes";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -174,6 +175,7 @@ export const EmployeeForm = ({
 
         {pageName !== "Add-emploee" && (
           <>
+          <Title level={3} style={{ paddingBottom: 16 }}>{getRideTypeName(rideType)}</Title>
             <CustomTypeSelectCategoria
               name="categorias"
               selectName="Select the categorias of rides"

@@ -16,26 +16,32 @@ interface StoryProps {
 
 const Story: React.FC<StoryProps> = ({ id, foto, type, name }) => {
   const dispatch: AppDispatch = useDispatch();
-  const selectedId = useSelector((state: RootState) => state.selectedIds.selectedId);
-  const isSelected = selectedId === id;
+  const selectedIds = useSelector((state: RootState) => state.selectedIds.selectedIds);
+  const value = useSelector((state: RootState) => state.selectedGlobalCategory.value);
+  console.log('selectedIds Story', selectedIds)
+ 
+  const isSelected = selectedIds.includes(id);
 
   const onClick = () => {
     dispatch(toggleId(id));
+    
   };
-
+  
   return (
-    <Card
-      hoverable
-      style={{
-        width: 200,
-        height: 300,
-        border: isSelected ? "3px solid #007aff" : "2px solid #003747",
-      }}
-      cover={<img alt={`${type}, ${name}`} src={foto} style={{ width: 196, height: 200 }} />}
-      onClick={onClick}
-    >
-      <Meta title={name} description={type} />
-    </Card>
+    value !== null && type === value ? (
+      <Card
+        hoverable
+        style={{
+          width: 200,
+          height: 300,
+          border: isSelected ? "3px solid #007aff" : "2px solid #003747",
+        }}
+        cover={<img alt={`${type}, ${name}`} src={foto} style={{ width: 196, height: 200 }} />}
+       
+      >
+        <Meta title={name} description={type} />
+      </Card>
+    ) : null
   );
 };
 
