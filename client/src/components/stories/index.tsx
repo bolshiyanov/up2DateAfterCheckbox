@@ -31,12 +31,16 @@ const transformData = (originalArray: typeof ridesTypes): TransformedData[] => {
 };
 
 const Stories: React.FC<StoriesProps> = () => {
+  
+
+ 
+
   const [numberOfSlides, setNumberOfSlides] = useState<number>(0);
   const resultArray: TransformedData[] = transformData(ridesTypes);
 
   useEffect(() => {
     const calculateNumberOfSlides = () => {
-      const slideWidth = 200; 
+      const slideWidth = 200;
       const screenWidth = window.innerWidth;
       const calculatedSlides = Math.floor(screenWidth / slideWidth);
       setNumberOfSlides(calculatedSlides);

@@ -2,11 +2,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SelectedIdsState {
-  ids: string[];
+  selectedId: string | null;
 }
 
 const initialState: SelectedIdsState = {
-  ids: [],
+  selectedId: "101",
 };
 
 const selectedIdsSlice = createSlice({
@@ -15,12 +15,13 @@ const selectedIdsSlice = createSlice({
   reducers: {
     toggleId: (state, action: PayloadAction<string>) => {
       const id = action.payload;
-      if (state.ids.includes(id)) {
-        // If the ID is already in the array, remove it
-        state.ids = state.ids.filter((selectedId) => selectedId !== id);
+
+      if (state.selectedId === id) {
+        // If the clicked ID is the same as the currently selected ID, deselect it
+        state.selectedId = null;
       } else {
-        // If the ID is not in the array, add it
-        state.ids = [...state.ids, id];
+        // If a different ID is clicked, select it
+        state.selectedId = id;
       }
     },
   },

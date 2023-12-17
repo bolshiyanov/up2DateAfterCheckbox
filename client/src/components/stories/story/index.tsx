@@ -16,8 +16,8 @@ interface StoryProps {
 
 const Story: React.FC<StoryProps> = ({ id, foto, type, name }) => {
   const dispatch: AppDispatch = useDispatch();
-  const selectedIds = useSelector((state: RootState) => state.selectedIds.ids);
-  const isSelected = selectedIds.includes(id);
+  const selectedId = useSelector((state: RootState) => state.selectedIds.selectedId);
+  const isSelected = selectedId === id;
 
   const onClick = () => {
     dispatch(toggleId(id));
@@ -34,7 +34,7 @@ const Story: React.FC<StoryProps> = ({ id, foto, type, name }) => {
       cover={<img alt={`${type}, ${name}`} src={foto} style={{ width: 196, height: 200 }} />}
       onClick={onClick}
     >
-      <Meta title={type} description={name} />
+      <Meta title={name} description={type} />
     </Card>
   );
 };

@@ -36,7 +36,7 @@ const add = async (req, res) => {
         isAvailable: true,
         isNewRide: true,
         rideFoto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702731620/p2ieang5ovs8b7waqkuz.png",
-        categorias: "01",
+        categorias: " ",
         startPoints: "01",
 
         morningMonday: "m",

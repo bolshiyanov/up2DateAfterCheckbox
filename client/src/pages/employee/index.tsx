@@ -33,6 +33,7 @@ import {
   getRideStartPoints,
   getRideTypeName,
 } from "../../utils/getRideTypes";
+import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 
 export const Employee = () => {
   const navigate = useNavigate();
@@ -162,7 +163,7 @@ export const Employee = () => {
               {data.googleMapLink}
             </Descriptions.Item>
           </Descriptions>
-          {user?.id === data.userId ? (
+          {(user?.id === data.userId) || isSuperAdmin ? (
             <>
               <Divider orientation="left">Acton</Divider>
               <Space>
@@ -183,7 +184,7 @@ export const Employee = () => {
                       Go back
                     </CustomButton>
                   </Link>
-                  {/* <Link to={`${Paths.phone}${data.phone}`}>
+                  { isAgent && <Link to={`${Paths.phone}${data.phone}`}>
                     <CustomButton
                       type="primary"
                       shape="round"
@@ -191,8 +192,10 @@ export const Employee = () => {
                     >
                       Call
                     </CustomButton>
-                  </Link> */}
-                  <Link to={`/employee/edit/${data.id}`}>
+                  </Link> }
+
+                  {(isSuperAdmin || isProvider) && <>
+                   <Link to={`/employee/edit/${data.id}`}>
                     <CustomButton
                       shape="round"
                       type="default"
@@ -208,7 +211,7 @@ export const Employee = () => {
                     icon={<FontAwesomeIcon icon={faTrash} />}
                   >
                     Remove
-                  </CustomButton>
+                  </CustomButton></>}
                 </div>
               </Space>
             </>
@@ -225,7 +228,7 @@ export const Employee = () => {
                     Go back
                   </CustomButton>
                 </Link>
-                {/* <Link to={`${Paths.phone}${data.phone}`}>
+                { isAgent && <Link to={`${Paths.phone}${data.phone}`}>
                   <CustomButton
                     type="primary"
                     shape="round"
@@ -233,7 +236,7 @@ export const Employee = () => {
                   >
                     Call
                   </CustomButton>
-                </Link> */}
+                </Link> }
               </Space>
             </>
           )}

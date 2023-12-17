@@ -55,7 +55,7 @@ export const ProviderColumns: ColumnsType<Employee> =
       </div>
     ),
     key: "rideFoto",
-    width: 100,
+    width: 120,
   },
 
   {

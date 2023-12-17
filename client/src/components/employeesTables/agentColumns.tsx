@@ -53,11 +53,13 @@ export const AgentColumns: ColumnsType<Employee> = [
       </div>
     ),
     key: "rideFoto",
-    width: 100,
+    width: 120,
   },
 
   {
     title: "Starting from",
+    dataIndex: 'startPoints',    
+    
     render: (_, record) =>
     getRideStartPoints(record.rideType  || "", record.startPoints || ""),
     key: "startPoints",

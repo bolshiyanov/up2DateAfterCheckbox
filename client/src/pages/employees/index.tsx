@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Employee } from "@prisma/client";
 import { Row, Table, Flex, Spin } from "antd";
 import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 import { CustomButton } from "../../components/custom-button";
 import { Paths } from "../../paths";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +10,7 @@ import { useGetAllEmployeesQuery } from "../../app/serivices/employees";
 import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus} from "@fortawesome/free-solid-svg-icons";
 import { SuperAdminColumns } from "../../components/employeesTables/superAdminColumns";
 import { ProviderColumns } from "../../components/employeesTables/providerColumns";
 import { AgentColumns } from "../../components/employeesTables/agentColumns";
@@ -19,6 +20,10 @@ import Stories from "../../components/stories";
 export const Employees = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
+  const selectedId = useSelector(
+    (state: RootState) => state.selectedIds.selectedId
+  );
+  console.log(' selectedId Employees',selectedId )
   const { data, isLoading } = useGetAllEmployeesQuery();
   const isMobile = window.innerWidth < 768;
 
@@ -47,6 +52,7 @@ export const Employees = () => {
 
   let columns = [];
   let newData: Employee[] | undefined;
+  let availableData: Employee[] | undefined;
 
   if (isSuperAdmin) {
     columns = SuperAdminColumns;
@@ -56,12 +62,13 @@ export const Employees = () => {
     columns = ProviderColumns;
   } else {
     columns = AgentColumns;
-    newData = data?.filter((item) => item.isAvailable && !item.isBlocked);
+    availableData = data?.filter((item) => item.isAvailable && !item.isBlocked);
+    newData =  availableData?.filter((item) => item.categorias === selectedId);
   }
 
   return (
     <Layout>
-      <Stories/>
+      {(!isSuperAdmin && !isProvider) && isAgent && <Stories/>}
       <Row align="middle" justify="start" style={{ margin: 16 }}>
         {(isSuperAdmin || isProvider) && !isAgent && (
           <CustomButton
@@ -74,7 +81,6 @@ export const Employees = () => {
         )}
 
         {/* For edit users */}
-
         {/* {isSuperAdmin && !isProvider && !isAgent && (
           <CustomButton
             onClick={editUsers}
@@ -91,12 +97,9 @@ export const Employees = () => {
       <div
         style={{
           display: "block",
-          overflowX: "auto",
-          whiteSpace: "nowrap",
-          maxWidth: "100%",
+          overflowX: "scroll",
           width: "100%",
           marginBottom: 16,
-          maxHeight: isMobile ? "100vh" : "85vh",
           paddingBottom: 64,
         }}
       >
