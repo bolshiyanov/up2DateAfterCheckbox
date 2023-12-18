@@ -12,6 +12,9 @@ const all = async (req, res) => {
     res.status(200).json(employees);
   } catch {
     res.status(500).json({ message: "Couldn't put the boat" });
+  } finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
   }
 };
 
@@ -108,6 +111,9 @@ const add = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Something went wrong" });
+  } finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
   }
 };
 
@@ -128,7 +134,10 @@ const remove = async (req, res) => {
 
     res.status(204).json("OK");
   } catch {
-    res.status(500).json({ message: "Couldn't delete the boat" });
+    res.status(500).json({ message: "Couldn't delete the ride" });
+  }  finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
   }
 };
 
@@ -151,7 +160,10 @@ const edit = async (req, res) => {
 
     res.status(204).json("OK");
   } catch (err) {
-    res.status(500).json({ message: "Couldn't edit the boat" });
+    res.status(500).json({ message: "Couldn't edit the ride" });
+  } finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
   }
 };
 
@@ -172,7 +184,10 @@ const employee = async (req, res) => {
 
     res.status(200).json(employee);
   } catch {
-    res.status(500).json({ message: "Не удалось получить сотрудника" });
+    res.status(500).json({ message: "Couldn't get the ride" });
+  }  finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
   }
 };
 

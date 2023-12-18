@@ -11,52 +11,52 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())  
+  id               String     @id @default(uuid())
   dateRegistration DateTime   @default(now())
-  name      String
-  isBlocked Boolean?
-  email     String
-  phone     String
-  password  String
-  newUser   Boolean?
-  owner     Boolean?
+  name             String
+  isBlocked        Boolean?
+  email            String
+  phone            String
+  password         String
+  newUser          Boolean?
+  owner            Boolean?
   createdEmployee  Employee[]
+  customField1     Boolean?
+  customField2     Boolean?
+  customField3     Boolean?
 }
 
 model Employee {
   id String @id @default(uuid())
 
-  dateRegistration DateTime? @default(now())
-  rideType         String?
-  rideName         String?
-  description      String?
-  rideFoto         String?
-  googleMapLink    String?
-  phone            String?
-  categorias       String?
-  startPoints      String?
-  isBlocked        Boolean?
-  isNewRide        Boolean?
-  isAvailable      Boolean?
-
-  morningMonday              String?
-  isAvailableMondayMorning   Boolean?
-  afternoonMonday            String?
-  isAvailableMondayAfternoon Boolean?
-  eveningMonday              String?
-  isAvailableMondayEvening   Boolean?
-  extraMonday                String?
-  extraIsAvailableMonday     Boolean?
-
-  morningTuesday              String?
-  isAvailableTuesdayMorning   Boolean?
-  afternoonTuesday            String?
-  isAvailableTuesdayAfternoon Boolean?
-  eveningTuesday              String?
-  isAvailableTuesdayEvening   Boolean?
-  extraTuesday                String?
-  extraIsAvailableTuesday     Boolean?
-
+  dateRegistration              DateTime? @default(now())
+  rideType                      String?
+  rideName                      String?
+  description                   String?
+  rideFoto                      String?
+  googleMapLink                 String?
+  phone                         String?
+  categorias                    String?
+  startPoints                   String?
+  isBlocked                     Boolean?
+  isNewRide                     Boolean?
+  isAvailable                   Boolean?
+  morningMonday                 String?
+  isAvailableMondayMorning      Boolean?
+  afternoonMonday               String?
+  isAvailableMondayAfternoon    Boolean?
+  eveningMonday                 String?
+  isAvailableMondayEvening      Boolean?
+  extraMonday                   String?
+  extraIsAvailableMonday        Boolean?
+  morningTuesday                String?
+  isAvailableTuesdayMorning     Boolean?
+  afternoonTuesday              String?
+  isAvailableTuesdayAfternoon   Boolean?
+  eveningTuesday                String?
+  isAvailableTuesdayEvening     Boolean?
+  extraTuesday                  String?
+  extraIsAvailableTuesday       Boolean?
   morningWednesday              String?
   isAvailableWednesdayMorning   Boolean?
   afternoonWednesday            String?
@@ -65,42 +65,41 @@ model Employee {
   isAvailableWednesdayEvening   Boolean?
   extraWednesday                String?
   extraIsAvailableWednesday     Boolean?
-
-  morningThursday              String?
-  isAvailableThursdayMorning   Boolean?
-  afternoonThursday            String?
-  isAvailableThursdayAfternoon Boolean?
-  eveningThursday              String?
-  isAvailableThursdayEvening   Boolean?
-  extraThursday                String?
-  extraIsAvailableThursday     Boolean?
-
-  morningFriday              String?
-  isAvailableFridayMorning   Boolean?
-  afternoonFriday            String?
-  isAvailableFridayAfternoon Boolean?
-  eveningFriday              String?
-  isAvailableFridayEvening   Boolean?
-  extraFriday                String?
-  extraIsAvailableFriday     Boolean?
-
-  morningSaturday              String?
-  isAvailableSaturdayMorning   Boolean?
-  afternoonSaturday            String?
-  isAvailableSaturdayAfternoon Boolean?
-  eveningSaturday              String?
-  isAvailableSaturdayEvening   Boolean?
-  extraSaturday                String?
-  extraIsAvailableSaturday     Boolean?
-
-  morningSunday              String?
-  isAvailableSundayMorning   Boolean?
-  afternoonSunday            String?
-  isAvailableSundayAfternoon Boolean?
-  eveningSunday              String?
-  isAvailableSundayEvening   Boolean?
-  extraSunday                String?
-  extraIsAvailableSunday     Boolean?
+  morningThursday               String?
+  isAvailableThursdayMorning    Boolean?
+  afternoonThursday             String?
+  isAvailableThursdayAfternoon  Boolean?
+  eveningThursday               String?
+  isAvailableThursdayEvening    Boolean?
+  extraThursday                 String?
+  extraIsAvailableThursday      Boolean?
+  morningFriday                 String?
+  isAvailableFridayMorning      Boolean?
+  afternoonFriday               String?
+  isAvailableFridayAfternoon    Boolean?
+  eveningFriday                 String?
+  isAvailableFridayEvening      Boolean?
+  extraFriday                   String?
+  extraIsAvailableFriday        Boolean?
+  morningSaturday               String?
+  isAvailableSaturdayMorning    Boolean?
+  afternoonSaturday             String?
+  isAvailableSaturdayAfternoon  Boolean?
+  eveningSaturday               String?
+  isAvailableSaturdayEvening    Boolean?
+  extraSaturday                 String?
+  extraIsAvailableSaturday      Boolean?
+  morningSunday                 String?
+  isAvailableSundayMorning      Boolean?
+  afternoonSunday               String?
+  isAvailableSundayAfternoon    Boolean?
+  eveningSunday                 String?
+  isAvailableSundayEvening      Boolean?
+  extraSunday                   String?
+  extraIsAvailableSunday        Boolean?
+  customField1                  Boolean?
+  customField2                  Boolean?
+  customField3                  Boolean?
 
   user   User   @relation(fields: [userId], references: [id])
   userId String

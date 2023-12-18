@@ -42,6 +42,9 @@ const login = async (req, res) => {
     }
   } catch {
     res.status(500).json({ message: "Something went wrong" });
+  } finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
   }
 };
 
@@ -105,6 +108,9 @@ const register = async (req, res, next) => {
     }
   } catch {
     res.status(500).json({ message: "Something went wrong" });
+  } finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
   }
 };
 
@@ -126,6 +132,9 @@ const getAllUsers = async (req, res) => {
   } catch (error) {
     console.error("Error fetching all users:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
   }
 };
 
