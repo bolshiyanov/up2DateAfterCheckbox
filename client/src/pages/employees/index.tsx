@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Employee } from "@prisma/client";
-import { Row, Table, Flex, Spin } from "antd";
+import { Row, Table, Flex, Spin, Typography } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { CustomButton } from "../../components/custom-button";
@@ -31,7 +31,7 @@ export const Employees = () => {
     (state: RootState) => state.selectedIds.selectedIds
   );
   const { data, isLoading } = useGetAllEmployeesQuery();
-
+  const { Title } = Typography;
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -87,6 +87,9 @@ export const Employees = () => {
     <Layout>
       {!isSuperAdmin && !isProvider && isAgent && <GlobalCategoriasSlider />}
       {!isSuperAdmin && !isProvider && isAgent && <Stories />}
+      <Title level={3} style={{ paddingTop: 12, marginLeft: 16 }}>
+            {`Selected ${newData?.length} rides for book`}
+          </Title>
       <Row align="middle" justify="start" style={{ margin: 16 }}>
         {(isSuperAdmin || isProvider) && !isAgent && (
           <CustomButton

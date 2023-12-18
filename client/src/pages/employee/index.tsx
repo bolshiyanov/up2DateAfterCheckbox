@@ -129,7 +129,7 @@ export const Employee = () => {
             <Descriptions.Item label="Rider type" span={3} >
               {getRideTypeName(data.rideType || "")}
             </Descriptions.Item>
-            <Descriptions.Item label="Date Registration" span={3}>
+            {/* <Descriptions.Item label="Date Registration" span={3}>
               {data.isNewRide === true
                 ? `NEW, ${formatDateString(data.dateRegistration || "")}`
                 : formatDateString(data.dateRegistration || "")}
@@ -143,7 +143,7 @@ export const Employee = () => {
               {data.isAvailable === false
                 ? "The owner has disabled the availability of this ride for a while"
                 : "The ride is available for booking"}
-            </Descriptions.Item>
+            </Descriptions.Item> */}
             <Descriptions.Item label="Ride Name" span={3}>
               {data.rideName}
             </Descriptions.Item>

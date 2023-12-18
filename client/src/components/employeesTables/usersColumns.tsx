@@ -19,7 +19,17 @@ export const UsersColumns: ColumnsType< User> = [
       showTitle: false,
     },
   },
-  
+  {
+    title: "Is Provider?",
+    render: (text, record) =>
+      record.owner === false ? (
+        <Tag color="green">User</Tag>
+      ) : (
+        <Tag color="blue">Provider</Tag>
+      ),
+    key: "isAvailable",
+    width: 140,
+  },
   {
     title: "Name",
     dataIndex: "name",
@@ -49,15 +59,7 @@ export const UsersColumns: ColumnsType< User> = [
     },
     width: 140,
   },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-    ellipsis: {
-      showTitle: false,
-    },
-    width: 140,
-  },
+ 
   {
     title: "Phone",
     dataIndex: "phone",

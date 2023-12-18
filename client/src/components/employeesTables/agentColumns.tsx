@@ -23,9 +23,7 @@ export const AgentColumns: ColumnsType<Employee> = [
     title: "Ride Name",
     dataIndex: "rideName",
     key: "rideName",
-    ellipsis: {
-      showTitle: false,
-    },
+    
     width: 110,
     fixed: "left",
   },
