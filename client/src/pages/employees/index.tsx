@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Employee } from "@prisma/client";
 import { Row, Table, Flex, Spin, Typography } from "antd";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../app/store";
 import { CustomButton } from "../../components/custom-button";
 import { Paths } from "../../paths";
 import { useNavigate } from "react-router-dom";
@@ -12,24 +12,44 @@ import { selectUser } from "../../features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCirclePlus,
-  faPenToSquare,
   faUser,
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { SuperAdminColumns } from "../../components/employeesTables/superAdminColumns";
 import { ProviderColumns } from "../../components/employeesTables/providerColumns";
-import { AgentColumns } from "../../components/employeesTables/agentColumns";
+
 import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Stories from "../../components/stories";
-import { EditUsers } from "../users";
 import GlobalCategoriasSlider from "../../components/globalCategoriasSlider";
+import { setFavoritedRides } from "../../features/favoritSlice/favoritSlice";
+import { Schedle } from "../../components/employeesTables/schedle";
+import type { ColumnsType } from "antd/es/table";
+import { getRideStartPoints } from "../../utils/getRideTypes";
+import { getDayName, getNextDayName } from "../../utils/getDayName";
+
+import { Tag } from "antd";
+
+const today = new Date();
+const todayName = getDayName(today);
+const nextTodayName = getNextDayName(today, 1);
+const nextTwoTodayName = getNextDayName(today, 2);
+const nextThteeTodayName = getNextDayName(today, 3);
+const nextFourTodayName = getNextDayName(today, 4);
+const nextFiveTodayName = getNextDayName(today, 5);
+const nextSixTodayName = getNextDayName(today, 6);
 
 export const Employees = () => {
+ 
+
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const selectedIds = useSelector(
     (state: RootState) => state.selectedIds.selectedIds
   );
+  const favoriteArray = useSelector(
+    (state: RootState) => state.favoritedRides.favoritedRides)
+
   const { data, isLoading } = useGetAllEmployeesQuery();
   const { Title } = Typography;
   useEffect(() => {
@@ -37,6 +57,12 @@ export const Employees = () => {
       navigate("/login");
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    if (isAgent) {
+      dispatch(setFavoritedRides());
+    }
+  }, [dispatch]);
 
   if (isLoading) {
     return (
@@ -77,10 +103,119 @@ export const Employees = () => {
     newData = data?.filter((item) => item.userId === user?.id);
     columns = ProviderColumns;
   } else {
-    columns = AgentColumns;
-    availableData = data?.filter((item) => item.isAvailable && !item.isBlocked);
-    newData = availableData?.filter((item) => selectedIds.includes(item.categorias || ""));
+    const AgentColumns: ColumnsType<Employee> = [
+      {
+        title: "Ride Name",
+        render: (text, record) =>
+        favoriteArray.indexOf(record.id) !== -1 ? (
+             <>
+             {record.rideName}<br/><Tag color="yellow">Favorite</Tag></>
+         ) : record.rideName,
+        key: "rideName",
 
+        width: 110,
+        fixed: "left",
+      },
+
+      {
+        title: "Photo",
+        render: (record) => (
+          <div
+            style={{
+              width: 90,
+              aspectRatio: "1 / 1",
+              backgroundColor: "rgba(29, 29, 29, 0.8)",
+            }}
+          >
+            <img
+              src={record.rideFoto}
+              alt="Description"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+                borderRadius: 6,
+              }}
+            />
+          </div>
+        ),
+        key: "rideFoto",
+        width: 120,
+      },
+
+      {
+        title: "Starting from",
+        dataIndex: "startPoints",
+
+        render: (_, record) =>
+          getRideStartPoints(record.rideType || "", record.startPoints || ""),
+        key: "startPoints",
+        width: 110,
+      },
+      {
+        title: todayName,
+        render: (_, record) => <Schedle todayName={todayName} item={record} />,
+        key: todayName,
+        width: 150,
+      },
+
+      {
+        title: nextTodayName,
+        render: (_, record) => (
+          <Schedle todayName={nextTodayName} item={record} />
+        ),
+        key: nextTodayName,
+        width: 150,
+      },
+      {
+        title: nextTwoTodayName,
+        render: (_, record) => (
+          <Schedle todayName={nextTwoTodayName} item={record} />
+        ),
+        key: nextTwoTodayName,
+        width: 150,
+      },
+      {
+        title: nextThteeTodayName,
+        render: (_, record) => (
+          <Schedle todayName={nextThteeTodayName} item={record} />
+        ),
+        key: nextThteeTodayName,
+        width: 150,
+      },
+      {
+        title: nextFourTodayName,
+        render: (_, record) => (
+          <Schedle todayName={nextFourTodayName} item={record} />
+        ),
+        key: nextFourTodayName,
+        width: 150,
+      },
+      {
+        title: nextFiveTodayName,
+        render: (_, record) => (
+          <Schedle todayName={nextFiveTodayName} item={record} />
+        ),
+        key: nextFiveTodayName,
+        width: 150,
+      },
+      {
+        title: nextSixTodayName,
+        render: (_, record) => (
+          <Schedle todayName={nextSixTodayName} item={record} />
+        ),
+        key: nextSixTodayName,
+        width: 150,
+      },
+    ];
+
+    columns = AgentColumns;
+
+    availableData = data?.filter((item) => item.isAvailable && !item.isBlocked);
+    newData = availableData?.filter((item) =>
+      selectedIds.includes(item.categorias || "")
+    );
   }
 
   return (
@@ -88,8 +223,8 @@ export const Employees = () => {
       {!isSuperAdmin && !isProvider && isAgent && <GlobalCategoriasSlider />}
       {!isSuperAdmin && !isProvider && isAgent && <Stories />}
       <Title level={3} style={{ paddingTop: 12, marginLeft: 16 }}>
-            {`Selected ${newData?.length} rides for book`}
-          </Title>
+        {`Selected ${newData?.length} rides for book`}
+      </Title>
       <Row align="middle" justify="start" style={{ margin: 16 }}>
         {(isSuperAdmin || isProvider) && !isAgent && (
           <CustomButton
@@ -164,3 +299,7 @@ export const Employees = () => {
     </Layout>
   );
 };
+
+// Exporting the favorited rides array selector
+export const favoriteArray = (state: RootState) =>
+  state.favoritedRides.favoritedRides;

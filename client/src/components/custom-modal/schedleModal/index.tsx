@@ -1,17 +1,17 @@
-// CustomModal.tsx
+// SchedleModal.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Divider, Flex, Form, Modal, Spin, Switch, Typography } from "antd";
 import {
   useEditEmployeeMutation,
   useGetEmployeeQuery,
-} from "../../app/serivices/employees";
+} from "../../../app/serivices/employees";
 
-import { getRideStartPoints } from "../../utils/getRideTypes";
+import { getRideStartPoints } from "../../../utils/getRideTypes";
 import { Employee } from "@prisma/client";
-import { Paths } from "../../paths";
-import { isErrorWithMessage } from "../../utils/is-error-with-message";
-import { CustomButton } from "../custom-button";
+import { Paths } from "../../../paths";
+import { isErrorWithMessage } from "../../../utils/is-error-with-message";
+import { CustomButton } from "../../custom-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowDown } from "@fortawesome/free-solid-svg-icons";
 

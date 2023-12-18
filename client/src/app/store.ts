@@ -6,12 +6,13 @@ import auth from '../features/auth/authSlice'
 import employees from '../features/employees/employeesSlice'
 import selectedIdsReducer from "../features/selectedStory/selectedStorySlice"
 import selectedGlobalCategoryReducer from "../features/selectedGlobalCategory/selectedGlobalCategorySlice"
-
+import favoritedRidesSlice from '../features/favoritSlice/favoritSlice'
 import usersReducer from '../features/users/usersSlice'
 import { listenerMiddleware } from "../middleware/auth";
 
 export const store = configureStore({
   reducer: {
+    favoritedRides: favoritedRidesSlice,
     selectedGlobalCategory: selectedGlobalCategoryReducer,
     users: usersReducer,
     selectedIds: selectedIdsReducer,

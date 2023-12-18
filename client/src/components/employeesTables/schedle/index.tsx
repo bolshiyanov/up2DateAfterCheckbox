@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { morning, afternoon, evening, allTimes } from "../../../dummyData";
 import { Item } from "../../../types";
 import CustomTag from "../../custom-tag";
-import CustomModal from "../../custom-modal";
+import CustomModal from "../../custom-modal/schedleModal";
 import { Paths } from "../../../paths";
 
 
