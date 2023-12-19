@@ -15,7 +15,7 @@ export const CustomTypeSelectStartPoints = ({ name, selectName, rideType}: Props
       <Select size="large">
         {ridesTypes
           .find((ride) => ride.key === rideType)?.startPoints.map((startPoint) => (
-            <Select.Option key={startPoint.key} value={startPoint.value}>
+            <Select.Option key={startPoint.key} value={startPoint.name}>
               {startPoint.name}
             </Select.Option>
           ))}

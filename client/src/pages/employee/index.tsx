@@ -149,6 +149,9 @@ export const Employee = () => {
           <Title level={3}>Rider type</Title>
           <p>{getRideTypeName(data.rideType || "")}</p>
           <Divider />
+          <Title level={3}>Start point</Title>
+          <p>{data.startPoints || ""}</p>
+          <Divider />
           <Title level={3}>Ride Name</Title>
           <p>{getRideCategoria(data.rideType || "", data.categorias || "")}</p>
           <Divider />
@@ -166,6 +169,53 @@ export const Employee = () => {
           <Divider />
 
           {user?.id === data.userId || isSuperAdmin ? (
+            <>
+              <Divider orientation="left">Acton</Divider>
+              <Space>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Link to={`/`}>
+                    <CustomButton
+                      shape="round"
+                      type="default"
+                      icon={<FontAwesomeIcon icon={faChevronLeft} />}
+                    >
+                      Go back
+                    </CustomButton>
+                  </Link>
+                  
+
+                  {(isSuperAdmin || isProvider) && (
+                    <>
+                      <Link to={`/employee/edit/${data.id}`}>
+                        <CustomButton
+                          shape="round"
+                          type="default"
+                          icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                        >
+                          Edit
+                        </CustomButton>
+                      </Link>
+                      <CustomButton
+                        shape="round"
+                        danger
+                        onClick={showModal}
+                        icon={<FontAwesomeIcon icon={faTrash} />}
+                      >
+                        Remove
+                      </CustomButton>
+                    </>
+                  )}
+                </div>
+              </Space>
+            </>
+          ) : (
             <>
               <Divider orientation="left">Acton</Divider>
               <Space>
@@ -223,52 +273,6 @@ export const Employee = () => {
                       )}
                     </>
                   )}
-
-                  {(isSuperAdmin || isProvider) && (
-                    <>
-                      <Link to={`/employee/edit/${data.id}`}>
-                        <CustomButton
-                          shape="round"
-                          type="default"
-                          icon={<FontAwesomeIcon icon={faPenToSquare} />}
-                        >
-                          Edit
-                        </CustomButton>
-                      </Link>
-                      <CustomButton
-                        shape="round"
-                        danger
-                        onClick={showModal}
-                        icon={<FontAwesomeIcon icon={faTrash} />}
-                      >
-                        Remove
-                      </CustomButton>
-                    </>
-                  )}
-                </div>
-              </Space>
-            </>
-          ) : (
-            <>
-              <Divider orientation="left">Acton</Divider>
-              <Space>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "100%",
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  <Link to={`/`}>
-                    <CustomButton
-                      shape="round"
-                      type="default"
-                      icon={<FontAwesomeIcon icon={faChevronLeft} />}
-                    >
-                      Go back
-                    </CustomButton>
-                  </Link>
                   {isAgent && itIsMobaileView && (
                     <Link to={`${Paths.phone}${data.phone}`}>
                       <CustomButton

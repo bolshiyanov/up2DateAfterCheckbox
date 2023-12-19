@@ -1,8 +1,6 @@
 import { Employee } from "@prisma/client";
 import type { ColumnsType } from "antd/es/table";
-import {
-  getRideStartPoints,
-} from "../../utils/getRideTypes";
+import { getRideStartPoints } from "../../utils/getRideTypes";
 
 import { getDayName, getNextDayName } from "../../utils/getDayName";
 import { Schedle } from "./schedle";
@@ -17,10 +15,7 @@ const nextFourTodayName = getNextDayName(today, 4);
 const nextFiveTodayName = getNextDayName(today, 5);
 const nextSixTodayName = getNextDayName(today, 6);
 
-
-
-export const ProviderColumns: ColumnsType<Employee> = 
-[
+export const ProviderColumns: ColumnsType<Employee> = [
   {
     title: "Ride Name",
     dataIndex: "rideName",
@@ -49,7 +44,7 @@ export const ProviderColumns: ColumnsType<Employee> =
             height: "100%",
             objectFit: "cover",
             display: "block",
-            borderRadius: 6
+            borderRadius: 6,
           }}
         />
       </div>
@@ -60,51 +55,60 @@ export const ProviderColumns: ColumnsType<Employee> =
 
   {
     title: "Starting from",
-    render: (_, record) =>
-      getRideStartPoints(record.rideType  || "", record.startPoints || ""),
+    dataIndex: "startPoints",
     key: "startPoints",
     width: 110,
   },
   {
     title: todayName,
-    render: (_, record) => <Schedle todayName={todayName} item={record}  />,
+    render: (_, record) => <Schedle todayName={todayName} item={record} />,
     key: todayName,
     width: 150,
   },
 
   {
     title: nextTodayName,
-    render: (_, record) => <Schedle todayName={nextTodayName} item={record}  />,
+    render: (_, record) => <Schedle todayName={nextTodayName} item={record} />,
     key: nextTodayName,
     width: 150,
   },
   {
     title: nextTwoTodayName,
-    render: (_, record) => <Schedle todayName={nextTwoTodayName} item={record}  />,
+    render: (_, record) => (
+      <Schedle todayName={nextTwoTodayName} item={record} />
+    ),
     key: nextTwoTodayName,
     width: 150,
   },
   {
     title: nextThteeTodayName,
-    render: (_, record) => <Schedle todayName={nextThteeTodayName} item={record}  />,
+    render: (_, record) => (
+      <Schedle todayName={nextThteeTodayName} item={record} />
+    ),
     key: nextThteeTodayName,
     width: 150,
   },
   {
     title: nextFourTodayName,
-    render: (_, record) => <Schedle todayName={nextFourTodayName} item={record}  />,
+    render: (_, record) => (
+      <Schedle todayName={nextFourTodayName} item={record} />
+    ),
     key: nextFourTodayName,
     width: 150,
   },
   {
     title: nextFiveTodayName,
-    render: (_, record) => <Schedle todayName={nextFiveTodayName} item={record} />,
+    render: (_, record) => (
+      <Schedle todayName={nextFiveTodayName} item={record} />
+    ),
     key: nextFiveTodayName,
     width: 150,
   },
   {
     title: nextSixTodayName,
-    render: (_, record) => <Schedle todayName={nextSixTodayName} item={record}  />,
+    render: (_, record) => (
+      <Schedle todayName={nextSixTodayName} item={record} />
+    ),
     key: nextSixTodayName,
     width: 150,
   },

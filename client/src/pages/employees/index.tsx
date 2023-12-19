@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Employee } from "@prisma/client";
 import { Row, Table, Flex, Spin, Typography } from "antd";
+import type { ColumnsType} from "antd/es/table";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../app/store";
 import { CustomButton } from "../../components/custom-button";
@@ -23,8 +24,6 @@ import Stories from "../../components/stories";
 import GlobalCategoriasSlider from "../../components/globalCategoriasSlider";
 import { setFavoritedRides } from "../../features/favoritSlice/favoritSlice";
 import { Schedle } from "../../components/employeesTables/schedle";
-import type { ColumnsType } from "antd/es/table";
-import { getRideStartPoints } from "../../utils/getRideTypes";
 import { getDayName, getNextDayName } from "../../utils/getDayName";
 
 import { Tag } from "antd";
@@ -39,8 +38,6 @@ const nextFiveTodayName = getNextDayName(today, 5);
 const nextSixTodayName = getNextDayName(today, 6);
 
 export const Employees = () => {
- 
-
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
@@ -48,7 +45,8 @@ export const Employees = () => {
     (state: RootState) => state.selectedIds.selectedIds
   );
   const favoriteArray = useSelector(
-    (state: RootState) => state.favoritedRides.favoritedRides)
+    (state: RootState) => state.favoritedRides.favoritedRides
+  );
 
   const { data, isLoading } = useGetAllEmployeesQuery();
   const { Title } = Typography;
@@ -106,17 +104,45 @@ export const Employees = () => {
     const AgentColumns: ColumnsType<Employee> = [
       {
         title: "Ride Name",
-        render: (text, record) =>
-        favoriteArray.indexOf(record.id) !== -1 ? (
-             <>
-             {record.rideName}<br/><Tag color="yellow">Favorite</Tag></>
-         ) : record.rideName,
-        key: "rideName",
-
-        width: 110,
         fixed: "left",
-      },
+        width: 110,
+        render: (text, record) =>
+          favoriteArray.indexOf(record.id) !== -1 ? (
+            <>
+              <Tag color="yellow">Favorite</Tag>
+              <br />
+              {record.rideName}
+            </>
+          ) : (
+            record.rideName
+          ),
+        key: "rideName",
+        dataIndex: "rideName",
+        sorter: {
+          compare: (a, b) => {
+            const rideNameA = a.rideName || "";
+            const rideNameB = b.rideName || "";
 
+            return rideNameA.localeCompare(rideNameB);
+          },
+          multiple: 2,
+        },
+      },
+      {
+        title: "Starting from",
+        width: 110,
+        dataIndex: "startPoints",
+        key: "startPoints",
+        sorter: {
+          compare: (a, b) => {
+            const startPointsA = a.startPoints || "";
+            const startPointsB = b.startPoints || "";
+
+            return startPointsA.localeCompare(startPointsB);
+          },
+          multiple: 1,
+        },
+      },
       {
         title: "Photo",
         render: (record) => (
@@ -144,15 +170,6 @@ export const Employees = () => {
         width: 120,
       },
 
-      {
-        title: "Starting from",
-        dataIndex: "startPoints",
-
-        render: (_, record) =>
-          getRideStartPoints(record.rideType || "", record.startPoints || ""),
-        key: "startPoints",
-        width: 110,
-      },
       {
         title: todayName,
         render: (_, record) => <Schedle todayName={todayName} item={record} />,
