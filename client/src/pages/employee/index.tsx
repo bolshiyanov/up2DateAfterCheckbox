@@ -39,6 +39,7 @@ import {
 import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import ShowFavoritComments from "../../components/favorit-components/showFavoritComments";
 import { addOrRemoveRides } from "../../features/favoritSlice/favoritSlice";
+import { isMobile } from "../../utils/isMobail";
 
 export const Employee = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -53,6 +54,8 @@ export const Employee = () => {
   const [removeEmployee] = useRemoveEmployeeMutation();
   const user = useSelector(selectUser);
   const { Title } = Typography;
+  const itIsMobaileView = isMobile();
+  console.log(" Employee itIsMobaileView", itIsMobaileView);
   if (isLoading) {
     return (
       <Flex
@@ -138,53 +141,30 @@ export const Employee = () => {
           <Title level={2} style={{ paddingTop: 12 }}>
             {`Information about ride ${data.rideName}`}
           </Title>
-          <Descriptions
-            bordered
-            style={{
-              backgroundColor: "rgba(29, 29, 29, 0.8)",
-              borderRadius: 6,
-            }}
-          >
-            <Descriptions.Item label="Favorit information"  >
-              <ShowFavoritComments />
-            </Descriptions.Item>
-            <Descriptions.Item label="Rider type"  >
-              {getRideTypeName(data.rideType || "")}
-            </Descriptions.Item>
-            {/* <Descriptions.Item label="Date Registration"  >
-              {data.isNewRide === true
-                ? `NEW, ${formatDateString(data.dateRegistration || "")}`
-                : formatDateString(data.dateRegistration || "")}
-            </Descriptions.Item>
-            <Descriptions.Item label="Blocked?"  >
-              {data.isBlocked === false
-                ? "Available for rides catalog"
-                : "The ride is blocked by the super administrator"}
-            </Descriptions.Item>
-            <Descriptions.Item label="Booking"  >
-              {data.isAvailable === false
-                ? "The owner has disabled the availability of this ride for a while"
-                : "The ride is available for booking"}
-            </Descriptions.Item> */}
-            <Descriptions.Item label="Ride Name"  >
-              {data.rideName}
-            </Descriptions.Item>
-            <Descriptions.Item label="Description"  >
-              {data.description}
-            </Descriptions.Item>
-            <Descriptions.Item label="Type Boat"  >
-              {getRideCategoria(data.rideType || "", data.categorias || "")}
-            </Descriptions.Item>
-            <Descriptions.Item label="Starting from"  >
-              {getRideStartPoints(data.rideType || "", data.startPoints || "")}
-            </Descriptions.Item>
-            <Descriptions.Item label="Phone"  >
-              {data.phone}
-            </Descriptions.Item>
-            <Descriptions.Item label="Google Map Link"  >
-              {data.googleMapLink}
-            </Descriptions.Item>
-          </Descriptions>
+          <Title level={3} style={{ paddingTop: 12 }}>
+            Favorit information
+          </Title>
+          <ShowFavoritComments />
+          <Divider />
+          <Title level={3}>Rider type</Title>
+          <p>{getRideTypeName(data.rideType || "")}</p>
+          <Divider />
+          <Title level={3}>Ride Name</Title>
+          <p>{getRideCategoria(data.rideType || "", data.categorias || "")}</p>
+          <Divider />
+          <Title level={3}>Ride Name</Title>
+          <p>{data.rideName}</p>
+          <Divider />
+          <Title level={3}>Description</Title>
+          <p>{data.description}</p>
+          <Divider />
+          <Title level={3}>Google Map Link</Title>
+          <p>{data.googleMapLink}</p>
+          <Divider />
+          <Title level={3}>Phone</Title>
+          <p style={{ fontSize: 20, fontWeight: 700 }}>{data.phone}</p>
+          <Divider />
+
           {user?.id === data.userId || isSuperAdmin ? (
             <>
               <Divider orientation="left">Acton</Divider>
@@ -231,22 +211,16 @@ export const Employee = () => {
                       >
                         Favorite
                       </CustomButton>
-                      {/* <Link to={`${Paths.phone}${data.phone}`}>
-                        <CustomButton
-                          type="primary"
-                          shape="round"
-                          icon={<FontAwesomeIcon icon={faPhone} />}
-                        >
-                          Call
-                        </CustomButton>
-                      </Link> */}
-                      <Link to={`${Paths.phone}${data.phone}`}>
-                        <FloatButton
-                          icon={<FontAwesomeIcon icon={faPhone} />}
-                          type="primary"
-                          style={{ right: 10, bottom: 120 }}
-                        />
-                      </Link>
+
+                      {itIsMobaileView && (
+                        <Link to={`${Paths.phone}${data.phone}`}>
+                          <FloatButton
+                            icon={<FontAwesomeIcon icon={faPhone} />}
+                            type="primary"
+                            style={{ right: 10, bottom: 120 }}
+                          />
+                        </Link>
+                      )}
                     </>
                   )}
 
@@ -295,7 +269,7 @@ export const Employee = () => {
                       Go back
                     </CustomButton>
                   </Link>
-                  {isAgent && (
+                  {isAgent && itIsMobaileView && (
                     <Link to={`${Paths.phone}${data.phone}`}>
                       <CustomButton
                         type="primary"

@@ -224,7 +224,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
               htmlType="submit"
               icon={<FontAwesomeIcon icon={faCloudArrowDown} />}
             >
-              Upload Changes to server{" "}
+              Save changes{" "}
             </CustomButton>
           </Flex>
         </Form>

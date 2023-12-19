@@ -109,14 +109,25 @@ export const ProviderColumns: ColumnsType<Employee> =
     width: 150,
   },
   {
+    title: "Open for book",
+    render: (text, record) =>
+      record.isAvailable === true ? (
+        <Tag color="green">Open for booking</Tag>
+      ) : (
+        <Tag color="volcano">You has blocked</Tag>
+      ),
+    key: "isAvailable",
+    width: 180,
+  },
+  {
     title: "Blocked",
     render: (text, record) =>
       record.isBlocked === false ? (
         <Tag color="green"> Can be used in Up2Date</Tag>
       ) : (
-        <Tag color="volcano">Awaiting modarantion</Tag>
+        <Tag color="volcano">Admin has blocked</Tag>
       ),
-    key: "isAvailable",
+    key: "isBlocked",
     width: 180,
   },
 ];

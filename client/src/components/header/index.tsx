@@ -70,7 +70,7 @@ export const Header = () => {
                   type="default"
                   icon={<FontAwesomeIcon icon={faUserPlus} />}
                 >
-                  Sugn up
+                  Sign up
                 </CustomButton>
               </div>
             </Link>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Employee } from "@prisma/client";
 import {
   Form,
@@ -10,6 +10,7 @@ import {
   Typography,
   Divider,
   Checkbox,
+  Modal,
 } from "antd";
 import { CustomButton } from "../custom-button";
 import { CustomInput } from "../custom-input";
@@ -22,6 +23,7 @@ import {
   faChevronLeft,
   faCloudArrowDown,
   faRotate,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { CustomTypeSelectRide } from "../custom-type-select/customTypeSelectRide";
 import { CustomSelectMorningPicker } from "../custom-type-select/customSelectMorningPicker";
@@ -32,6 +34,9 @@ import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Widget from "../custom-image-upload/Widget";
 import { getRideTypeName } from "../../utils/getRideTypes";
+import { useRemoveEmployeeMutation } from "../../app/serivices/employees";
+import { Paths } from "../../paths";
+import { isErrorWithMessage } from "../../utils/is-error-with-message";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -62,8 +67,10 @@ export const EmployeeForm = ({
   rideType,
   error,
 }: Props<Employee>) => {
+  const navigate = useNavigate();
   const [schedleSettings, setSchedleSettings] = useState(true);
-
+  const [eror, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkedMonday, setCheckedMonday] = useState(false);
   const [checkedTuesday, setCheckedTuesday] = useState(false);
   const [checkedWednesday, setCheckedWednesday] = useState(false);
@@ -71,7 +78,8 @@ export const EmployeeForm = ({
   const [checkedFriday, setCheckedFriday] = useState(false);
   const [checkedSaturday, setCheckedSaturday] = useState(false);
   const [checkedSunday, setCheckedSunday] = useState(false);
-
+  const [removeEmployee] = useRemoveEmployeeMutation();
+  
   const { Title } = Typography;
 
   const onChangeMonday = (e: CheckboxChangeEvent) => {
@@ -121,6 +129,32 @@ export const EmployeeForm = ({
 
   const handleUrlChange = (newUrl: string | undefined) => {
     setImageUrl(newUrl);
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const hideModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteUser = async () => {
+    hideModal();
+
+    try {
+      await removeEmployee(employee?.id ?? "").unwrap();
+
+      navigate(`${Paths.status}/deleted`);
+    } catch (err) {
+      const maybeError = isErrorWithMessage(err);
+
+      if (maybeError) {
+        setError(err.data.message);
+      } else {
+        setError("Uncnoun error");
+      }
+    }
   };
 
   return (
@@ -175,7 +209,9 @@ export const EmployeeForm = ({
 
         {pageName !== "Add-emploee" && (
           <>
-          <Title level={3} style={{ paddingBottom: 16 }}>{getRideTypeName(rideType)}</Title>
+            <Title level={3} style={{ paddingBottom: 16 }}>
+              {getRideTypeName(rideType)}
+            </Title>
             <CustomTypeSelectCategoria
               name="categorias"
               selectName="Select the categorias of rides"
@@ -471,6 +507,15 @@ export const EmployeeForm = ({
             )}
 
             <CustomButton
+            shape="round"
+            danger
+            onClick={showModal}
+              icon={<FontAwesomeIcon icon={faTrash} />}
+            >
+              Remove
+            </CustomButton>
+
+            <CustomButton
               shape="round"
               type="primary"
               htmlType="submit"
@@ -481,6 +526,17 @@ export const EmployeeForm = ({
           </Flex>
         </Space>
       </Form>
+      <ErrorMessage message={eror} />
+      <Modal
+            title="Confirm remove"
+            open={isModalOpen}
+            onOk={handleDeleteUser}
+            onCancel={hideModal}
+            okText="Confirm"
+            cancelText="Cancel"
+          >
+            Do you really want to remove the boat?
+          </Modal>
     </Card>
   );
 };

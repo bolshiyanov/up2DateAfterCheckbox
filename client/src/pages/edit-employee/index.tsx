@@ -64,7 +64,7 @@ export const EditEmployee = () => {
           onFinish={handleEditUser}
           title="Edit ride"
           employee={data}
-          btnText="Upload"
+          btnText="Save"
           btnTextCancel="Reset"
           btnTextGoBack="Go back"
           error={error}
@@ -72,6 +72,7 @@ export const EditEmployee = () => {
           rideType={data?.rideType || ''}            
           isNewRide={isNewRide}
           isBlocked={isBlocked}
+        
           pageName="Edit-emploee"
         />
       </Row>

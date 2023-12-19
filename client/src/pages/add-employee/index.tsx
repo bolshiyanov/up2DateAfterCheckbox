@@ -52,7 +52,7 @@ export const AddEmployee = () => {
         <EmployeeForm
           onFinish={handleAddEmployee}
           title="Add ride"
-          btnText="Upload"
+          btnText="Save"
           btnTextCancel="Reset"
           btnTextGoBack="Go back"
           isAvailable={isAvailable}
