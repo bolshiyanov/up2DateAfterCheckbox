@@ -166,7 +166,7 @@ export const Employee = () => {
           <Divider />
           <Title level={3}>Phone</Title>
           <p style={{ fontSize: 20, fontWeight: 700 }}>{data.phone}</p>
-          <Divider />
+          
 
           {user?.id === data.userId || isSuperAdmin ? (
             <>

@@ -83,7 +83,7 @@ export const Employees = () => {
   let columns = [];
   let newData: Employee[] | undefined;
   let availableData: Employee[] | undefined;
-
+  let modifiedData: Employee[] | undefined;
   if (isSuperAdmin) {
     columns = SuperAdminColumns;
     newData = data?.slice();
@@ -229,10 +229,23 @@ export const Employees = () => {
 
     columns = AgentColumns;
 
-    availableData = data?.filter((item) => item.isAvailable && !item.isBlocked);
-    newData = availableData?.filter((item) =>
-      selectedIds.includes(item.categorias || "")
-    );
+    modifiedData = data?.filter((item) => item.isAvailable && !item.isBlocked);
+    
+    availableData = modifiedData?.filter((item) =>
+      
+    selectedIds.includes(item.categorias || ""));
+      
+    newData = availableData?.map(item => {
+      if (favoriteArray.includes(item.id)) {
+        return {
+          ...item,
+          rideName: " " + item.rideName
+        };
+      }
+      return item;
+    });
+    
+
   }
 
   return (
