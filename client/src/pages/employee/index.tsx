@@ -213,13 +213,13 @@ export const Employee = () => {
                       </CustomButton>
 
                       {itIsMobaileView && (
-                        <Link to={`${Paths.phone}${data.phone}`}>
+                        <a href={`tel:${data.phone}`}>
                           <FloatButton
                             icon={<FontAwesomeIcon icon={faPhone} />}
                             type="primary"
-                            style={{ right: 10, bottom: 120 }}
+                            style={{ right: 20, bottom: 120 }}
                           />
-                        </Link>
+                        </a>
                       )}
                     </>
                   )}
