@@ -79,7 +79,7 @@ export const EmployeeForm = ({
   const [checkedSaturday, setCheckedSaturday] = useState(false);
   const [checkedSunday, setCheckedSunday] = useState(false);
   const [removeEmployee] = useRemoveEmployeeMutation();
-  
+
   const { Title } = Typography;
 
   const onChangeMonday = (e: CheckboxChangeEvent) => {
@@ -507,15 +507,6 @@ export const EmployeeForm = ({
             )}
 
             <CustomButton
-            shape="round"
-            danger
-            onClick={showModal}
-              icon={<FontAwesomeIcon icon={faTrash} />}
-            >
-              Remove
-            </CustomButton>
-
-            <CustomButton
               shape="round"
               type="primary"
               htmlType="submit"
@@ -523,20 +514,28 @@ export const EmployeeForm = ({
             >
               {btnText}
             </CustomButton>
+            <CustomButton
+              shape="round"
+              danger
+              onClick={showModal}
+              icon={<FontAwesomeIcon icon={faTrash} />}
+            >
+              Remove
+            </CustomButton>
           </Flex>
         </Space>
       </Form>
       <ErrorMessage message={eror} />
       <Modal
-            title="Confirm remove"
-            open={isModalOpen}
-            onOk={handleDeleteUser}
-            onCancel={hideModal}
-            okText="Confirm"
-            cancelText="Cancel"
-          >
-            Do you really want to remove the boat?
-          </Modal>
+        title="Confirm remove"
+        open={isModalOpen}
+        onOk={handleDeleteUser}
+        onCancel={hideModal}
+        okText="Confirm"
+        cancelText="Cancel"
+      >
+        Do you really want to remove this ride?
+      </Modal>
     </Card>
   );
 };

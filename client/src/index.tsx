@@ -18,6 +18,7 @@ import "./index.css";
 import { EditUsers } from "./pages/users";
 import PhoneCalls from "./components/PhoneCalls";
 import { EditProviders } from "./pages/providers";
+import { EditComment } from "./pages/edit-employee-comment";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: `${Paths.employee}/:id`,
     element: <Employee />,
+  },
+  {
+    path: `${Paths.commentEdit}/:id`,
+    element: <EditComment />,
   },
   {
     path: `${Paths.employeeEdit}/:id`,

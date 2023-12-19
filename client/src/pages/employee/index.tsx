@@ -31,13 +31,9 @@ import {
   faStar,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  getRideCategoria,
-  getRideStartPoints,
-  getRideTypeName,
-} from "../../utils/getRideTypes";
+import { getRideCategoria, getRideTypeName } from "../../utils/getRideTypes";
 import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
-import ShowFavoritComments from "../../components/favorit-components/showFavoritComments";
+import RemainderForMyself from "../../components/favorit-components/RemainderForMyself";
 import { addOrRemoveRides } from "../../features/favoritSlice/favoritSlice";
 import { isMobile } from "../../utils/isMobail";
 
@@ -142,9 +138,9 @@ export const Employee = () => {
             {`Information about ride ${data.rideName}`}
           </Title>
           <Title level={3} style={{ paddingTop: 12 }}>
-            Favorit information
+            A remainder for myself
           </Title>
-          <ShowFavoritComments />
+          <RemainderForMyself />
           <Divider />
           <Title level={3}>Rider type</Title>
           <p>{getRideTypeName(data.rideType || "")}</p>
@@ -152,7 +148,7 @@ export const Employee = () => {
           <Title level={3}>Start point</Title>
           <p>{data.startPoints || ""}</p>
           <Divider />
-          <Title level={3}>Ride Name</Title>
+          <Title level={3}>Categoria</Title>
           <p>{getRideCategoria(data.rideType || "", data.categorias || "")}</p>
           <Divider />
           <Title level={3}>Ride Name</Title>
@@ -166,7 +162,6 @@ export const Employee = () => {
           <Divider />
           <Title level={3}>Phone</Title>
           <p style={{ fontSize: 20, fontWeight: 700 }}>{data.phone}</p>
-          
 
           {user?.id === data.userId || isSuperAdmin ? (
             <>
@@ -189,7 +184,6 @@ export const Employee = () => {
                       Go back
                     </CustomButton>
                   </Link>
-                  
 
                   {(isSuperAdmin || isProvider) && (
                     <>
@@ -238,13 +232,17 @@ export const Employee = () => {
                   </Link>
                   {isAgent && (
                     <>
-                      <CustomButton
-                        shape="round"
-                        onClick={showModal}
-                        icon={<FontAwesomeIcon icon={faComment} />}
-                      >
-                        Comment
-                      </CustomButton>
+                      <Link to={`/comment/edit/${data.id}`}>
+                        <CustomButton
+                          shape="round"
+                          type="default"
+                          icon={<FontAwesomeIcon icon={faComment} />}
+                        >
+                          Comment
+                        </CustomButton>
+                      </Link>
+
+                      
                       <CustomButton
                         shape="round"
                         onClick={() => setToFavoriteList(data.id)}
