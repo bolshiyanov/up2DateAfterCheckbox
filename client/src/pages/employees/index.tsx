@@ -48,7 +48,9 @@ export const Employees = () => {
   const favoriteArray = useSelector(
     (state: RootState) => state.favoritedRides.favoritedRides
   );
-  
+  const comments = useSelector((state: RootState) => state.comments.comments);
+  //const commentObject = comments.find(comment => comment.id === id.id);
+ //const currentComment = commentObject?.description
 
   const { data, isLoading } = useGetAllEmployeesQuery();
   const { Title } = Typography;
@@ -130,6 +132,19 @@ export const Employees = () => {
           },
           multiple: 2,
         },
+      },
+      {
+        title: "Myself comments",
+        width: 140,
+        render: (text, record) => {
+          const commentObject = comments.find(comment => comment.id === record.id);
+  const currentComment = commentObject?.description
+
+  return <p>{currentComment}</p>
+        }
+
+      
+        
       },
       
       {
