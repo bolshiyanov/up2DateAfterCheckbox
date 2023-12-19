@@ -44,7 +44,7 @@ export const ridesTypes = [
       {
         key: "102",
         value: "102",
-        name: " Sailin",
+        name: "Sailin",
         foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751076/zmxq2fqbe2vxdavv8z6b.png",
       },
       {
@@ -75,7 +75,7 @@ export const ridesTypes = [
       {
         key: "107",
         value: "107",
-        name: "other",
+        name: "Other",
         foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751792/y4urzxmjkqs9gep9aomg.png",
       },
     ],
@@ -112,13 +112,13 @@ export const ridesTypes = [
       {
         key: "203",
         value: "203",
-        name: " Surfing",
+        name: "Surfing",
         foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752215/sirrmsvavn9b4nc52rsq.png",
       },
       {
         key: "204",
         value: "204",
-        name: " other",
+        name: "Other",
         foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752314/grna3bpqh991bpo18l1n.png",
       },
     ],
@@ -182,7 +182,7 @@ export const ridesTypes = [
       {
         key: "404",
         value: "404",
-        name: "other",
+        name: "Other",
         foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702753015/gze1uwlbaxgbpjgziizk.png",
       },
     ],

@@ -27,6 +27,7 @@ import { Schedle } from "../../components/employeesTables/schedle";
 import { getDayName, getNextDayName } from "../../utils/getDayName";
 
 import { Tag } from "antd";
+import { setComments } from "../../features/commentSlice/commentSlice";
 
 const today = new Date();
 const todayName = getDayName(today);
@@ -47,6 +48,7 @@ export const Employees = () => {
   const favoriteArray = useSelector(
     (state: RootState) => state.favoritedRides.favoritedRides
   );
+  
 
   const { data, isLoading } = useGetAllEmployeesQuery();
   const { Title } = Typography;
@@ -59,6 +61,7 @@ export const Employees = () => {
   useEffect(() => {
     if (isAgent) {
       dispatch(setFavoritedRides());
+      dispatch(setComments());
     }
   }, [dispatch]);
 
@@ -128,6 +131,7 @@ export const Employees = () => {
           multiple: 2,
         },
       },
+      
       {
         title: "Starting from",
         width: 110,

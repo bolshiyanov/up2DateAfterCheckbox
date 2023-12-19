@@ -1,7 +1,7 @@
+import { useNavigate, Link, useParams, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../app/store";
 import {
-  Descriptions,
   Space,
   Divider,
   Modal,
@@ -13,7 +13,6 @@ import {
 import { CustomButton } from "../../components/custom-button";
 import { useState } from "react";
 import { Paths } from "../../paths";
-import { useNavigate, Link, useParams, Navigate } from "react-router-dom";
 import {
   useGetEmployeeQuery,
   useRemoveEmployeeMutation,
@@ -33,7 +32,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { getRideCategoria, getRideTypeName } from "../../utils/getRideTypes";
 import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
-import RemainderForMyself from "../../components/favorit-components/RemainderForMyself";
 import { addOrRemoveRides } from "../../features/favoritSlice/favoritSlice";
 import { isMobile } from "../../utils/isMobail";
 
@@ -42,6 +40,12 @@ export const Employee = () => {
   const favoriteArray = useSelector(
     (state: RootState) => state.favoritedRides.favoritedRides
   );
+  const id = useParams<{ id: string }>();
+  const comments = useSelector((state: RootState) => state.comments.comments);
+
+  const commentObject = comments.find((comment) => comment.id === id.id);
+  const currentComment = commentObject?.description;
+
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const params = useParams<{ id: string }>();
@@ -51,7 +55,7 @@ export const Employee = () => {
   const user = useSelector(selectUser);
   const { Title } = Typography;
   const itIsMobaileView = isMobile();
-  console.log(" Employee itIsMobaileView", itIsMobaileView);
+
   if (isLoading) {
     return (
       <Flex
@@ -137,11 +141,13 @@ export const Employee = () => {
           <Title level={2} style={{ paddingTop: 12 }}>
             {`Information about ride ${data.rideName}`}
           </Title>
+
           <Title level={3} style={{ paddingTop: 12 }}>
             A remainder for myself
           </Title>
-          <RemainderForMyself />
+          <p style={{ fontWeight: 800, fontSize: 16 }}>{currentComment}</p>
           <Divider />
+
           <Title level={3}>Rider type</Title>
           <p>{getRideTypeName(data.rideType || "")}</p>
           <Divider />
@@ -242,7 +248,6 @@ export const Employee = () => {
                         </CustomButton>
                       </Link>
 
-                      
                       <CustomButton
                         shape="round"
                         onClick={() => setToFavoriteList(data.id)}

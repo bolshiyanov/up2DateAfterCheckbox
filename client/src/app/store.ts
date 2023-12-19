@@ -8,10 +8,12 @@ import selectedIdsReducer from "../features/selectedStory/selectedStorySlice"
 import selectedGlobalCategoryReducer from "../features/selectedGlobalCategory/selectedGlobalCategorySlice"
 import favoritedRidesSlice from '../features/favoritSlice/favoritSlice'
 import usersReducer from '../features/users/usersSlice'
+import commentsSlice from '../features/commentSlice/commentSlice'
 import { listenerMiddleware } from "../middleware/auth";
 
 export const store = configureStore({
   reducer: {
+    comments: commentsSlice,
     favoritedRides: favoritedRidesSlice,
     selectedGlobalCategory: selectedGlobalCategoryReducer,
     users: usersReducer,
