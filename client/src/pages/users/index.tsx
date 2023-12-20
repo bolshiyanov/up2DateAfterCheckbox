@@ -1,14 +1,14 @@
 // EditUsers.js
 
 import React, { useEffect, useState } from "react";
-import { Row, Table } from "antd";
+import { Modal, Row, Table } from "antd";
 import { useSelector } from "react-redux";
 import { CustomButton } from "../../components/custom-button";
 import { Paths } from "../../paths";
 import { useNavigate } from "react-router-dom";
 import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import { formatDateString } from "../../utils/formatDateString";
 import type { ColumnsType } from "antd/es/table";
 import { Tag } from "antd";
@@ -17,6 +17,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import RemoveUserModal from "../../components/custom-modal/remove-users-modal";
 import { useGetAllUsersQuery } from "../../app/serivices/auth";
 import { User } from "@prisma/client";
+import { stringify } from "querystring";
+import generateRandomPassword from "../../utils/genereteRandomPassword";
 
 const EditUsers = () => {
   const navigate = useNavigate();
@@ -34,6 +36,25 @@ const EditUsers = () => {
   }, [user, navigate]);
 
   const gotToAddUser = () => navigate(Paths.home);
+
+  
+  const warningModal = ({ id, email }: { id: string; email: string }) => {
+    const newPassword = generateRandomPassword();
+    Modal.warning({
+      title: `This is new nassword for ${email}`,
+      onOk() {
+        return new Promise((resolve, reject) => {
+          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+        }).catch(() => console.log('Oops errors!'));
+      },
+      content: `${newPassword}`,
+      
+    });
+  };
+
+
+
+  
 
   const UsersColumns: ColumnsType<User> = [
     {
@@ -92,6 +113,20 @@ const EditUsers = () => {
       width: 140,
     },
     {
+      title: "Change password",
+      render: (text, record) => (
+        <CustomButton
+          shape="round"
+          type="primary"
+          onClick={() => warningModal({ id: record.id, email: record.email })}
+          icon={<FontAwesomeIcon icon={faUnlockKeyhole} />}
+        >
+          Change
+        </CustomButton>
+      ),
+      width: 140,
+    },
+    {
       title: "Remove",
       render: (text, record) => (
         <CustomButton
@@ -103,7 +138,6 @@ const EditUsers = () => {
           Remove
         </CustomButton>
       ),
-      key: "isAvailable",
       width: 140,
     },
   ];
