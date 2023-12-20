@@ -17,7 +17,6 @@ import { Paths } from "./paths";
 import "./index.css";
 import { EditUsers } from "./pages/users";
 import PhoneCalls from "./components/PhoneCalls";
-import { EditProviders } from "./pages/providers";
 import { EditComment } from "./pages/edit-employee-comment";
 
 const router = createBrowserRouter([
@@ -57,10 +56,7 @@ const router = createBrowserRouter([
     path: Paths.usersEdit,
     element: <EditUsers />,
   },
-  {
-    path: Paths.providersEdit,
-    element: <EditProviders />,
-  },
+  
   {
     path: Paths.phone,
     element: <PhoneCalls />,

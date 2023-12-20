@@ -1,3 +1,4 @@
+//client
 import { User } from "@prisma/client";
 import { api } from "./api";
 
@@ -32,11 +33,24 @@ export const authApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    removeUser: builder.mutation<string, string>({
+      query: (id) => ({
+        url: `/user/remove/${id}`,
+        method: "POST",
+        body: { id },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useCurrentQuery, useGetAllUsersQuery } = authApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useCurrentQuery,
+  useGetAllUsersQuery,
+  useRemoveUserMutation,
+} = authApi;
 
 export const {
-  endpoints: { login, register, current, getAllUsers },
+  endpoints: { login, register, current, getAllUsers, removeUser },
 } = authApi;

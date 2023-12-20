@@ -4,7 +4,6 @@ export const Paths = {
   employeeEdit: '/employee/edit',
   commentEdit: '/comment/edit',
   usersEdit: '/users/edit',
-  providersEdit: '/providers/edit',
   employee: '/employee',
   status: '/status',
   login: '/login',

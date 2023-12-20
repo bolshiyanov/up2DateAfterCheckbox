@@ -1,3 +1,3 @@
-export const isSuperAdmin = false;
+export const isSuperAdmin = true;
 export const isProvider = false;
-export const isAgent = true;
+export const isAgent = false;

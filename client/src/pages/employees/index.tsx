@@ -83,7 +83,6 @@ export const Employees = () => {
 
   // For Edit user
   const editUsers = () => navigate(Paths.usersEdit);
-  const editProviders = () => navigate(Paths.providersEdit);
 
   let columns = [];
   let newData: Employee[] | undefined;
@@ -296,17 +295,7 @@ export const Employees = () => {
           </CustomButton>
         )}
 
-        {/* For edit users */}
-        {isSuperAdmin && !isProvider && !isAgent && (
-          <CustomButton
-            onClick={editProviders}
-            type="primary"
-            icon={<FontAwesomeIcon icon={faUserTie} />}
-          >
-            Providers
-          </CustomButton>
-        )}
-
+       
         {/* Add your other CustomButtons here */}
       </Row>
 
