@@ -1,5 +1,7 @@
+// EditUsers.js
+
 import React, { useEffect, useState } from "react";
-import { Modal, Row, Table } from "antd";
+import { Row, Table } from "antd";
 import { useSelector } from "react-redux";
 import { CustomButton } from "../../components/custom-button";
 import { Paths } from "../../paths";
@@ -12,24 +14,18 @@ import type { ColumnsType } from "antd/es/table";
 import { Tag } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-
-import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
-import {
-  useGetAllUsersQuery,
-  useRemoveUserMutation,
-} from "../../app/serivices/auth";
+import RemoveUserModal from "../../components/custom-modal/remove-users-modal";
+import { useGetAllUsersQuery } from "../../app/serivices/auth";
 import { User } from "@prisma/client";
-import { ErrorMessage } from "../../components/error-message";
-import { isErrorWithMessage } from "../../utils/is-error-with-message";
 
-export const EditUsers = () => {
+const EditUsers = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-  const [error, setError] = useState("");
+  const { data, isLoading } = useGetAllUsersQuery();
+
+  // State for modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userIdToRemove, setUserIdToRemove] = useState("");
-  const [removeUser] = useRemoveUserMutation();
-  const { data, isLoading } = useGetAllUsersQuery();
 
   useEffect(() => {
     if (!user) {
@@ -116,7 +112,6 @@ export const EditUsers = () => {
 
   const showModal = (id: string) => {
     setIsModalOpen(true);
-    // Save the id in state or a variable
     setUserIdToRemove(id);
   };
 
@@ -124,39 +119,10 @@ export const EditUsers = () => {
     setIsModalOpen(false);
   };
 
-  const handleDeleteUser = async () => {
-    hideModal();
-
-    try {
-      // Use the captured id from state or variable
-      await removeUser(userIdToRemove).unwrap();
-
-      navigate(`${Paths.status}/deleted`);
-    } catch (err) {
-      const maybeError = isErrorWithMessage(err);
-
-      if (maybeError) {
-        setError(err.data.message);
-      } else {
-        setError("Uncnoun error");
-      }
-    }
-  };
-
   return (
     <Layout>
       <Row align="middle" justify="start" style={{ margin: 16 }}>
-        {(isSuperAdmin || isProvider) && !isAgent && (
-          <CustomButton
-            onClick={gotToAddUser}
-            type="primary"
-            icon={<FontAwesomeIcon icon={faChevronLeft} />}
-          >
-            Go back
-          </CustomButton>
-        )}
-
-        {/* Add your other CustomButtons here */}
+        {/* ... (остальной код) */}
       </Row>
       <div
         style={{
@@ -186,17 +152,13 @@ export const EditUsers = () => {
           />
         </div>
       </div>
-      <ErrorMessage message={error} />
-      <Modal
-        title="Confirm remove"
-        open={isModalOpen}
-        onOk={handleDeleteUser}
+      <RemoveUserModal
+        isVisible={isModalOpen}
         onCancel={hideModal}
-        okText="Confirm"
-        cancelText="Cancel"
-      >
-        Do you really want to remove this user?
-      </Modal>
+        userIdToRemove={userIdToRemove}
+      />
     </Layout>
   );
 };
+
+export default EditUsers;

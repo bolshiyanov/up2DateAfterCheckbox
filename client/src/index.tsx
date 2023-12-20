@@ -15,7 +15,7 @@ import { EditEmployee } from "./pages/edit-employee";
 import { Auth } from "./features/auth/auth";
 import { Paths } from "./paths";
 import "./index.css";
-import { EditUsers } from "./pages/users";
+import EditUsers  from "./pages/users";
 import PhoneCalls from "./components/PhoneCalls";
 import { EditComment } from "./pages/edit-employee-comment";
 
