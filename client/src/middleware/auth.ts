@@ -4,7 +4,9 @@ import { authApi } from '../app/serivices/auth'
 export const listenerMiddleware = createListenerMiddleware()
 
 listenerMiddleware.startListening({
-  matcher: authApi.endpoints.login.matchFulfilled,
+  matcher: 
+  //authApi.endpoints.login.matchFulfilled || 
+  authApi.endpoints.deviceIsLogin.matchFulfilled,
   effect: async (action, listenerApi) => {
     listenerApi.cancelActiveListeners()
 
@@ -12,4 +14,4 @@ listenerMiddleware.startListening({
       localStorage.setItem('token', action.payload.token);
     }
   },
-})
+});

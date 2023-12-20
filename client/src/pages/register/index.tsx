@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 import { User } from "@prisma/client";
 import { Card, Checkbox, Form, Row, Space, Typography } from "antd";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,9 +33,16 @@ export const Register = () => {
 
   const register = async (data: RegisterData) => {
     try {
+      // Generate a unique UUID
+      const deviceId = uuidv4();
+
+      // Save the deviceId in local storage
+      localStorage.setItem('deviceId', owner ? "" : deviceId);
+
       await registerUser({
         ...data,
         owner: owner,
+        deviceId: owner ? "" : deviceId, // Use the deviceId if not an owner
       }).unwrap();
 
       navigate("/");
@@ -44,7 +52,7 @@ export const Register = () => {
       if (maybeError) {
         setError(err.data.message);
       } else {
-        setError("Uncnoun error");
+        setError("Unknown error");
       }
     }
   };

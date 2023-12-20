@@ -14,6 +14,14 @@ export const authApi = api.injectEndpoints({
         body: userData,
       }),
     }),
+    deviceIsLogin: builder.mutation<ResponseLoginData, UserData>({
+      query: (userData) => ({
+        url: "/user/deviceIdLogin",
+        method: "POST",
+        body: userData,
+      }),
+    }),
+
     register: builder.mutation<ResponseLoginData, UserData>({
       query: (userData) => ({
         url: "/user/register",
@@ -21,6 +29,7 @@ export const authApi = api.injectEndpoints({
         body: userData,
       }),
     }),
+
     current: builder.query<ResponseLoginData, void>({
       query: () => ({
         url: "/user/current",
@@ -46,11 +55,19 @@ export const authApi = api.injectEndpoints({
 export const {
   useRegisterMutation,
   useLoginMutation,
+  useDeviceIsLoginMutation,
   useCurrentQuery,
   useGetAllUsersQuery,
   useRemoveUserMutation,
 } = authApi;
 
 export const {
-  endpoints: { login, register, current, getAllUsers, removeUser },
+  endpoints: {
+    login,
+    register,
+    current,
+    getAllUsers,
+    removeUser,
+    deviceIsLogin,
+  },
 } = authApi;

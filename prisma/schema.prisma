@@ -21,6 +21,7 @@ model User {
   newUser          Boolean?
   owner            Boolean?
   createdEmployee  Employee[]
+  deviceId         String?
   customField1     String?
   customField2     String?
   customField3     String?
@@ -100,7 +101,6 @@ model Employee {
   customField1                  String?
   customField2                  String?
   customField3                  String?
-  
 
   user   User   @relation(fields: [userId], references: [id])
   userId String

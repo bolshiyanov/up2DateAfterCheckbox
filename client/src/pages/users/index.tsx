@@ -44,7 +44,7 @@ export const EditUsers = () => {
       title: "Date",
       render: (text, record) => formatDateString(record.dateRegistration || ""),
       key: "dateRegistration",
-      width: 120,
+      width: 150,
       ellipsis: {
         showTitle: false,
       },
@@ -58,15 +58,13 @@ export const EditUsers = () => {
           <Tag color="blue">Provider</Tag>
         ),
       key: "isAvailable",
-      width: 140,
+      width: 120,
     },
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      ellipsis: {
-        showTitle: false,
-      },
+      
       width: 140,
     },
     {
@@ -78,16 +76,14 @@ export const EditUsers = () => {
           <Tag color="volcano">Blocked</Tag>
         ),
       key: "isAvailable",
-      width: 140,
+      width: 120,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      ellipsis: {
-        showTitle: false,
-      },
-      width: 140,
+      
+      width: 160,
     },
 
     {

@@ -4,13 +4,52 @@ const brypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 /**
- * @route POST /api/user/login
- * @desс Логин
+ * @route POST /api/user/deviceIdLogin
+ * @desс Логин deviceId
  * @access Public
  */
+const deviceIdLogin = async (req, res) => {
+  try {
+    const { deviceId } = req.body;
+
+    if (deviceId === "" && deviceId === null && deviceId === undefined) {
+      return res.status(400).json({ message: "Faild device id" });
+    }
+
+    const user = await prisma.user.findFirst({
+      where: {
+        deviceId,
+      },
+    });
+
+    const secret = process.env.JWT_SECRET;
+
+    if (user) {
+      res.status(200).json({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        token: jwt.sign({ id: user.id }, secret, { expiresIn: "1d" }),
+      });
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Is the deviceId entered incorrectly" });
+    }
+  } catch {
+    res.status(500).json({ message: "Something went wrong" });
+  } finally {
+    // Закройте соединение с базой данных после выполнения запроса
+    await prisma.$disconnect();
+  }
+};
+
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const data = req.body;
+    const email = data.email;
+    const password = data.password;
+    const deviceId = data.deviceId;
 
     if (!email || !password) {
       return res
@@ -29,24 +68,39 @@ const login = async (req, res) => {
     const secret = process.env.JWT_SECRET;
 
     if (user && isPasswordCorrect && secret) {
+      if (deviceId) {
+        await prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            deviceId,
+          },
+        });
+      }
+
       res.status(200).json({
         id: user.id,
         email: user.email,
         name: user.name,
-        token: jwt.sign({ id: user.id }, secret, { expiresIn: "30d" }),
+        token: jwt.sign({ id: user.id }, secret, { expiresIn: "1d" }),
+        deviceId: deviceId, // Возможно, вам также нужно вернуть deviceId в ответе
       });
+
+      console.log("deviceId ", deviceId);
     } else {
       return res
         .status(400)
         .json({ message: "Is the username or password entered incorrectly" });
     }
-  } catch {
+  } catch (error) {
+    console.error("Error in login:", error);
     res.status(500).json({ message: "Something went wrong" });
   } finally {
-    // Закройте соединение с базой данных после выполнения запроса
     await prisma.$disconnect();
   }
 };
+
 
 /**
  *
@@ -56,9 +110,9 @@ const login = async (req, res) => {
  */
 const register = async (req, res, next) => {
   try {
-    const { email, password, name, phone, owner} = req.body;
+    const { email, password, name, phone, owner, deviceId } = req.body;
 
-    if (!email || !password || !name || !phone ) {
+    if (!email || !password || !name || !phone) {
       return res
         .status(400)
         .json({ message: "Please fill in the required fields" });
@@ -87,7 +141,8 @@ const register = async (req, res, next) => {
         password: hashedPassord,
         newUser: true,
         isBlocked: false,
-        owner: owner === true ? true : false, 
+        owner: owner === true ? true : false,
+        deviceId,
       },
     });
 
@@ -96,10 +151,11 @@ const register = async (req, res, next) => {
     if (user && secret) {
       res.status(201).json({
         id: user.id,
-        email: user.email, 
+        email: user.email,
         name,
         phone,
-        token: jwt.sign({ id: user.id }, secret, { expiresIn: "30d" }),
+        deviceId,
+        token: jwt.sign({ id: user.id }, secret, { expiresIn: "1d" }),
       });
     } else {
       return res.status(400).json({
@@ -132,12 +188,39 @@ const remove = async (req, res) => {
     res.status(204).json("OK");
   } catch {
     res.status(500).json({ message: "Couldn't delete the user" });
-  }  finally {
+  } finally {
     // Закройте соединение с базой данных после выполнения запроса
     await prisma.$disconnect();
   }
 };
 
+/**
+ * @route POST /api/user/reloadeviceid/:id
+ * @desc reloadeviceid
+ * @access Private
+ */
+const reloadeviceid = async (req, res) => {
+  const data = req.body;
+  const email = data.email;
+  const deviceId = data.deviceId;
+
+  try {
+    await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        deviceId,
+      },
+    });
+
+    res.status(204).json("Device Id was updated");
+  } catch (err) {
+    res.status(500).json({ message: "Couldn't update the Device Id" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
 
 /**
  *
@@ -164,9 +247,11 @@ const getAllUsers = async (req, res) => {
 };
 
 module.exports = {
+  deviceIdLogin,
+  reloadeviceid,
   login,
   register,
   current,
   getAllUsers,
-  remove
+  remove,
 };
