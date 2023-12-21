@@ -9,10 +9,12 @@ import selectedGlobalCategoryReducer from "../features/selectedGlobalCategory/se
 import favoritedRidesSlice from '../features/favoritSlice/favoritSlice'
 import usersReducer from '../features/users/usersSlice'
 import commentsSlice from '../features/commentSlice/commentSlice'
+import typeUserSlice from '../features/typeUser/typeUserSlice'
 import { listenerMiddleware } from "../middleware/auth";
 
 export const store = configureStore({
   reducer: {
+    typeUser: typeUserSlice,
     comments: commentsSlice,
     favoritedRides: favoritedRidesSlice,
     selectedGlobalCategory: selectedGlobalCategoryReducer,

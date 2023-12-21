@@ -35,6 +35,7 @@ export const Header = () => {
   const onLogoutClick = () => {
     dispatch(logout());
     localStorage.removeItem("token");
+    localStorage.removeItem("deviceId");
     navigate("/login");
   };
 

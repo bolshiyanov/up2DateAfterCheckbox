@@ -29,6 +29,7 @@ const deviceIdLogin = async (req, res) => {
         id: user.id,
         email: user.email,
         name: user.name,
+        owner: user. owner,
         token: jwt.sign({ id: user.id }, secret, { expiresIn: "1d" }),
       });
     } else {
@@ -83,6 +84,7 @@ const login = async (req, res) => {
         id: user.id,
         email: user.email,
         name: user.name,
+        owner: user. owner,
         token: jwt.sign({ id: user.id }, secret, { expiresIn: "1d" }),
         deviceId: deviceId, // Возможно, вам также нужно вернуть deviceId в ответе
       });

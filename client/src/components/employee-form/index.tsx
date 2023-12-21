@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { RootState } from "../../app/store";
 import { Link, useNavigate } from "react-router-dom";
 import { Employee } from "@prisma/client";
 import {
@@ -31,12 +32,12 @@ import { CustomSelectAfternoonPicker } from "../custom-type-select/customSelectA
 import { CustomSelectEveningPicker } from "../custom-type-select/customSelectEveningPicker";
 import { CustomSelectExtraPicker } from "../custom-type-select/customSelectExtraPicker";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
-import { isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Widget from "../custom-image-upload/Widget";
 import { getRideTypeName } from "../../utils/getRideTypes";
 import { useRemoveEmployeeMutation } from "../../app/serivices/employees";
 import { Paths } from "../../paths";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
+import { useSelector } from "react-redux";
 
 type Props<T> = {
   onFinish: (values: T) => void;
@@ -79,6 +80,14 @@ export const EmployeeForm = ({
   const [checkedSaturday, setCheckedSaturday] = useState(false);
   const [checkedSunday, setCheckedSunday] = useState(false);
   const [removeEmployee] = useRemoveEmployeeMutation();
+
+  const isAgent = useSelector((state: RootState) => state.typeUser.isAgent);
+  const isProvider = useSelector(
+    (state: RootState) => state.typeUser.isProvider
+  );
+  const isSuperAdmin = useSelector(
+    (state: RootState) => state.typeUser.isSuperAdmin
+  );
 
   const { Title } = Typography;
 
@@ -514,14 +523,16 @@ export const EmployeeForm = ({
             >
               {btnText}
             </CustomButton>
-            <CustomButton
-              shape="round"
-              danger
-              onClick={showModal}
-              icon={<FontAwesomeIcon icon={faTrash} />}
-            >
-              Remove
-            </CustomButton>
+            {pageName !== "Add-emploee" && (
+              <CustomButton
+                shape="round"
+                danger
+                onClick={showModal}
+                icon={<FontAwesomeIcon icon={faTrash} />}
+              >
+                Remove
+              </CustomButton>
+            )}
           </Flex>
         </Space>
       </Form>

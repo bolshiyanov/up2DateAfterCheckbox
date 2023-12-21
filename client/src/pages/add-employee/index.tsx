@@ -58,7 +58,7 @@ export const AddEmployee = () => {
           isAvailable={isAvailable}
           isNewRide={isNewRide}
           isBlocked={isBlocked}
-          rideType="01"
+          rideType=""
           pageName="Add-emploee"
           error={ error }
         />

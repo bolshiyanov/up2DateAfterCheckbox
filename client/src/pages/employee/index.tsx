@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate, Link, useParams, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../app/store";
@@ -11,7 +12,6 @@ import {
   FloatButton,
 } from "antd";
 import { CustomButton } from "../../components/custom-button";
-import { useState } from "react";
 import { Paths } from "../../paths";
 import {
   useGetEmployeeQuery,
@@ -31,7 +31,6 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { getRideCategoria, getRideTypeName } from "../../utils/getRideTypes";
-import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import { addOrRemoveRides } from "../../features/favoritSlice/favoritSlice";
 import { isMobile } from "../../utils/isMobail";
 
@@ -56,6 +55,10 @@ export const Employee = () => {
   const { Title } = Typography;
   const itIsMobaileView = isMobile();
 
+  const isAgent = useSelector((state: RootState) => state.typeUser.isAgent);
+  const isProvider = useSelector((state: RootState) => state.typeUser.isProvider);
+  const isSuperAdmin = useSelector((state: RootState) => state.typeUser.isSuperAdmin);
+
   if (isLoading) {
     return (
       <Flex
@@ -67,6 +70,8 @@ export const Employee = () => {
       </Flex>
     );
   }
+
+ 
 
   if (!data) {
     return <Navigate to="/" />;

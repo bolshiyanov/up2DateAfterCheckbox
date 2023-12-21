@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {  AppDispatch } from "../../app/store";
 import { v4 as uuidv4 } from 'uuid';
 import { User } from "@prisma/client";
 import { Card, Checkbox, Form, Row, Space, Typography } from "antd";
@@ -15,10 +16,12 @@ import { Paths } from "../../paths";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { CustomEmailInput } from "../../components/custom-email-input";
+import { setIsAgent, setIsProvider, setIsSuperAdmin } from "../../features/typeUser/typeUserSlice";
 
 type RegisterData = Omit<User, "id"> & { confirmPassword: string };
 
 export const Register = () => {
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const [error, setError] = useState("");
@@ -36,16 +39,32 @@ export const Register = () => {
       // Generate a unique UUID
       const deviceId = uuidv4();
 
-      // Save the deviceId in local storage
-      localStorage.setItem('deviceId', owner ? "" : deviceId);
+      
 
       await registerUser({
         ...data,
         owner: owner,
         deviceId: owner ? "" : deviceId, // Use the deviceId if not an owner
       }).unwrap();
+      const handleUserRole = () => {
+        console.log('data.owner  registration', data.owner );
+        if (data.owner === true) {
+          dispatch(setIsProvider());
+          localStorage.setItem('deviceId', "" );
+        } else if (
+          data.email === 'atis.hofeins@gmail.com' ||
+          data.email === 'bolshiyanov@gmail.com'
+        ) {
+          dispatch(setIsSuperAdmin());
+        } else {
+          dispatch(setIsAgent());
+          localStorage.setItem('deviceId', deviceId);
+        }
+      };
+      handleUserRole();
+      navigate('/');
 
-      navigate("/");
+
     } catch (err) {
       const maybeError = isErrorWithMessage(err);
 

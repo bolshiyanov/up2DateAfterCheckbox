@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch } from "../../app/store";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Row, Space, Typography } from "antd";
@@ -16,8 +17,14 @@ import { selectUser } from "../../features/auth/authSlice";
 import { Paths } from "../../paths";
 import { isErrorWithMessage } from "../../utils/is-error-with-message";
 import { CustomEmailInput } from "../../components/custom-email-input";
+import {
+  setIsAgent,
+  setIsProvider,
+  setIsSuperAdmin,
+} from "../../features/typeUser/typeUserSlice";
 
 export const Login = () => {
+  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const user = useSelector(selectUser);
@@ -50,10 +57,23 @@ export const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+     const handleUserRole = () => {
+        console.log('user.owner  Login', user.owner );
+        if (user.owner === true) {
+          dispatch(setIsProvider());
+        } else if (
+          user.email === 'atis.hofeins@gmail.com' ||
+          user.email === 'bolshiyanov@gmail.com'
+        ) {
+          dispatch(setIsSuperAdmin());
+        } else {
+          dispatch(setIsAgent());
+        }
+      };
+      handleUserRole();
+      navigate('/');
     }
-    console.log("user Login", user);
-  }, [user, navigate]);
+  }, [user, navigate, dispatch]);
 
   const login = async (data: UserData) => {
     try {
@@ -77,7 +97,7 @@ export const Login = () => {
     <Layout>
       <Row align="middle" justify="center" style={{ margin: 16 }}>
         <Card title="Log in" style={{ width: "30rem" }}>
-          {deviceId !== "" && !normalLoginEnter && (
+          {deviceId !== "" && !normalLoginEnter && deviceId && (
             <Form onFinish={deviceIdLogin}>
               <CustomButton
                 shape="round"
@@ -98,7 +118,7 @@ export const Login = () => {
             </Title>
           )}
 
-          {normalLoginEnter && (
+          {(!deviceId || normalLoginEnter) && (
             <Form onFinish={login}>
               <CustomEmailInput />
               <PasswordInput name="password" placeholder="Passowrd" />

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
 import { Employee } from "@prisma/client";
 import { Row, Table, Flex, Spin, Typography } from "antd";
-import type { ColumnsType} from "antd/es/table";
+import type { ColumnsType } from "antd/es/table";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../app/store";
 import { CustomButton } from "../../components/custom-button";
@@ -14,12 +14,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCirclePlus,
   faUser,
-  faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { SuperAdminColumns } from "../../components/employeesTables/superAdminColumns";
 import { ProviderColumns } from "../../components/employeesTables/providerColumns";
 
-import { isAgent, isProvider, isSuperAdmin } from "../../utils/typeOfUser";
 import Stories from "../../components/stories";
 import GlobalCategoriasSlider from "../../components/globalCategoriasSlider";
 import { setFavoritedRides } from "../../features/favoritSlice/favoritSlice";
@@ -49,8 +47,14 @@ export const Employees = () => {
     (state: RootState) => state.favoritedRides.favoritedRides
   );
   const comments = useSelector((state: RootState) => state.comments.comments);
-  //const commentObject = comments.find(comment => comment.id === id.id);
- //const currentComment = commentObject?.description
+
+  const isAgent = useSelector((state: RootState) => state.typeUser.isAgent);
+  const isProvider = useSelector((state: RootState) => state.typeUser.isProvider);
+  const isSuperAdmin = useSelector((state: RootState) => state.typeUser.isSuperAdmin);
+
+  console.log('isAgent Employees',isAgent )
+  console.log('isProvider Employees',isProvider )
+  console.log('isSuperAdmin Employees',isSuperAdmin)
 
   const { data, isLoading } = useGetAllEmployeesQuery();
   const { Title } = Typography;
@@ -136,18 +140,17 @@ export const Employees = () => {
         title: "Myself comments",
         width: 140,
         render: (text, record) => {
-          const commentObject = comments.find(comment => comment.id === record.id);
-  const currentComment = commentObject?.description
+          const commentObject = comments.find(
+            (comment) => comment.id === record.id
+          );
+          const currentComment = commentObject?.description;
 
-  return <p>{currentComment}</p>
-        }
-
-      
-        
+          return <p>{currentComment}</p>;
+        },
       },
-      
+
       {
-        title: "Starting from",
+        title: "Starting from", 
         width: 110,
         dataIndex: "startPoints",
         key: "startPoints",
@@ -248,22 +251,20 @@ export const Employees = () => {
     columns = AgentColumns;
 
     modifiedData = data?.filter((item) => item.isAvailable && !item.isBlocked);
-    
+
     availableData = modifiedData?.filter((item) =>
-      
-    selectedIds.includes(item.categorias || ""));
-      
-    newData = availableData?.map(item => {
+      selectedIds.includes(item.categorias || "")
+    );
+
+    newData = availableData?.map((item) => {
       if (favoriteArray.includes(item.id)) {
         return {
           ...item,
-          rideName: " " + item.rideName
+          rideName: " " + item.rideName,
         };
       }
       return item;
     });
-    
-
   }
 
   return (
@@ -295,7 +296,6 @@ export const Employees = () => {
           </CustomButton>
         )}
 
-       
         {/* Add your other CustomButtons here */}
       </Row>
 
