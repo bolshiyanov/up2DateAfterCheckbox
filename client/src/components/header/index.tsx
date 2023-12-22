@@ -63,8 +63,7 @@ export const Header = () => {
         </div>
       ) : (
         <Space>
-          
-          {/* {screenWidth > 768 && (
+          {screenWidth > 768 && (
             <Link to="/register">
               <div style={{ marginTop: 24 }}>
                 <CustomButton
@@ -76,7 +75,7 @@ export const Header = () => {
                 </CustomButton>
               </div>
             </Link>
-          )} */}
+          )}
           <Link to="/login">
             <div style={{ marginTop: 24, marginRight: 16 }}>
               <CustomButton

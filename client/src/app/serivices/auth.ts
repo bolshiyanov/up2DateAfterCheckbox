@@ -51,9 +51,9 @@ export const authApi = api.injectEndpoints({
     }),
     changePassword: builder.mutation<void, { id: string; newPassword: string }>({
       query: ({ id, newPassword }) => ({
-        url: `/user/changePassword/${id}`,
+        url: `/user/changePassword/`,
         method: "POST",
-        body: { newPassword },
+        body: { id, newPassword },
       }),
     })
 

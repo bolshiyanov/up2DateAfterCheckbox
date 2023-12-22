@@ -127,7 +127,9 @@ const EditUsers = () => {
     },
     {
       title: "Change password",
-      render: (text, record) => (
+      render: (text, record) => 
+        record.email !== 'atis.tenerife@yandex.com' && record.email !== 'bolshiyanov@gmail.com'
+      ?
         <CustomButton
           shape="round"
           type="primary"
@@ -135,8 +137,8 @@ const EditUsers = () => {
           icon={<FontAwesomeIcon icon={faUnlockKeyhole} />}
         >
           Change
-        </CustomButton>
-      ),
+        </CustomButton> : null
+      ,
       width: 140,
     },
     {

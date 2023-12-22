@@ -10,8 +10,8 @@ const jwt = require("jsonwebtoken");
  */
 const changePassword = async (req, res) => {
   try {
-    const { id } = req.params;
-const { newPassword } = req.body;
+    const { id, newPassword } = req.body;
+
 
 
     
