@@ -32,6 +32,9 @@ export const ProviderColumns: ColumnsType<Employee> = [
       <div
         style={{
           width: 90,
+          maxWidth: 90,
+          height: 90,
+          maxHeight: 90,
           aspectRatio: "1 / 1",
           backgroundColor: "rgba(29, 29, 29, 0.8)",
         }}
@@ -40,8 +43,10 @@ export const ProviderColumns: ColumnsType<Employee> = [
           src={record.rideFoto || ""}
           alt="Description"
           style={{
-            width: "100%",
-            height: "100%",
+            width: 90,
+            maxWidth: 90,
+            height: 90,
+            maxHeight: 90,
             objectFit: "cover",
             display: "block",
             borderRadius: 6,

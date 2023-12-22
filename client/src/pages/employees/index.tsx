@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { Employee } from "@prisma/client";
 import { Row, Table, Flex, Spin, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
@@ -11,10 +11,7 @@ import { useGetAllEmployeesQuery } from "../../app/serivices/employees";
 import { Layout } from "../../components/layout";
 import { selectUser } from "../../features/auth/authSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCirclePlus,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faUser } from "@fortawesome/free-solid-svg-icons";
 import { SuperAdminColumns } from "../../components/employeesTables/superAdminColumns";
 import { ProviderColumns } from "../../components/employeesTables/providerColumns";
 
@@ -49,12 +46,16 @@ export const Employees = () => {
   const comments = useSelector((state: RootState) => state.comments.comments);
 
   const isAgent = useSelector((state: RootState) => state.typeUser.isAgent);
-  const isProvider = useSelector((state: RootState) => state.typeUser.isProvider);
-  const isSuperAdmin = useSelector((state: RootState) => state.typeUser.isSuperAdmin);
+  const isProvider = useSelector(
+    (state: RootState) => state.typeUser.isProvider
+  );
+  const isSuperAdmin = useSelector(
+    (state: RootState) => state.typeUser.isSuperAdmin
+  );
 
-  console.log('isAgent Employees',isAgent )
-  console.log('isProvider Employees',isProvider )
-  console.log('isSuperAdmin Employees',isSuperAdmin)
+  console.log("isAgent Employees", isAgent);
+  console.log("isProvider Employees", isProvider);
+  console.log("isSuperAdmin Employees", isSuperAdmin);
 
   const { data, isLoading } = useGetAllEmployeesQuery();
   const { Title } = Typography;
@@ -150,7 +151,7 @@ export const Employees = () => {
       },
 
       {
-        title: "Starting from", 
+        title: "Starting from",
         width: 110,
         dataIndex: "startPoints",
         key: "startPoints",
@@ -170,6 +171,9 @@ export const Employees = () => {
           <div
             style={{
               width: 90,
+              maxWidth: 90,
+              height: 90,
+              maxHeight: 90,
               aspectRatio: "1 / 1",
               backgroundColor: "rgba(29, 29, 29, 0.8)",
             }}
@@ -178,8 +182,10 @@ export const Employees = () => {
               src={record.rideFoto}
               alt="Description"
               style={{
-                width: "100%",
-                height: "100%",
+                width: 90,
+                maxWidth: 90,
+                height: 90,
+                maxHeight: 90,
                 objectFit: "cover",
                 display: "block",
                 borderRadius: 6,

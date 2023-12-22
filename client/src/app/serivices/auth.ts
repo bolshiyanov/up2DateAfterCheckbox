@@ -49,6 +49,14 @@ export const authApi = api.injectEndpoints({
         body: { id },
       }),
     }),
+    changePassword: builder.mutation<void, { id: string; newPassword: string }>({
+      query: ({ id, newPassword }) => ({
+        url: `/user/changePassword/${id}`,
+        method: "POST",
+        body: { newPassword },
+      }),
+    })
+
   }),
 });
 
@@ -59,6 +67,7 @@ export const {
   useCurrentQuery,
   useGetAllUsersQuery,
   useRemoveUserMutation,
+  useChangePasswordMutation,
 } = authApi;
 
 export const {
@@ -69,5 +78,6 @@ export const {
     getAllUsers,
     removeUser,
     deviceIsLogin,
+    changePassword
   },
 } = authApi;

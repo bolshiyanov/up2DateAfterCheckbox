@@ -4,6 +4,61 @@ const brypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 /**
+ * @route POST /api/user/password/:id
+ * @desc Change password for a user
+ * @access Private
+ */
+const changePassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+const { newPassword } = req.body;
+
+
+    
+
+    if (!id || !newPassword) {
+      return res
+        .status(400)
+        .json({ message: "Please provide user ID and new password" });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    console.log('newPassword changePassword', newPassword)
+    console.log('id changePassword', id)
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const salt = await brypt.genSalt(10);
+    const hashedNewPassword = await brypt.hash(newPassword, salt);
+
+    await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        password: hashedNewPassword,
+      },
+    });
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).json({ message: "Something went wrong" });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+
+
+/**
  * @route POST /api/user/deviceIdLogin
  * @desс Логин deviceId
  * @access Public
@@ -249,6 +304,7 @@ const getAllUsers = async (req, res) => {
 };
 
 module.exports = {
+  changePassword,
   deviceIdLogin,
   reloadeviceid,
   login,
@@ -257,3 +313,4 @@ module.exports = {
   getAllUsers,
   remove,
 };
+

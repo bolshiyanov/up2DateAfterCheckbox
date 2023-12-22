@@ -1,14 +1,18 @@
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 
-const getBaseUrl = () => {
-  return process.env.REACT_APP_ENV === "production"
-    ? "https://api.up2dateonline.com/api"
-    : "http://localhost:8000/api";
-};
+const getBaseUrl = 
+// () => {
+//   return process.env.REACT_APP_ENV === "production"
+//     ? 
+    "https://api.up2dateonline.com/api"
+//     : "http://localhost:8000/api";
+// };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: getBaseUrl(),
+  baseUrl: getBaseUrl
+  //baseUrl: getBaseUrl()
+  ,
   prepareHeaders: (headers, { getState }) => {
     const token =
       (getState() as RootState).auth.user?.token ||

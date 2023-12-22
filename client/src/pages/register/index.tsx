@@ -48,7 +48,7 @@ export const Register = () => {
       }).unwrap();
       const handleUserRole = () => {
         console.log('data.owner  registration', data.owner );
-        if (data.owner === true) {
+        if (owner === true) {
           dispatch(setIsProvider());
           localStorage.setItem('deviceId', "" );
         } else if (

@@ -15,9 +15,8 @@ import { Tag } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import RemoveUserModal from "../../components/custom-modal/remove-users-modal";
-import { useGetAllUsersQuery } from "../../app/serivices/auth";
+import { useChangePasswordMutation, useGetAllUsersQuery } from "../../app/serivices/auth"
 import { User } from "@prisma/client";
-import { stringify } from "querystring";
 import generateRandomPassword from "../../utils/genereteRandomPassword";
 
 const EditUsers = () => {
@@ -28,6 +27,32 @@ const EditUsers = () => {
   // State for modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userIdToRemove, setUserIdToRemove] = useState("");
+ 
+
+  const [changePasswordMutation] = useChangePasswordMutation()
+
+  const warningModal = async ({ id, email }: { id: string; email: string }) => {
+  try {
+    const newPassword = generateRandomPassword();
+    ; // Get the mutation function
+    await changePasswordMutation({ id, newPassword }); // Call the mutation function
+  
+    if (data) {
+      Modal.success({
+        title: `Password Updated Successfully`,
+        content: `Password for ${email} has been updated successfully: ${newPassword}`,
+      });
+    } else {
+      throw new Error("Failed to update the password");
+    }
+  } catch (error) {
+    console.error("Error updating password:", error);
+    Modal.error({
+      title: "Error",
+      content: "Failed to update the password. Please try again.",
+    });
+  }
+};
 
   useEffect(() => {
     if (!user) {
@@ -38,19 +63,7 @@ const EditUsers = () => {
   const gotToAddUser = () => navigate(Paths.home);
 
   
-  const warningModal = ({ id, email }: { id: string; email: string }) => {
-    const newPassword = generateRandomPassword();
-    Modal.warning({
-      title: `This is new nassword for ${email}`,
-      onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errors!'));
-      },
-      content: `${newPassword}`,
-      
-    });
-  };
+  
 
 
 

@@ -62,7 +62,7 @@ export const Login = () => {
         if (user.owner === true) {
           dispatch(setIsProvider());
         } else if (
-          user.email === 'atis.hofeins@gmail.com' ||
+          user.email === 'atis.tenerife@yandex.com' ||
           user.email === 'bolshiyanov@gmail.com'
         ) {
           dispatch(setIsSuperAdmin());
@@ -133,9 +133,9 @@ export const Login = () => {
             </Form>
           )}
           <Space direction="vertical" size="large">
-            <Typography.Text>
+            {/* <Typography.Text>
               No account? <Link to={Paths.register}>Sugn up</Link>
-            </Typography.Text>
+            </Typography.Text> */}
             <ErrorMessage message={error} />
           </Space>
         </Card>
