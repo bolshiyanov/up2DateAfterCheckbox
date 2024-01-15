@@ -18,7 +18,7 @@ export const Header = () => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+ console.log('user Header', user)
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
@@ -40,16 +40,32 @@ export const Header = () => {
   };
 
   return (
-    <Layout.Header className={style.header} style={{paddingLeft: screenWidth < 768 ? 0 : 50, paddingRight: screenWidth < 768 ? 16 : 50}}>
-      
-        <div style={{ marginTop: 4, marginLeft: 16 }}>
+    <Layout.Header
+      className={style.header}
+      style={{
+        paddingLeft: screenWidth < 768 ? 0 : 50,
+        paddingRight: screenWidth < 768 ? 16 : 50,
+      }}
+    >
+      <div style={{ marginTop: 4, marginLeft: 16 }}>
+        {user ? (
+          <Typography.Title level={screenWidth < 768 ? 5 : 2} style={{ maxWidth: '100%' }}>
+          {screenWidth < 768
+            ? (
+              <span style={{ display: 'block', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', maxWidth: '100%' }}>
+                {user.name.length <= 12 ? `U2D ${user.name}` : `U2D ${user.name.slice(0, 12)}...`}
+              </span>
+            )
+            : `Up2Date ${user.name}`
+          }
+        </Typography.Title>
+        ) : (
           <Typography.Title level={screenWidth < 768 ? 2 : 1}>
             Up2Date
           </Typography.Title>
-          
-        </div>
-        
-      
+        )}
+      </div>
+
       {user ? (
         <div style={{ marginTop: 24 }}>
           <CustomButton

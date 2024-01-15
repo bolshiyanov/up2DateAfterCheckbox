@@ -10,11 +10,11 @@ type Props = {
 };
 const CustomTag = ({ time, available }: Props) => (
   <>
-    {available ? (
+    {available && !time.includes("off") ? (
       <Tag
         icon={<FontAwesomeIcon icon={faClock} />}
         color="success"
-      >{`${"\u00A0"}${time}`}</Tag>
+      >{`${"\u00A0"}${time}`}</Tag> 
     ) : (
       <Tag
         icon={<FontAwesomeIcon icon={faCircleXmark} />}

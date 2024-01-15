@@ -12,6 +12,7 @@ export const Layout = ({ children }: Props) => {
       <Header />
       <AntLayout.Content style={{ height: '100%' }}>
         {children}
+        <div style={{display: 'flex', justifyContent: 'center', padding: 8}}>Support: up2datespain@gmail.com</div>
       </AntLayout.Content>
     </div>
   );

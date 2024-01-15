@@ -21,7 +21,7 @@ export const ridesTypes = [
   {
     key: "01",
     value: "01",
-    name: "Boats Rides",
+    name: "Boats",
     startPoints: [
       {
         key: "01",
@@ -31,8 +31,13 @@ export const ridesTypes = [
       {
         key: "02",
         value: "02",
-        name: "Los Gigantes",
+        name: "Las Galletas",
       },
+      {
+        key: "03",
+        value: "03",
+        name: "Los Cristianos",
+      }
     ],
     categorias: [
       {
@@ -44,7 +49,7 @@ export const ridesTypes = [
       {
         key: "102",
         value: "102",
-        name: "Sailin",
+        name: "Sailboat",
         foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702751076/zmxq2fqbe2vxdavv8z6b.png",
       },
       {
@@ -83,7 +88,7 @@ export const ridesTypes = [
   {
     key: "02",
     value: "02",
-    name: "Watersports Rides",
+    name: "Watersports",
     startPoints: [
       {
         key: "01",
@@ -93,8 +98,13 @@ export const ridesTypes = [
       {
         key: "02",
         value: "02",
-        name: "Los Gigantes",
+        name: "Las Galletas",
       },
+      {
+        key: "03",
+        value: "03",
+        name: "Los Cristianos",
+      }
     ],
     categorias: [
       {
@@ -126,7 +136,7 @@ export const ridesTypes = [
   {
     key: "03",
     value: "03",
-    name: "Air Rides",
+    name: "Air",
     startPoints: [
       {
         key: "01",
@@ -152,7 +162,7 @@ export const ridesTypes = [
   {
     key: "04",
     value: "04",
-    name: "Wheels Rides",
+    name: "Wheels",
     startPoints: [
       {
         key: "01",
@@ -165,7 +175,7 @@ export const ridesTypes = [
         key: "401",
         value: "401",
         name: "Stars",
-        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1702752542/nta08uhutt3t9bw8be80.png",
+        foto: "https://res.cloudinary.com/db6a9pof6/image/upload/v1705329355/uw3dhfullemnakemcnwa.png",
       },
       {
         key: "402",
@@ -266,7 +276,7 @@ export const afternoon: { [key: string]: string }[] = [
   { "31": "15:00" },
   { "32": "15:30" },
   { a: "All afternoon" },
-  { a0: "Afternoo off" },
+  { a0: "Afternoon off" },
 ];
 
 export const evening: { [key: string]: string }[] = [

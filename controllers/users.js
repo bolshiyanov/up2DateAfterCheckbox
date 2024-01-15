@@ -77,7 +77,7 @@ const deviceIdLogin = async (req, res) => {
       },
     });
 
-    const secret = process.env.JWT_SECRET;
+    const secret ="pWG#zXQj@6_ymI'swe1AL|}Gq!iD3K";
 
     if (user) {
       res.status(200).json({
@@ -121,7 +121,7 @@ const login = async (req, res) => {
 
     const isPasswordCorrect =
       user && (await brypt.compare(password, user.password));
-    const secret = process.env.JWT_SECRET;
+    const secret = "pWG#zXQj@6_ymI'swe1AL|}Gq!iD3K";
 
     if (user && isPasswordCorrect && secret) {
       if (deviceId) {
@@ -203,7 +203,7 @@ const register = async (req, res, next) => {
       },
     });
 
-    const secret = process.env.JWT_SECRET;
+    const secret ="pWG#zXQj@6_ymI'swe1AL|}Gq!iD3K";
 
     if (user && secret) {
       res.status(201).json({
